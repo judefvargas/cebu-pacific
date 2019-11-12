@@ -9,8 +9,8 @@ export default class BottomNav extends Component {
     render() {
         return (
             <div className="row grid-bottom-nav">
-                <div className="col col-md-2">
-                    Storyline
+                <div className="col col-md-2 storyline">
+                    
                 </div>
                 <div className="col col-md-10 decisionPane">
                     <div className="row text1">

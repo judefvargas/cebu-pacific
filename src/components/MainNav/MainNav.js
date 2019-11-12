@@ -5,9 +5,12 @@ import { CUSTOMERS, CONVERSATION } from '../../customer';
 import Popover from 'react-bootstrap/Popover';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Button from 'react-bootstrap/Button';
+import Clock from 'react-live-clock';
 
 export default class MainNav extends Component {
-    
+    btnClick = (pos) => {
+        alert(`${pos} clicked`);
+    }
     render() {
         return (
             <div className="row grid-main-nav">
@@ -15,9 +18,9 @@ export default class MainNav extends Component {
                 <WebObject/>
 
                 <div className="col col-md-1 distractors">
-                    <div className="calloutRight">10:00 AM</div>
-                    <div className="calloutRight calendar"><CurrentDate/></div>
-                    <div className="calloutRight">JOB AIDS</div>
+                    <div onClick={this.btnClick.bind(this, 'clock')} className="calloutRight"> <Clock format={'h:mm A'} ticking={true} /></div>
+                    <div onClick={this.btnClick.bind(this, 'calendar')} className="calloutRight calendar"><CurrentDate/></div>
+                    <div onClick={this.btnClick.bind(this, 'job aids')} className="calloutRight">JOB AIDS</div>
                 </div>
             </div>
         )
@@ -111,9 +114,9 @@ const Conversation = () => {
     for (let i=0; i<wholeCon.length; i++) {
         convo.push(
             <div key={i} className="divOverflow" >
-                <div className="callout isOrange">{ wholeCon[i].customer }</div>
+                <div className="callout isOrange">{ wholeCon[i].customer.toUpperCase() }</div>
                     <div className="bgConvo-left right"><img className="johnImage isOrange" alt="" src={`characters/john.png`} /></div>
-                <div className="callout isGreen right">{ wholeCon[i].john }</div>
+                <div className="callout isGreen right">{ wholeCon[i].john.toUpperCase() }</div>
                     <div className="bgConvo-right"><img className="johnImage isGreen" alt="" src={`characters/1.png`} /></div>
             </div>
         );

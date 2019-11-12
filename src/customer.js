@@ -105,7 +105,7 @@ export const CONVERSATION = [
     john: 'dolor sit amet, consectetur adipiscing elit'
   },
   {
-    customer: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco  ',
+    customer: 'Ut enim ad minim veniam, quis nostrud',
     john: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
   },
   {
@@ -113,7 +113,7 @@ export const CONVERSATION = [
     john: 'dolor sit amet, consectetur adipiscing elit'
   },
   {
-    customer: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco  ',
+    customer: 'Ut enim ad minim veniam, quis nostrud',
     john: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
   },
   {
@@ -121,7 +121,7 @@ export const CONVERSATION = [
     john: 'dolor sit amet, consectetur adipiscing elit'
   },
   {
-    customer: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco  ',
+    customer: 'Ut enim ad minim veniam, quis nostrud',
     john: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
   },
  
