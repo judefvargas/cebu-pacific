@@ -1,0 +1,175 @@
+.grid-main-nav {
+    height: 70vh;
+}
+
+ /** callout */
+ 
+div.callout {
+	height:25vh;
+	width: 25vw;
+	float: left;
+}
+.interaction {
+    background: url('./customer-john.png');
+    content: "";
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 15vh;
+    margin-top: 1vh;
+}
+.convo {
+    background-color: #a4e59a;
+    padding: 0 13px 0 26px !important;
+}
+.weboject {
+    background-color: #595a59;
+}
+.distractors {
+    background-color: #7b7b7b;
+    padding: 10px 22px 0 8px !important;
+}
+.conversation {
+    height: 280px;
+    margin-top: 3%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    
+}
+.divOverflow {
+    height: auto;
+}
+.fa-layers {
+    top: 2vh;
+    position: absolute;
+    cursor: pointer;
+    right: 4vw;
+}
+.popover {
+    z-index: 9999 !important;
+    min-width: 70vw;
+    height: 30vh;
+}
+.customerInteraction {
+    z-index: 9999;
+    left: 0;
+    bottom: 0;
+    position: absolute;
+}
+.john {
+    position: absolute;
+    z-index: 9999;
+    margin-left: 1vw;
+    height: 6vh;
+    width: 7vh;
+    bottom: 0;
+    right: 0;
+}
+div.callout {
+    font-size: 1.7vh;
+	background-color: #444;
+    color: white;
+    border-radius: 6px;
+    margin: 1.5%;
+    min-height: 20px;
+    z-index: 999;
+    left: 85%;
+    width: 68%;
+    height: 65px;
+    padding: 1%;
+}
+
+.calloutRight {
+	background-color: #bbbbbb;
+    color: white;
+    border-radius: 6px;
+    min-height: 20px;
+    z-index: 999;
+    padding: 10%;
+    margin-top: 18px;
+    cursor: pointer;
+}
+
+#style-3::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);;
+	background-color: #F5F5F5;
+}
+
+#style-3::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: #b7b7b7;
+}
+
+#style-3::-webkit-scrollbar-thumb
+{
+	background-color: #959595;
+}
+
+.right {
+	float: right !important;
+}
+#calloutText {
+	margin: 5%;
+	text-align: center;
+	font-size: calc(2vw + 1vh)
+}
+.johnImage {
+    width: 35px;
+    margin-top: 2vh;
+    border-radius: 40px;
+}
+
+.bgConvo-left {
+    border-radius: 40px;
+    margin: 2% 3%;
+}
+.isOrange {
+    background-color: #fea031 !important;
+}
+.isGreen {
+    background-color: #00c555 !important;
+}
+.bgConvo-right {
+    
+    margin: 2% 3%;
+    float: left;
+}
+
+.timer {
+	font-size: 5vh;
+}
+
+.toggleDialog {
+	width: 10%;
+	float: right;
+	cursor: pointer;
+	margin: 2% 5% 0 0;
+	color: white;
+	font-size: x-large;
+}
+
+.isHidden {
+	visibility: hidden;
+}
+
+#popover-basic {
+    padding: 1%;
+}
+
+.currentCount {
+    margin-top: 2%;
+    position: absolute;
+    border-radius: 4px;
+    font-weight: 700;
+    background-color: #80d0a2;
+    width: 40px;
+    z-index: 999999 !important;
+    left: 3.5%;
+}
+
+.calendar {
+    font-size: 1.9vh;
+}

@@ -1,0 +1,102 @@
+.grid-top-nav {
+    /* height: 8vh; */
+    background-color: #a4e59a  ;
+}
+
+.col-top-nav {
+    padding: 1em;
+}
+.caret {
+    cursor: pointer;
+    position: absolute;
+    top: 5vh;
+}
+.customerSpan {
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    display: table-cell;
+    border-radius: 50%;
+}
+.customerImage {
+    cursor: pointer;
+    width: 7vh;
+    height: 7vh;
+    border-radius: 45%;
+}
+.customerGrayImage {
+    -webkit-filter: grayscale(100%) brightness(0); /* Safari 6.0 - 9.0 */ 
+    filter: grayscale(100%) 
+    brightness(0); 
+    opacity: 0.6;
+
+}
+
+.bg-success {
+    background-color: #00ff00 !important;
+}
+/* .caretLeft {
+    left: 5%;
+} */
+.customer-list {
+    margin: 4.5vh;
+}
+.col-md-10 {
+    padding: 0 2%;
+}
+.img-container {
+    /* position: relative; */
+    cursor: pointer;
+    /* margin: 0 2%; */
+    float: left;
+    overflow: hidden;
+    display: contents;
+}
+
+.img-container {
+    content: "";
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    z-index:99;
+}
+/* .image-span {
+    margin: 1% 2%;
+} */
+.queue {
+    margin: 0 3% 0 0;
+    height: 95%;
+    border-radius: 50%;
+    /* border: 1px solid black; */
+}
+
+.progress {
+    z-index: 9999;
+    height: 0.6rem !important;
+    position: absolute;
+    display: inline-flex !important;
+    width: 45px;
+    top: 5.5vh;
+    margin-left: 0.5vh;
+    border: 0.5px solid black;
+    /* -webkit-transform-origin: 0 100%;
+    -webkit-transform: rotate(90deg);
+    -moz-transform-origin: 0 100%;
+    -moz-transform: rotate(90deg);
+    -ms-transform-origin: 0 100%;
+    -ms-transform: rotate(90deg);
+    transform-origin: 0 100%;
+    transform: rotate(90deg); */
+}
+
+.progress-bar {
+    border: 0.8px solid black;
+}
+
+
+.navBtn {
+    margin: 0 1.5%;
+    cursor: pointer;
+}
