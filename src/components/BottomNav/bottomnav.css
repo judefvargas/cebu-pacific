@@ -18,3 +18,8 @@
 .storyline {
     background-color: #005b7f;
 }
+
+.alignLeft {
+    text-align: left;
+    left: 2.8vw;
+}
