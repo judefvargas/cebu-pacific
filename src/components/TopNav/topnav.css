@@ -79,7 +79,7 @@
     display: inline-flex !important;
     width: 45px;
     top: 4.25vh;
-    margin-left: 0.5vh;
+    /* margin-left: 3%; */
     border: 0.5px solid black;
     /* -webkit-transform-origin: 0 100%;
     -webkit-transform: rotate(90deg);
@@ -105,4 +105,26 @@
     color: black !important;
     width: 7% !important;
     cursor: pointer;
+}
+
+.isHidden {
+    display: none;
+}
+
+.clock {
+    border: 1px solid black;
+    border-radius: 50px;
+    height: 6vw;
+    background-color: white;
+}
+
+.react-clock__face {
+    background-color: white;
+}
+
+/** TARGET BROWSERS */
+@-moz-document url-prefix() {
+    .progress {
+        margin: 3%;
+    }
 }
