@@ -8,7 +8,7 @@
 }
 .caret {
     cursor: pointer;
-    position: absolute;
+    /* position: absolute; */
     top: 5vh;
 }
 .customerSpan {
@@ -78,7 +78,7 @@
     position: absolute;
     display: inline-flex !important;
     width: 45px;
-    top: 5.5vh;
+    top: 4.25vh;
     margin-left: 0.5vh;
     border: 0.5px solid black;
     /* -webkit-transform-origin: 0 100%;
@@ -98,5 +98,11 @@
 
 .navBtn {
     margin: 0 1.5%;
+    cursor: pointer;
+}
+
+.carousel-control-prev, .carousel-control-next {
+    color: black !important;
+    width: 7% !important;
     cursor: pointer;
 }
