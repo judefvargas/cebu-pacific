@@ -145,7 +145,9 @@ div.callout {
 }
 
 .timer {
-	font-size: 5vh;
+    font-size: 3vh;
+    padding: 1.8vh 0;
+    font-weight: 700;
 }
 
 .toggleDialog {
@@ -219,10 +221,27 @@ div.callout {
     bottom: 1vh;
     width: 100%;
 }
+.mainWebObject {
+    height: 100%;
+}
 
-.jBtn1 {
-    margin: 2%;
-    padding: 3% !important;
-    width: 9vw;
-    cursor: pointer;
+.element {
+    font-size: 7em;
+    position: relative;
+}
+
+.class2 {
+    width: 5.5vw;
+    font-weight: 700;
+    display: inline-block;
+    margin: 8vh 0;
+    padding: 1%;
+    word-wrap: break-word;
+    position: absolute;
+    z-index: 9999;
+}
+
+.fa-calendar {
+    margin-top: 3.3vh;
+    position: relative;
 }

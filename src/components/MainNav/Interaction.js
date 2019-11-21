@@ -18,7 +18,8 @@ export default function Interaction() {
     let length = CONVERSATION.length;
     let { image } = CUSTOMERS[1];
     const scrollToBottom = () => {
-        messageEndRef.current.scrollIntoView({ behavior: "smooth" });
+        if (count>1)
+            messageEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
     useEffect(scrollToBottom);
 
@@ -49,16 +50,16 @@ export default function Interaction() {
                     <FontAwesomeIcon icon="info" inverse size="sm"/>
                 </span>
             </OverlayTrigger>
-            <div className="currentCount">2/10</div>
+        <div className="currentCount">2/{CUSTOMERS.length}</div>
             <img className="customerInteraction" height="100px" width="100px" alt="" src={`characters/${image}`} />
             <img className="john" height="100px" width="100px" alt="" src={`characters/john.png`} />
             </div>
             
             <div className={`conversation ${longDiv}`} id="style-3" >
-                <Conversation id="container3" count={count} index={currentIndex}/>
-                <div ref={messageEndRef} ></div>
+                <Conversation id="container3" count={count} key="1" index={currentIndex}/>
+                <div id="reference1" ref={messageEndRef} ></div>
             </div>
-
+            {/*   */}
             <Button className={hidden} onClick={ () => {
                 updateCount((currentIndex===1)?count+1:count); 
                 updateIndex((currentIndex===1)?0:1);
@@ -133,11 +134,11 @@ const Conversation = (props) => {
             convo.push(
                 <div key={i}  className="divOverflow" >
                     <div className="convo1">
-                        <div className="callout isOrange">{ wholeCon[i].customer.toUpperCase() }</div>
+                        <div className="callout isOrange">{ wholeCon[i].john.toUpperCase() }</div>
                         <div className="bgConvo-left right"><img className="johnImage isOrange" alt="" src={`characters/john.png`} /></div>
                     </div>
                     <div className="convo2">
-                    <div className="callout isGreen right">{ wholeCon[i].john.toUpperCase() }</div>
+                    <div className="callout isGreen right">{ wholeCon[i].customer.toUpperCase() }</div>
                         <div className="bgConvo-right"><img className="johnImage isGreen" alt="" src={`characters/1.png`} /></div>
                     </div>
                 </div>
