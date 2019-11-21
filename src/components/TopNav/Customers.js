@@ -4,6 +4,8 @@ import Carousel from 'react-bootstrap/Carousel';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './topnav.css';
+import { pulse } from 'react-animations';
+import Radium, { StyleRoot } from 'radium';
 
 export default class CustomerList extends Component{
     constructor(props) {
@@ -66,7 +68,7 @@ const ProcessCarousel = (props) => {
     for (let i=0; i<allChunks.length; i++) {
         carousel.push(
             <Carousel.Item className={props.currentActive===i ? 'carousel-item active' : 'carousel-item' } key={i} >
-                <span className="col-md-10"><CarouselItem array={allChunks[i]} /></span>
+                <span className="col-md-10"><CarouselItem key={i} array={allChunks[i]} /></span>
             </Carousel.Item>)
     }
 
@@ -84,38 +86,50 @@ const ProcessCarousel = (props) => {
     );
 
 }
-
+const styles = {
+    pulse: {
+        animation: 'pulse 2s infinite',
+        animationName: Radium.keyframes(pulse, 'pulse')
+    }
+}
 const CarouselItem = (props) => {
+    
+    let cs = [];
+    for (let j=0; j<props.array.length; j++) {
+        cs.push(
+            <span key={j} className="customer-list">
+                <ProgressBar  key={j}>
+                    <ProgressBar  variant="loading" now={33.33} />
+                    <ProgressBar  variant="loading" now={33.33} />
+                    <ProgressBar  variant="done" now={33.33}  />
+                </ProgressBar>
+                <RenderImage idKey={j} key={j} image={CUSTOMERS[j].image}/>
+            </span>
+        );
+    }
+    return cs;
+}
+
+const RenderImage = (props) => {
     const btnClick = (pos) => {
         alert(`${pos} clicked`);
     }
-    let cs = [];
-    for (let j=0; j<props.array.length; j++) {
-        if (j>=5) {
-            cs.push(
-                <span key={j} className="customer-list">
-                    <ProgressBar  key={j}>
-                        <ProgressBar  variant="done" now={33.33} key={j} />
-                        <ProgressBar  variant="done" now={33.33} key={j+1} />
-                        <ProgressBar  variant="done" now={33.33} key={j+2} />
-                    </ProgressBar>
-                    <span className="customerSpan">
-                        <img key={j} className="customerImage customerGrayImage" alt="" src={`characters/${CUSTOMERS[j].image}`} />
-                    </span>
-                </span>);
-        } else {
-            cs.push(
-                <span key={j} className="customer-list">
-                    <ProgressBar  key={j}>
-                        <ProgressBar  variant="loading" now={33.33} key={j} />
-                        <ProgressBar  variant="loading" now={33.33} key={j+1} />
-                        <ProgressBar  variant="done" now={33.33} key={j+2} />
-                    </ProgressBar>
-                    <span className="customerSpan">
-                        <img onClick={btnClick.bind(this, 'customer')} key={j} className="customerImage" alt="" src={`characters/${CUSTOMERS[j].image}`} />
-                    </span>
-                </span>);
-        }
+    let imageSpan = [];
+
+    if (props.idKey===1) {
+        imageSpan.push(
+            <StyleRoot className="classAB">
+                <span className={`customerSpan ${ (props.idKey===1 ? 'customerActive' : '') }`} style={styles.pulse}>
+                    <img onClick={btnClick.bind(this, 'customer')} key={props.idKey} className={`customerImage ${ (props.idKey>=5 ? 'customerGrayImage': '') }`} alt="" src={`characters/${props.image}`} />
+                </span>
+            </StyleRoot>
+        )
+    } else {
+        imageSpan.push(
+            <span className={`customerSpan ${ (props.idKey===1 ? 'customerActive' : '') }`}>
+                <img onClick={btnClick.bind(this, 'customer')} key={props.idKey} className={`customerImage ${ (props.idKey>=5 ? 'customerGrayImage': '') }`} alt="" src={`characters/${props.image}`} />
+            </span>
+        );
     }
-    return cs;
+    return imageSpan;
 }
