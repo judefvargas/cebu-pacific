@@ -18,6 +18,22 @@
     display: table-cell;
     border-radius: 50%;
 }
+
+.customerSpan:active {
+    box-shadow: 0 0 5px 0.5rem rgba(174, 197, 81, 0.33);
+    -moz-box-shadow: 0 0 5px 0.5rem rgba(174, 197, 81, 0.33);
+    -webkit-box-shadow: 0 0 5px 0.5rem rgba(174, 197, 81, 0.33);
+}
+.customerActive {
+    box-shadow: 0 0 5px 0.5rem rgba(174, 197, 81, 0.33);
+    -moz-box-shadow: 0 0 5px 0.5rem rgba(174, 197, 81, 0.33);
+    -webkit-box-shadow: 0 0 5px 0.5rem rgba(174, 197, 81, 0.33);
+}
+.customerSpan:hover {
+    box-shadow: 0 0 5px 0.3rem rgba(187, 155, 155, 0.18);
+    -moz-box-shadow: 0 0 5px 0.3rem rgba(187, 155, 155, 0.18);
+    -webkit-box-shadow: 0 0 5px 0.3rem rgba(187, 155, 155, 0.18)
+}
 .customerImage {
     cursor: pointer;
     width: 7vh;
@@ -127,4 +143,8 @@
     .progress {
         margin: 3%;
     }
+}
+
+.classAB {
+    display: inline;
 }

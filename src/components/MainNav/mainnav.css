@@ -171,16 +171,7 @@ div.callout {
 #popover-basic {
     padding: 1%;
 }
-.customerSpan:hover {
-    box-shadow: 0 0 5px 0.3rem rgba(187, 155, 155, 0.18);
-    -moz-box-shadow: 0 0 5px 0.3rem rgba(187, 155, 155, 0.18);
-    -webkit-box-shadow: 0 0 5px 0.3rem rgba(187, 155, 155, 0.18)
-}
-.customerSpan:active {
-    box-shadow: 0 0 5px 0.5rem rgba(174, 197, 81, 0.33);
-    -moz-box-shadow: 0 0 5px 0.5rem rgba(174, 197, 81, 0.33);
-    -webkit-box-shadow: 0 0 5px 0.5rem rgba(174, 197, 81, 0.33);
-}
+
 .currentCount {
     margin-top: 2%;
     position: absolute;
