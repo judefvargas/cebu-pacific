@@ -11,8 +11,9 @@
 }
 
 .btnnav {
-    margin: 5%;
+    margin: 3%;
     font-size: 1.8rem !important;
+    padding: .9rem 1.7rem !important;
 }
 
 .storyline {
@@ -21,5 +22,5 @@
 
 .alignLeft {
     text-align: left;
-    left: 2.8vw;
+    left: 0.8vw;
 }

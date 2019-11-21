@@ -3,6 +3,12 @@ import './bottomnav.css';
 import Button from 'react-bootstrap/Button';
 
 export default class BottomNav extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            question: 'Ano ang isasagot sa customer?'
+        }
+    }
     btnClick = (pos) => {
         alert(`${pos} clicked`);
     }
@@ -15,7 +21,7 @@ export default class BottomNav extends Component {
                 <div className="col col-md-10 decisionPane">
                     <div className="row text1">
                         <div className="col-md-8">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                        { this.state.question }
                         </div>
                         <div className="col-md-4 alignLeft">
                             <Button onClick={this.btnClick.bind(this, 'yes')} bsPrefix="btnnav btn" variant="success" size="lg">YES</Button>
