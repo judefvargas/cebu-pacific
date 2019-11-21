@@ -19,7 +19,7 @@ export default function Interaction() {
     let { image } = CUSTOMERS[1];
     const scrollToBottom = () => {
         if (count>1)
-            messageEndRef.current.scrollIntoView({ behavior: "smooth" });
+            messageEndRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
     useEffect(scrollToBottom);
 
