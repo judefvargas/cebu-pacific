@@ -40,7 +40,7 @@ export default function Webobject() {
             }
             `}
         </style>
-        <div className="col col-md-9 weboject">
+        <div className="col col-md-7 weboject">
             <div className="mainWebObject">
                 <ShowObject element={element}/>
             </div>

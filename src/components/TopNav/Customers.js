@@ -4,8 +4,8 @@ import Carousel from 'react-bootstrap/Carousel';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './topnav.css';
-import { pulse } from 'react-animations';
-import Radium, { StyleRoot } from 'radium';
+import { StyleRoot } from 'radium';
+import { styles } from '../animationStyles';
 
 export default class CustomerList extends Component{
     constructor(props) {
@@ -86,12 +86,7 @@ const ProcessCarousel = (props) => {
     );
 
 }
-const styles = {
-    pulse: {
-        animation: 'pulse 2s infinite',
-        animationName: Radium.keyframes(pulse, 'pulse')
-    }
-}
+
 const CarouselItem = (props) => {
     
     let cs = [];

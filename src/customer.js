@@ -7,21 +7,21 @@ export const CUSTOMERS = [
         text: "I'd like to transfer my dog"
       },
       {
-        id: 1, 
+        id: 2, 
         name: "A Vargas",
         age: 25,
         image: '1.png',
         text: "I'd like to transfer my dog"
       },
       {
-        id: 1, 
+        id: 3, 
         name: "B Vargas",
         age: 25,
         image: '2.png',
         text: "I'd like to transfer my dog"
       },
       {
-        id: 1, 
+        id: 4, 
         name: "C Vargas",
         age: 25,
         image: '3.png',
@@ -122,3 +122,93 @@ export const CONVERSATION = [
   // },
  
 ];
+
+export const convoR = {
+  1: 
+      [
+          {
+            "john": 'Hello po, I’m John. Happy to serve you. Ano pong maipaglilingkod namin sa inyo?',
+          },
+          {
+            "john": 'Sample 2slakdalskjd',
+          },
+          {
+            "customer": 'English please.'
+          },
+          {
+            "john": 'Oh, how may I help you sir?.'
+          },
+          {
+            "customer": 'I want to change my Dollars into Pesos.'
+          },
+          "q1",
+          {
+            "john": 'sadadsa sad asdasd as asws'
+          },
+          {
+            "customer": 'sfs dsfsd df sdfsdsd fsdf'
+          },
+          "q3",
+      ],
+  2: 
+      [
+          {
+            "john": 'Hello po, I’m John. Happy to serve you. Ano pong maipaglilingkod namin sa inyo?',
+          },
+          {
+            "john": 'Sample 2slakdalskjd',
+          },
+          {
+            "customer": 'English please.'
+          },
+          {
+            "john": 'Oh, how may I help you sir?.'
+          },
+          {
+            "customer": 'I want to change my Dollars into Pesos.'
+          },
+          "q2",
+      ]
+};
+export const questionList = {
+  "q1": "QUESTION 1",
+  "q2": "QUESTION 2",
+  "q3": "QUESTION 3",
+  "q4": "QUESTION 4",
+  "q5": "QUESTION 5",
+  "q6": "QUESTION 6",
+  "q7": "QUESTION 7",
+  "q8": "QUESTION 8",
+};
+
+export const choicesList = {
+  "q1": [
+    "CHOICE 1",
+    "CHOICE 2",
+    "CHOICE 3"
+  ],
+  "q2": [
+    "CHOICE 1",
+    "CHOICE 2"
+  ],
+  "q3": [
+    "CHOICE 1",
+    "CHOICE 2",
+    "CHOICE 3",
+    "CHOICE 4",
+  ],
+};
+
+export const answerList = {
+  "q1": [
+    "CHOICE 1",
+  ],
+  "q2": [
+    "CHOICE 2"
+  ],
+  "q3": [
+    "CHOICE 2",
+  ],
+};
+
+export const currentCustomer = 1;

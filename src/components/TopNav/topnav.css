@@ -148,3 +148,21 @@
 .classAB {
     display: inline;
 }
+
+.carousel-item {
+    width: auto !important;
+}
+.interaction {
+    background: url('./customer-john.png');
+    content: "";
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
+.customerInteraction {
+    z-index: 9999;
+    left: 0;
+    bottom: 0;
+    position: relative;
+}
