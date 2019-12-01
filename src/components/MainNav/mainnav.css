@@ -22,7 +22,7 @@ div.callout {
 }
 .conversation {
     height: 70vh;
-    margin-top: 3%;
+    margin-top: 7%;
     overflow-y: scroll;
     overflow-x: hidden;
     
@@ -30,17 +30,7 @@ div.callout {
 .divOverflow {
     height: auto;
 }
-.fa-layers {
-    top: 2vh;
-    position: absolute;
-    cursor: pointer;
-    right: 4vw;
-}
-.popover {
-    z-index: 9999 !important;
-    min-width: 70vw;
-    height: 30vh;
-}
+
 
 .john {
     position: absolute;
@@ -151,22 +141,11 @@ div.callout {
 }
 
 .longDiv {
-    height: 65vh;
+    height: 80vh;
 }
 
 #popover-basic {
     padding: 1%;
-}
-
-.currentCount {
-    margin-top: 2%;
-    position: absolute;
-    border-radius: 4px;
-    font-weight: 700;
-    background-color: #80d0a2;
-    width: 40px;
-    z-index: 999999 !important;
-    left: 3.5%;
 }
 
 .calendar {
@@ -221,4 +200,12 @@ div.callout {
 .fa-calendar {
     margin-top: 3.3vh;
     position: relative;
+}
+
+.list-group-item {
+    cursor: pointer;
+}
+
+.list-group-item:hover {
+    background-color: #80d0a2;
 }

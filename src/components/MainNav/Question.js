@@ -1,30 +1,71 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Card from 'react-bootstrap/Card';
 import {StyleRoot} from 'radium';
 import { styles } from '../animationStyles';
 import ListGroup from 'react-bootstrap/ListGroup';
+import { questionList, choicesList } from '../../customer';
+import generateKey from '../Key';
 
-export default function Question() {
+export default function Question(props) {
+    
     const qEndRef = useRef(null);
     const scrollToTop = (ref) => {
         window.scrollTo(0, qEndRef.current.offsetTop)
     }
-    const btnClick = (pos) => {
-        alert(`${pos} clicked`);
-    }
-    useEffect(scrollToTop); 
-    return (
-        <StyleRoot>
+    const questionArr = [];
+    let { qid } = props;
+    
+    let question = questionList[qid];
+    useEffect(scrollToTop);
+    if (props.current === qid) {
+        questionArr.push(
+            <StyleRoot>
+                <div style={styles.pulse} ref={qEndRef}>
+                    <Card>
+                        <div className="outer" >
+                            <Card.Header>{ question }</Card.Header>
+                            <ListGroup variant="flush">
+                                <Choices updateCur={props.updateCur}  update={props.update} key={generateKey()} qid={ qid } />
+                            </ListGroup>
+                        </div>
+                    </Card>
+                </div>
+            </StyleRoot>
+        );
+    } else {
+        questionArr.push(
             <div style={styles.pulse} ref={qEndRef}>
                 <Card>
-                    <Card.Header>Question</Card.Header>
-                    <ListGroup variant="flush">
-                        <ListGroup.Item onClick={btnClick}>Cras justo odio</ListGroup.Item>
-                        <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-                        <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
-                    </ListGroup>
+                    <div className="outer" >
+                        <Card.Header>{ question }</Card.Header>
+                        <ListGroup variant="flush">
+                            <Choices updateCur={props.updateCur} update={props.update} key={generateKey()} qid={ qid } />
+                        </ListGroup>
+                    </div>
                 </Card>
-            </div>
-        </StyleRoot>
-    );
+            </div>    
+        );
+    }
+    return questionArr;
+}
+
+const Choices = (props) => {
+    let choices = [];
+    const [answers, updateAns] = useState([]);
+
+    const onClick = (ans) => {
+        props.update();
+        props.updateCur();
+        console.log(answers);
+        updateAns(answers[props.qid].push({
+            'answer': ans 
+        }))
+    }
+    for (let i=0; i<choicesList[props.qid].length; i++) {
+        let answer = choicesList[props.qid][i];
+        choices.push(
+            <ListGroup.Item key={i} onClick={onClick.bind(this, answer)}>{ choicesList[props.qid][i] }</ListGroup.Item>
+        );
+    }
+    return choices;
 }

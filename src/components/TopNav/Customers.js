@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './topnav.css';
 import { StyleRoot } from 'radium';
 import { styles } from '../animationStyles';
+import generateKey from '../Key';
 
 export default class CustomerList extends Component{
     constructor(props) {
@@ -67,8 +68,8 @@ const ProcessCarousel = (props) => {
     }
     for (let i=0; i<allChunks.length; i++) {
         carousel.push(
-            <Carousel.Item className={props.currentActive===i ? 'carousel-item active' : 'carousel-item' } key={i} >
-                <span className="col-md-10"><CarouselItem key={i} array={allChunks[i]} /></span>
+            <Carousel.Item className={props.currentActive===i ? 'carousel-item active' : 'carousel-item' } key={generateKey()} >
+                <span key={generateKey()} className="col-md-10"><CarouselItem key={generateKey()} array={allChunks[i]} /></span>
             </Carousel.Item>)
     }
 
@@ -92,13 +93,13 @@ const CarouselItem = (props) => {
     let cs = [];
     for (let j=0; j<props.array.length; j++) {
         cs.push(
-            <span key={j} className="customer-list">
-                <ProgressBar  key={j}>
+            <span key={generateKey()} className="customer-list">
+                <ProgressBar  key={generateKey()}>
                     <ProgressBar  variant="loading" now={33.33} />
                     <ProgressBar  variant="loading" now={33.33} />
                     <ProgressBar  variant="done" now={33.33}  />
                 </ProgressBar>
-                <RenderImage idKey={j} key={j} image={CUSTOMERS[j].image}/>
+                <RenderImage idKey={j} key={generateKey()} image={CUSTOMERS[j].image}/>
             </span>
         );
     }

@@ -166,3 +166,26 @@
     bottom: 0;
     position: relative;
 }
+
+.currentCount {
+    margin-top: 5%;
+    position: absolute;
+    border-radius: 4px;
+    font-weight: 700;
+    background-color: #80d0a2;
+    width: 40px;
+    z-index: 999999 !important;
+    left: 3.5%;
+}
+
+.fa-layers {
+    top: 2vh;
+    position: absolute;
+    cursor: pointer;
+    right: 4vw;
+}
+.popover {
+    z-index: 9999 !important;
+    min-width: 70vw;
+    height: 30vh;
+}

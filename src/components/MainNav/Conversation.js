@@ -2,10 +2,12 @@ import React from 'react'
 import Question from './Question';
 import { styles } from '../animationStyles';
 import {StyleRoot} from 'radium';
+import generateKey from '../Key';
 
 export default function Conversation(props) {
     let convo = [];
-    
+    let { update, updateConv, current } = props;
+
     for (let i=0; i<=props.count; i++) {
         if (i>1 && props.count===i) {//show one at a time
             let convString = Object.values(props.wholeCon[i])[0];
@@ -28,7 +30,7 @@ export default function Conversation(props) {
                     </StyleRoot>
                 );
             } else {
-                convo.push(<Question onDisabled={props.isDisabled} />);
+                convo.push(<Question update={update} key={generateKey()} current={current} updateCur={updateConv} qid={props.wholeCon[i]} onDisabled={props.isDisabled} />);
             }
             
         } else {
@@ -52,7 +54,7 @@ export default function Conversation(props) {
                     </StyleRoot>
                 );
             } else {
-                convo.push(<Question onDisabled={props.isDisabled} />);
+                convo.push(<Question update={update} key={generateKey()} current={current} updateCur={updateConv} qid={props.wholeCon[i]} onDisabled={props.isDisabled} />);
             }
           
         }

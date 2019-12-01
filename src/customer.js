@@ -183,9 +183,9 @@ export const questionList = {
 
 export const choicesList = {
   "q1": [
-    "CHOICE 1",
-    "CHOICE 2",
-    "CHOICE 3"
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi",
+    "vel illum qui dolorem eum fugiat quo voluptas nulla pariatur"
   ],
   "q2": [
     "CHOICE 1",

@@ -8,6 +8,7 @@
     "@fortawesome/react-fontawesome": "^0.1.7",
     "@kennethormandy/react-fittext": "^0.6.0",
     "bootstrap": "^4.0.0",
+    "eslint-plugin-react-hooks": "^2.3.0",
     "radium": "^0.26.0",
     "react": "^16.11.0",
     "react-animations": "^1.0.0",
@@ -16,7 +17,8 @@
     "react-clock": "^2.4.0",
     "react-dom": "^16.11.0",
     "react-live-clock": "^3.1.0",
-    "react-scripts": "3.2.0"
+    "react-scripts": "3.2.0",
+    "use-global-hook": "^0.1.12"
   },
   "scripts": {
     "start": "react-scripts start",
