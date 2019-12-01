@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import Card from 'react-bootstrap/Card';
 import {StyleRoot} from 'radium';
 import { styles } from '../animationStyles';
@@ -7,17 +7,16 @@ import { questionList, choicesList } from '../../customer';
 import generateKey from '../Key';
 
 export default function Question(props) {
-    
     const qEndRef = useRef(null);
     const scrollToTop = (ref) => {
         window.scrollTo(0, qEndRef.current.offsetTop)
     }
     const questionArr = [];
-    let { qid } = props;
+    let { qid, actual, current, update } = props;
     
     let question = questionList[qid];
     useEffect(scrollToTop);
-    if (props.current === qid) {
+    if (current === qid) {
         questionArr.push(
             <StyleRoot>
                 <div style={styles.pulse} ref={qEndRef}>
@@ -25,21 +24,34 @@ export default function Question(props) {
                         <div className="outer" >
                             <Card.Header>{ question }</Card.Header>
                             <ListGroup variant="flush">
-                                <Choices updateCur={props.updateCur}  update={props.update} key={generateKey()} qid={ qid } />
+                                <Choices update={update} key={generateKey()} qid={ qid } />
                             </ListGroup>
                         </div>
                     </Card>
                 </div>
             </StyleRoot>
         );
+    } else if(actual === qid) {
+        questionArr.push(
+            <div style={styles.pulse} ref={qEndRef}>
+                <Card>
+                    <div className="outer">
+                        <Card.Header>{ question }</Card.Header>
+                        <ListGroup variant="flush">
+                            <Choices update={props.update} key={generateKey()} qid={ qid } />
+                        </ListGroup>
+                    </div>
+                </Card>
+            </div>    
+        );
     } else {
         questionArr.push(
             <div style={styles.pulse} ref={qEndRef}>
                 <Card>
-                    <div className="outer" >
+                    <div className="outer" style={{pointerEvents: "none"}}>
                         <Card.Header>{ question }</Card.Header>
                         <ListGroup variant="flush">
-                            <Choices updateCur={props.updateCur} update={props.update} key={generateKey()} qid={ qid } />
+                            <Choices update={props.update} key={generateKey()} qid={ qid } />
                         </ListGroup>
                     </div>
                 </Card>
@@ -51,16 +63,11 @@ export default function Question(props) {
 
 const Choices = (props) => {
     let choices = [];
-    const [answers, updateAns] = useState([]);
 
     const onClick = (ans) => {
         props.update();
-        props.updateCur();
-        console.log(answers);
-        updateAns(answers[props.qid].push({
-            'answer': ans 
-        }))
     }
+
     for (let i=0; i<choicesList[props.qid].length; i++) {
         let answer = choicesList[props.qid][i];
         choices.push(

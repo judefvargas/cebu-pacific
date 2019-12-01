@@ -1,21 +1,22 @@
 import React, { useEffect, useRef, useReducer } from 'react'
 import './mainnav.css';
-import { convoR, currentCustomer } from '../../customer';
+import { convoR } from '../../customer';
 import Button from 'react-bootstrap/Button';
 import Conversation from './Conversation';
 import { styles } from '../animationStyles';
 import {StyleRoot} from 'radium';
 
-export default function Interaction() {
+export default function Interaction(props) {
     const messageEndRef = useRef(null);
     const current = [];
     Object.keys(convoR).forEach(function(key) {
-        if (parseInt(key) === currentCustomer) current.push(convoR[key]);
+        if (parseInt(key) === props.active.id) current.push(convoR[key]);
     });
+
     let wholeCon = current[0];
 
     let length = wholeCon.length-1;
-    const [state, dispatch] = useReducer(reducer, {
+    const initVal = {
         count: 1,
         currentIndex: 1,
         hidden: '',
@@ -23,8 +24,10 @@ export default function Interaction() {
         disabled: false,
         length: length,
         current: wholeCon[1],
-        isBtnPulse: false
-    });
+        isBtnPulse: false,
+        actualCurrent: wholeCon[1],
+    };
+    const [state, dispatch] = useReducer(reducer, initVal);
     function reducer(state, action) {
         switch(action.type) {
             case 'BUTTON_CLICKED': {
@@ -32,25 +35,23 @@ export default function Interaction() {
                     ...state,
                     count: state.count+1,
                     currentIndex: (state.currentIndex===1)?0:1,
-                    hidden: (state.count===state.length-1)?'isHidden':'',
-                    longDiv: (state.count===state.length-1)?'longDiv':'',
                     disabled: typeof(wholeCon[state.count+1])!=='object' ? true : false,
                     current: wholeCon[state.count+1],
+                    actualCurrent: wholeCon[state.count+1],
                     isBtnPulse: false,
                 }
             }
             case 'UPDATE_CHOICE': {
                 return {
                     ...state,
-                    disabled: false
-                }
-            }
-            case 'UPDATE_CONVO': {
-                return {
-                    ...state, 
+                    disabled: false,
+                    actualCurrent: wholeCon[state.count],
                     current: wholeCon[state.count+1],
                     isBtnPulse: wholeCon[state.count+1]!=='object'?true:false,
                 }
+            }
+            case 'RESET': {
+                return { ...initVal }
             }
             default: return state;
         }
@@ -58,6 +59,14 @@ export default function Interaction() {
     const scrollToBottom = () => {
         if (state.count>1) {
             messageEndRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    }
+    const onClick = () => {
+        if (state.count===state.length) {
+            dispatch({type: 'RESET'});
+            props.next();
+        } else {
+            dispatch({type: 'BUTTON_CLICKED'})
         }
     }
     useEffect(scrollToBottom);
@@ -85,20 +94,16 @@ export default function Interaction() {
             
             <div className={`conversation ${state.longDiv}`} id="style-3" >
                 <div className="divOverflow" >
-                    <Conversation wholeCon={wholeCon}  updateConv={() => { dispatch({type: 'UPDATE_CONVO'}) }} id="container3" update={ () => { dispatch({type: 'UPDATE_CHOICE'}) } } current={state.current}  count={state.count} key="1" index={state.currentIndex}/>
+                    <Conversation active={props.active} wholeCon={wholeCon} actual={state.actualCurrent} id="container3" update={ () => { dispatch({type: 'UPDATE_CHOICE'}) } } current={state.current}  count={state.count} key="1" index={state.currentIndex}/>
                 </div>
                 <div id="reference1" ref={messageEndRef} ></div>
             </div>
             {state.isBtnPulse ? 
             (<StyleRoot>
-            <div style={styles.bounceIn} ><Button className={state.hidden} disabled={state.disabled} onClick={ () => {
-                dispatch({type: 'BUTTON_CLICKED'})
-            } } variant="next">NEXT
+            <div style={styles.bounceIn} ><Button className={state.hidden} disabled={state.disabled} onClick={ onClick.bind(this) } variant="next">NEXT
             </Button></div>
             </StyleRoot>) : (
-                <Button className={state.hidden} disabled={state.disabled} onClick={ () => {
-                    dispatch({type: 'BUTTON_CLICKED'})
-                } } variant="next">NEXT
+                <Button className={state.hidden} disabled={state.disabled} onClick={ onClick.bind(this) } variant="next">NEXT
                 </Button>
             )
             }
