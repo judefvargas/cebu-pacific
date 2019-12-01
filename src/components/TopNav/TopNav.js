@@ -4,15 +4,8 @@ import CustomerList from './Customers';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Popover from 'react-bootstrap/Popover';
-import { CUSTOMERS, } from '../../customer';
 
 export default class TopNav extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        image: CUSTOMERS[1].image
-      }
-    }
     btnClick = (pos) => {
         alert(`${pos} clicked`);
     }
@@ -27,8 +20,8 @@ export default class TopNav extends Component {
                       <FontAwesomeIcon icon="info" inverse size="sm"/>
                   </span>
               </OverlayTrigger>
-              <div className="currentCount">2/{CUSTOMERS.length}</div>
-              <img className="customerInteraction" height="100%" width="76px" alt="" src={`characters/${this.state.image}`} />
+            <div className="currentCount">{this.props.active.id}/{this.props.total}</div>
+              <img className="customerInteraction" height="100%" width="76px" alt="" src={`characters/${this.props.active.image}`} />
               <img className="john" height="100px" width="100px" alt="" src={`characters/john.png`} />
               </div>
             </div>
