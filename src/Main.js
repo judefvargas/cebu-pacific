@@ -9,15 +9,24 @@ export default class Main extends Component {
         super(props);
         this.state = {
             currentCustomer: currentCustomer,
-            activeCustomer: CUSTOMERS[currentCustomer], //pull from storyline variable currentCustomer* with initial 0
+            activeCustomer: this.search(currentCustomer, CUSTOMERS), //pull from storyline variable currentCustomer* with initial 0
             totalCount: CUSTOMERS.length
         }
     }
+
     incrementActive = () => {
         this.setState({ 
             currentCustomer: this.state.currentCustomer+1,
-            activeCustomer: CUSTOMERS[this.state.currentCustomer+1]
+            activeCustomer: this.search(currentCustomer, CUSTOMERS)
         });
+    }
+
+    search = (value, array) => {
+        let searchVal = array.find((object) => {
+            if (object.id === value) return true;
+            return false;
+        })
+        return searchVal;
     }
     render() {
         return (
