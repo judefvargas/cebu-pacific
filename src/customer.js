@@ -1,4 +1,4 @@
-const player = window.parent.GetPlayer();
+export const player = window.parent.GetPlayer();
 
 export const CUSTOMERS = JSON.parse(player.GetVar('PLW_customers'));
 

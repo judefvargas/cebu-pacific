@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import {StyleRoot} from 'radium';
 import { styles } from '../animationStyles';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { questionList, choicesList } from '../../customer';
+import { player, questionList, choicesList } from '../../customer';
 import generateKey from '../Key';
 
 export default function Question(props) {
@@ -65,7 +65,9 @@ function saveAnswer(custId, qId, ans) {
     const custAns = {};
     const qAns = {};
     qAns[qId] = ans;
-    custAns[custId] = qAns; 
+    custAns[custId] = qAns;
+    console.log(custAns);
+    player.SetVar('PLW_pastChoices', custAns);
 }
 const Choices = (props) => {
     let choices = [];
