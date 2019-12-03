@@ -61,11 +61,18 @@ export default function Question(props) {
     return questionArr;
 }
 
+function saveAnswer(custId, qId, ans) {
+    const custAns = {};
+    const qAns = {};
+    qAns[qId] = ans;
+    custAns[custId] = qAns; 
+}
 const Choices = (props) => {
     let choices = [];
 
     const onClick = (ans) => {
         props.update();
+        saveAnswer();
     }
 
     for (let i=0; i<choicesList[props.qid].length; i++) {
