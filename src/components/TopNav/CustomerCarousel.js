@@ -30,7 +30,7 @@ export default function CustomerCarousel(props) {
     for (let i=0; i<allChunks.length; i++) {
         carousel.push(
             <Carousel.Item className={props.currentActive===i ? 'carousel-item active' : 'carousel-item' } key={generateKey()} >
-                <span key={generateKey()} className="col-md-10"><CarouselItem key={generateKey()} array={allChunks[i]} /></span>
+                <span key={generateKey()} className="col-md-10"><CarouselItem active={props.active} key={generateKey()} array={allChunks[i]} /></span>
             </Carousel.Item>)
     }
 
@@ -39,7 +39,6 @@ export default function CustomerCarousel(props) {
     }
     let nextBtn = <FontAwesomeIcon icon='caret-right' className={`caret ${additionalClass}`} size='2x' />;
     let prevBtn = <FontAwesomeIcon icon="caret-left" className={`caret caretLeft ${additionalClass}`} size="2x" />;
-   
 
     return (
         <Carousel activeIndex={index} direction={direction} onSelect={handleSelect} interval={interval} indicators={indicators} nextIcon={nextBtn} prevIcon={prevBtn}>

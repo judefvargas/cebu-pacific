@@ -15,7 +15,7 @@ export default function CustomerList (props) {
             }
             `}
         </style>
-        <CustomerCarousel />
+        <CustomerCarousel active={props.active}/>
         </>
     );
 }

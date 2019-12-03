@@ -6,6 +6,7 @@ import { StyleRoot } from 'radium';
 import { styles } from '../animationStyles';
 
 export default function CarouselItem(props) {
+    const {active} = props;
     let cs = [];
     for (let j=0; j<props.array.length; j++) {
         cs.push(
@@ -15,7 +16,7 @@ export default function CarouselItem(props) {
                     <ProgressBar  variant="loading" now={33.33} />
                     <ProgressBar  variant="done" now={33.33}  />
                 </ProgressBar>
-                <RenderImage idKey={j} key={generateKey()} image={CUSTOMERS[j].image}/>
+                <RenderImage activeId={active.id} idKey={j} key={generateKey()} image={CUSTOMERS[j].image}/>
             </span>
         );
     }
