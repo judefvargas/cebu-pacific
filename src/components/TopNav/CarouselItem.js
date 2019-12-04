@@ -1,14 +1,15 @@
 import React from 'react';
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import { CUSTOMERS } from '../../customer';
+// import { CUSTOMERS } from '../../customer';
 import generateKey from '../Key';
-import { StyleRoot } from 'radium';
+// import { StyleRoot } from 'radium';
 import { styles } from '../animationStyles';
 
 export default function CarouselItem(props) {
     const {active} = props;
+    const actualArr = search(active.id, props.array);
     let cs = [];
-    for (let j=0; j<props.array.length; j++) {
+    for (let j=0; j<actualArr.length; j++) {
         cs.push(
             <span key={generateKey()} className="customer-list">
                 <ProgressBar  key={generateKey()}>
@@ -16,11 +17,16 @@ export default function CarouselItem(props) {
                     <ProgressBar  variant="loading" now={33.33} />
                     <ProgressBar  variant="done" now={33.33}  />
                 </ProgressBar>
-                <RenderImage activeId={active.id} idKey={j} key={generateKey()} image={CUSTOMERS[j].image}/>
+                <RenderImage activeId={active.id} idKey={j} key={generateKey()} image={actualArr[j].image}/>
             </span>
         );
     }
     return cs;
+}
+
+const search = (value, array) => {
+    let arr = array.filter((object) => (parseInt(object.id) !== parseInt(value)) );
+    return arr;
 }
 
 const RenderImage = (props) => {
@@ -31,15 +37,15 @@ const RenderImage = (props) => {
 
     if (props.idKey===1) {
         imageSpan.push(
-            <StyleRoot className="classAB">
-                <span className={`customerSpan ${ (props.idKey===1 ? 'customerActive' : '') }`} style={styles.pulse}>
+            // <StyleRoot className="classAB">
+                <span className={`customerSpan `} style={styles.pulse}>
                     <img onClick={btnClick.bind(this, 'customer')} key={props.idKey} className={`customerImage ${ (props.idKey>=5 ? 'customerGrayImage': '') }`} alt="" src={`characters/${props.image}`} />
                 </span>
-            </StyleRoot>
+            // </StyleRoot>
         )
     } else {
         imageSpan.push(
-            <span className={`customerSpan ${ (props.idKey===1 ? 'customerActive' : '') }`}>
+            <span className={`customerSpan `}>
                 <img onClick={btnClick.bind(this, 'customer')} key={props.idKey} className={`customerImage ${ (props.idKey>=5 ? 'customerGrayImage': '') }`} alt="" src={`characters/${props.image}`} />
             </span>
         );
