@@ -4,7 +4,7 @@ import { convoR } from '../../customer';
 import Button from 'react-bootstrap/Button';
 import Conversation from './Conversation';
 import { styles } from '../animationStyles';
-import {StyleRoot} from 'radium';
+// import {StyleRoot} from 'radium';
 
 export default function Interaction(props) {
     const messageEndRef = useRef(null);
@@ -12,7 +12,6 @@ export default function Interaction(props) {
     Object.keys(convoR).forEach(function(key) {
         if (parseInt(key) === props.active.id) current.push(convoR[key]);
     });
-
     let wholeCon = current[0];
 
     let length = wholeCon.length-1;
@@ -99,13 +98,8 @@ export default function Interaction(props) {
                 <div id="reference1" ref={messageEndRef} ></div>
             </div>
             {state.isBtnPulse ? 
-            (<StyleRoot>
-            <div style={styles.bounceIn} ><Button className={state.hidden} disabled={state.disabled} onClick={ onClick.bind(this) } variant="next">NEXT
-            </Button></div>
-            </StyleRoot>) : (
-                <Button className={state.hidden} disabled={state.disabled} onClick={ onClick.bind(this) } variant="next">NEXT
-                </Button>
-            )
+            (<div style={styles.bounceIn} ><Button className={state.hidden} disabled={state.disabled} onClick={ onClick.bind(this) } variant="next">NEXT
+            </Button></div>) : (<Button className={state.hidden} disabled={state.disabled} onClick={ onClick.bind(this) } variant="next">NEXT</Button>)
             }
         </div>
         </>

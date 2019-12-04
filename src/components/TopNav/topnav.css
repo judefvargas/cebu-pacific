@@ -123,6 +123,11 @@
     cursor: pointer;
 }
 
+.carousel-inner {
+    display: -webkit-inline-box;
+    display: -moz-inline-box;
+}
+
 .isHidden {
     display: none;
 }
@@ -181,7 +186,7 @@
 }
 
 .fa-layers {
-    top: 2vh;
+    top: 5vh;
     position: absolute;
     cursor: pointer;
     right: 4vw;

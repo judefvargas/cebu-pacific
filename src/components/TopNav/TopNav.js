@@ -22,7 +22,7 @@ export default class TopNav extends Component {
               </OverlayTrigger>
             <div className="currentCount">{this.props.active.id}/{this.props.total}</div>
               <img className="customerInteraction" height="100%" width="76px" alt="" src={`characters/${this.props.active.image}`} />
-              <img className="john" height="100px" width="100px" alt="" src={`characters/john.png`} />
+              {/* <img className="john" height="100px" width="100px" alt="" src={`characters/john.png`} /> */}
               </div>
             </div>
             <div className="col-md-8 col-top-nav" >
