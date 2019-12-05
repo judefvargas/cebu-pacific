@@ -29,7 +29,7 @@ export default function Conversation(props) {
                     </StyleRoot>
                 );
             } else {
-                convo.push(<Question actual={ actual } update={update} key={generateKey()} current={current} qid={props.wholeCon[i]} onDisabled={props.isDisabled} />);
+                convo.push(<Question actual={ actual } update={update} key={generateKey()} current={current} qid={props.wholeCon[i]} onDisabled={props.isDisabled} activeId={active.id} />);
             }
             
         } else {
@@ -53,7 +53,7 @@ export default function Conversation(props) {
                     </StyleRoot>
                 );
             } else {
-                convo.push(<Question actual={ actual } update={update} key={generateKey()} current={current} qid={props.wholeCon[i]} onDisabled={props.isDisabled} />);
+                convo.push(<Question actual={ actual } update={update} key={generateKey()} current={current} qid={props.wholeCon[i]} onDisabled={props.isDisabled} activeId={active.id} />);
             }
           
         }

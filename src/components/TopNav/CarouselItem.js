@@ -1,6 +1,6 @@
 import React from 'react';
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import { CUSTOMERS } from '../../customer';
+// import { CUSTOMERS } from '../../customer';
 import generateKey from '../Key';
 // import { StyleRoot } from 'radium';
 import { styles } from '../animationStyles';

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import Card from 'react-bootstrap/Card';
-import {StyleRoot} from 'radium';
+// import {StyleRoot} from 'radium';
 import { styles } from '../animationStyles';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { questionList, choicesList } from '../../customer';
@@ -12,24 +12,24 @@ export default function Question(props) {
         window.scrollTo(0, qEndRef.current.offsetTop)
     }
     const questionArr = [];
-    let { qid, actual, current, update } = props;
+    let { qid, actual, current, update, activeId } = props;
     
     let question = questionList[qid];
     useEffect(scrollToTop);
     if (current === qid) {
         questionArr.push(
-            <StyleRoot>
+            // <StyleRoot>
                 <div style={styles.pulse} ref={qEndRef}>
                     <Card>
                         <div className="outer" >
                             <Card.Header>{ question }</Card.Header>
                             <ListGroup variant="flush">
-                                <Choices update={update} key={generateKey()} qid={ qid } />
+                                <Choices update={update} activeId={activeId} key={generateKey()} qid={ qid } />
                             </ListGroup>
                         </div>
                     </Card>
                 </div>
-            </StyleRoot>
+            // </StyleRoot> 
         );
     } else if(actual === qid) {
         questionArr.push(
@@ -38,7 +38,7 @@ export default function Question(props) {
                     <div className="outer">
                         <Card.Header>{ question }</Card.Header>
                         <ListGroup variant="flush">
-                            <Choices update={props.update} key={generateKey()} qid={ qid } />
+                            <Choices update={update} activeId={activeId} key={generateKey()} qid={ qid } />
                         </ListGroup>
                     </div>
                 </Card>
@@ -51,7 +51,7 @@ export default function Question(props) {
                     <div className="outer" style={{pointerEvents: "none"}}>
                         <Card.Header>{ question }</Card.Header>
                         <ListGroup variant="flush">
-                            <Choices update={props.update} key={generateKey()} qid={ qid } />
+                            <Choices update={update} activeId={activeId} key={generateKey()} qid={ qid } />
                         </ListGroup>
                     </div>
                 </Card>
@@ -60,25 +60,49 @@ export default function Question(props) {
     }
     return questionArr;
 }
-
-function saveAnswer(custId, qId, ans) {
-    const custAns = {};
-    const qAns = {};
-    qAns[qId] = ans;
-    custAns[custId] = qAns; 
+const searchObject = (searchVal, object) => {
+    Object.entries(object).map(([key, value]) => {
+        if (parseInt(key)===searchVal) {
+            console.log(value);
+            return value;
+        };
+    });
 }
+function saveAnswer(prevAns, custId, qId, ans) {
+    const customerAnswer = {};
+    // const prevAnswer = (player.GetVar('PLW_pastChoices'));
+    const questionAns = {};
+    const allQuestions = [];
+    questionAns[qId] = ans;
+// console.log(questionAns);
+    if (typeof(prevAnswer)!=='string') { 
+        let qList = searchObject(custId, prevAns);
+        console.log(qList);
+        qList.push(questionAns);
+        console.log(qList);
+        customerAnswer[custId.toString()] = qList;
+    } else {
+        allQuestions.push(questionAns);
+        customerAnswer[custId.toString()] = allQuestions;
+    }
+    console.log(customerAnswer);
+    return customerAnswer;
+    // player.SetVar('PLW_pastChoices', customerAnswer);
+}
+
 const Choices = (props) => {
     let choices = [];
+    let prevAns = "{}";
 
-    const onClick = (ans) => {
+    const onClick = (cId, qId, ans) => {
         props.update();
-        saveAnswer();
+        prevAns = saveAnswer(prevAns, cId, qId, ans);
     }
 
     for (let i=0; i<choicesList[props.qid].length; i++) {
         let answer = choicesList[props.qid][i];
         choices.push(
-            <ListGroup.Item key={i} onClick={onClick.bind(this, answer)}>{ choicesList[props.qid][i] }</ListGroup.Item>
+            <ListGroup.Item key={i} onClick={ () => {onClick(props.activeId, props.qid, answer)} }>{ choicesList[props.qid][i] }</ListGroup.Item>
         );
     }
     return choices;

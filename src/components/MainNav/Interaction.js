@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useReducer } from 'react'
+import React, { useState, useEffect, useRef, useReducer } from 'react'
 import './mainnav.css';
 import { convoR } from '../../customer';
 import Button from 'react-bootstrap/Button';
@@ -9,6 +9,7 @@ import {StyleRoot} from 'radium';
 export default function Interaction(props) {
     const messageEndRef = useRef(null);
     const current = [];
+    // const [isOn, turnOn] = useState(false);
     Object.keys(convoR).forEach(function(key) {
         if (parseInt(key) === props.active.id) current.push(convoR[key]);
     });
@@ -88,26 +89,36 @@ export default function Interaction(props) {
                 background-color: #5a5757;
                 color:white;
             }
+            .btn-start {
+                background-color: #28a745;
+                color: white;
+                bottom: 0;
+                margin-top: 79vh;
+                height: 5vh;
+                width: 72%;
+            }
+            .btn-start:hover {
+                text-decoration: none;
+                background-color: #218838;
+                border-color: #1e7e34;
+                color:white;
+            }
             `}
         </style>
-        <div className="col col-md-4 convo">
-            
+        { !props.on ? 
+            <div className="col col-md-4 convo"><Button variant="start" onClick={() => {props.turnOn(true)}}>Start</Button></div> 
+        : (<div className="col col-md-4 convo">
             <div className={`conversation ${state.longDiv}`} id="style-3" >
                 <div className="divOverflow" >
                     <Conversation active={props.active} wholeCon={wholeCon} actual={state.actualCurrent} id="container3" update={ () => { dispatch({type: 'UPDATE_CHOICE'}) } } current={state.current}  count={state.count} key="1" index={state.currentIndex}/>
                 </div>
                 <div id="reference1" ref={messageEndRef} ></div>
             </div>
-            {state.isBtnPulse ? 
-            (<StyleRoot>
-            <div style={styles.bounceIn} ><Button className={state.hidden} disabled={state.disabled} onClick={ onClick.bind(this) } variant="next">NEXT
-            </Button></div>
-            </StyleRoot>) : (
-                <Button className={state.hidden} disabled={state.disabled} onClick={ onClick.bind(this) } variant="next">NEXT
-                </Button>
-            )
-            }
+            {state.isBtnPulse ? (<StyleRoot>
+            <div style={styles.bounceIn} ><Button className={state.hidden} disabled={state.disabled} onClick={ onClick.bind(this) } variant="next">NEXT</Button></div></StyleRoot>) 
+            : (<Button className={state.hidden} disabled={state.disabled} onClick={ onClick.bind(this) } variant="next">NEXT</Button>)}
         </div>
+        ) }
         </>
     );
 }
