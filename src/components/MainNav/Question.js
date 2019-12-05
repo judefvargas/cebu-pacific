@@ -92,6 +92,7 @@ function saveAnswer(custId, qId, ans) {
 
 const Choices = (props) => {
     let choices = [];
+    // let prevAns = "{}";
 
     const onClick = (cId, qId, ans) => {
         props.update();

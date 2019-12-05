@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
-import { fadeInDown } from 'react-animations';
-import Radium, {StyleRoot} from 'radium';
+// import Radium, {StyleRoot} from 'radium';
+import {StyleRoot} from 'radium';
+// import { styles } from '../animationStyles';
 
-export default function Webobject() {
+export default function Webobject(props) {
     const [element, updateEl] = useState('');
-
+    const { active, on } = props;
+    console.log(props.active);
     return (
         <>
         <style type="text/css">
@@ -42,7 +44,11 @@ export default function Webobject() {
         </style>
         <div className="col col-md-7 weboject">
             <div className="mainWebObject">
-                <ShowObject element={element}/>
+                {on ? 
+                // <StyleRoot>
+                    <img style={{width:'100%'}} src={active.package} alt=""/>
+                // </StyleRoot> 
+                : ( <ShowObject element={element}/>)}
             </div>
             <div className="mainNavBtns">
                 <Button onClick={() => {updateEl('Money Changing')}} size="lg" variant="jewelry">Money Changing</Button>
@@ -57,15 +63,15 @@ export default function Webobject() {
 }
 
 const ShowObject = (props) => {
-    const styles = {
-        fadeInDown: {
-            animation: 'x 0.8s',
-            animationName: Radium.keyframes(fadeInDown, 'fadeInDown')
-        }
-    }
+    // const styles = {
+    //     fadeInDown: {
+    //         animation: 'x 0.8s',
+    //         animationName: Radium.keyframes(fadeInDown, 'fadeInDown')
+    //     }
+    // }
     return (
         <StyleRoot>
-            <div style={styles.fadeInDown} ><div className="element">{props.element}</div></div>
+            <div ><div className="element">{props.element}</div></div>
         </StyleRoot>
     );
 }
