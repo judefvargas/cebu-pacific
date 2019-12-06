@@ -4,6 +4,7 @@ export const CUSTOMERS = [
         name: "Jude Vargas",
         age: 25,
         image: '12.png',
+        package: 'bag.png',
         text: "I'd like to transfer my dog"
       },
       {
@@ -11,6 +12,7 @@ export const CUSTOMERS = [
         name: "A Vargas",
         age: 25,
         image: '1.png',
+        package: 'money.png',
         text: "I'd like to transfer my dog"
       },
       {
@@ -18,6 +20,7 @@ export const CUSTOMERS = [
         name: "B Vargas",
         age: 25,
         image: '2.png',
+        package: 'bag.png',
         text: "I'd like to transfer my dog"
       },
       {
@@ -25,6 +28,7 @@ export const CUSTOMERS = [
         name: "C Vargas",
         age: 25,
         image: '3.png',
+        package: 'bag.png',
         text: "I'd like to transfer my dog"
       },
       // {
@@ -127,28 +131,26 @@ export const convoR = {
   1: 
       [
           {
-            "john": 'Hello po, I’m John. Happy to serve you. Ano pong maipaglilingkod namin sa inyo?',
-          },
-          {
-            "john": 'Sample 2slakdalskjd',
+            "john": 'Hello, ako po si John. Happy to serve you. Ano po ang maipaglilingkod ko sa inyo?',
           },
           {
             "customer": 'English please.'
           },
           {
-            "john": 'Oh, how may I help you sir?.'
+            "john": 'Oh, how may I help you sir?'
           },
           {
-            "customer": 'I want to change my Dollars into Pesos.'
-          },
-          "q1",
-          {
-            "john": 'sadadsa sad asdasd as asws'
+            "customer": 'I want to change my Dollars into Pesos'
           },
           {
-            "customer": 'sfs dsfsd df sdfsdsd fsdf'
+            "john": 'No problem, sir. Please fill out this form.'
           },
-          "q3",
+          {
+            "customer": "… … …"
+          },
+          {
+            "customer": 'Excuse me, is the purpose of purchase really necessary? What I do with my money is none of your business. This is an invasion of privacy!'
+          }
       ],
   2: 
       [
@@ -167,11 +169,11 @@ export const convoR = {
           {
             "customer": 'I want to change my Dollars into Pesos.'
           },
-          "q2",
+          "q2"
       ]
 };
 export const questionList = {
-  "q1": "QUESTION 1",
+  "q1": "Ano ang isasagot sa customer?",
   "q2": "QUESTION 2",
   "q3": "QUESTION 3",
   "q4": "QUESTION 4",
@@ -183,9 +185,9 @@ export const questionList = {
 
 export const choicesList = {
   "q1": [
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi",
-    "vel illum qui dolorem eum fugiat quo voluptas nulla pariatur"
+    "Ganito talaga ang process.",
+    "Bahagi ito ng KYC.",
+    "Utos ito ng pangulo ng Pilipinas."
   ],
   "q2": [
     "CHOICE 1",
@@ -198,6 +200,45 @@ export const choicesList = {
     "CHOICE 4",
   ],
 };
+
+export const consequences = {
+  "q1": {
+    "choice 1": [
+      { "customer": "That sounds terrible. You should be thankful I’m still giving you my business even though you’re trying to spy on me. " },
+      { "john": "consequence 2" },
+      { "customer": "consequence 3" },
+    ],
+    "choice 2": [
+      { "customer": "Of course I won’t be using the money for illegal activities. I won’t jeopardize my life trying dangerous things in a foreign land!" },
+      { "john": "choice 2 consequence 2" }
+    ],
+    
+  },
+  "q2": {
+    "choice 1": [
+      { "john": "STRING STRING" },
+      { "john": "ako si jude" },
+      { "customer": "hello world" },
+      "q3"
+    ],
+    "choice 2": [
+      { "john": "asdasdasdas d as dasdaskdljas askldas ldjas lkjdl" },
+      { "john": "asdsa" }
+    ]
+  },
+  "q3": {
+    "choice 1": [
+      { "john": "STRING STRING" },
+      { "john": "ako si jude" },
+      { "customer": "hello world" },
+      "q3"
+    ],
+    "choice 2": [
+      { "john": "asdasdasdas d as dasdaskdljas askldas ldjas lkjdl" },
+      { "john": "asdsa" }
+    ]
+  }
+}
 
 export const answerList = {
   "q1": [
