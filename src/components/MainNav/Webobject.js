@@ -8,7 +8,6 @@ import { styles } from '../animationStyles';
 export default function Webobject(props) {
     const [element, updateEl] = useState('');
     const { active, on } = props;
-    console.log(props.active);
     return (
         <>
         <style type="text/css">
@@ -47,7 +46,7 @@ export default function Webobject(props) {
             <div className="mainWebObject">
                 {on ? 
                 // <StyleRoot>
-                    <img style={{width:'100%'}} src={active.package} alt=""/>
+                    <img className="webObjImage" src={active.package} alt=""/>
                 // </StyleRoot> 
                 : ( <ShowObject element={element}/>)}
             </div>
