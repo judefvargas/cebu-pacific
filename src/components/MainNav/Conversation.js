@@ -6,7 +6,8 @@ import generateKey from '../Key';
 
 export default function Conversation(props) {
     let convo = [];
-    let { active, update, current, actual } = props;
+    // const [hasCons, updateCons] = useState(false);
+    let { active, update, current, actual, updateConvo } = props;
     for (let i=0; i<=props.count; i++) {
         if (i>1 && props.count===i) { //show one at a time
             let convString = Object.values(props.wholeCon[i])[0];
@@ -29,7 +30,7 @@ export default function Conversation(props) {
                     </StyleRoot>
                 );
             } else {
-                convo.push(<Question actual={ actual } update={update} key={generateKey()} current={current} qid={props.wholeCon[i]} onDisabled={props.isDisabled} activeId={active.id} />);
+                convo.push(<Question actual={ actual } update={update} key={generateKey()} current={current} qid={props.wholeCon[i]} onDisabled={props.isDisabled} activeId={active.id} updateConvo={updateConvo} />);
             }
             
         } else {
@@ -53,7 +54,7 @@ export default function Conversation(props) {
                     </StyleRoot>
                 );
             } else {
-                convo.push(<Question actual={ actual } update={update} key={generateKey()} current={current} qid={props.wholeCon[i]} onDisabled={props.isDisabled} activeId={active.id} />);
+                convo.push(<Question actual={ actual } update={update} key={generateKey()} current={current} qid={props.wholeCon[i]} onDisabled={props.isDisabled} activeId={active.id} updateConvo={updateConvo} />);
             }
           
         }

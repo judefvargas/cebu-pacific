@@ -11,3 +11,5 @@ export const choicesList = JSON.parse(player.GetVar('PLW_choicesList'));
 export const answerList = player.GetVar('PLW_answerList');
 
 export const currentCustomer = player.GetVar('PLW_curCustomer');
+
+export const consequences = player.GetVar('PLW_consequences');

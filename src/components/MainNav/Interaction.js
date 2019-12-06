@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useReducer } from 'react'
+import React, { useState, useEffect, useRef, useReducer } from 'react'
 import './mainnav.css';
 import { convoR } from '../../customer';
 import Button from 'react-bootstrap/Button';
@@ -9,13 +9,12 @@ import { styles } from '../animationStyles';
 export default function Interaction(props) {
     const messageEndRef = useRef(null);
     const current = [];
-    // const [isOn, turnOn] = useState(false);
     Object.keys(convoR).forEach(function(key) {
         if (parseInt(key) === props.active.id) current.push(convoR[key]);
     });
-    let wholeCon = current[0];
+    const [ wholeCon, updateConvo ] = useState(current);
 
-    let length = wholeCon.length-1;
+    let length = wholeCon[0].length-1;
     const initVal = {
         count: 1,
         currentIndex: 1,
@@ -23,11 +22,46 @@ export default function Interaction(props) {
         longDiv: '',
         disabled: false,
         length: length,
-        current: wholeCon[1],
+        current: wholeCon[0][1],
         isBtnPulse: false,
-        actualCurrent: wholeCon[1],
+        actualCurrent: wholeCon[0][1],
+        temp: [], //storage for consequences,
+        hasError: false,
+        errorMessage: null
     };
     const [state, dispatch] = useReducer(reducer, initVal);
+    const updateCon = (convoData) => {
+        console.log(convoData);
+        if (convoData.convo===undefined) {
+            state.hasError = true;
+            state.errorMessage = convoData.msg;
+        } else {
+            state.hasError = false;
+            let completeConvo = wholeCon[0];
+            let c = insertToObject(completeConvo, convoData.convo, state.count);
+            state.temp.push(c);
+        }
+    }
+    const insertToObject = (obj, newObj, index) => {
+        let temp = [];
+        let final = [];
+        for (const [key, value] of Object.entries(obj)) {
+            if (parseInt(key)>index) {
+                temp.push(value);
+                delete obj[key];
+            } else {
+                final.push(obj[key]);
+            }
+        }
+
+        for(let i=0; i<newObj.length; i++) {
+            final.push(newObj[i]);
+        }
+        for(let j=0; j<temp.length; j++) {
+            final.push(temp[j]);
+        }
+        return final;
+    }
     function reducer(state, action) {
         switch(action.type) {
             case 'BUTTON_CLICKED': {
@@ -35,19 +69,20 @@ export default function Interaction(props) {
                     ...state,
                     count: state.count+1,
                     currentIndex: (state.currentIndex===1)?0:1,
-                    disabled: typeof(wholeCon[state.count+1])!=='object' ? true : false,
-                    current: wholeCon[state.count+1],
-                    actualCurrent: wholeCon[state.count+1],
+                    disabled: typeof(wholeCon[0][state.count+1])!=='object' ? true : false,
+                    current: wholeCon[0][state.count+1],
+                    actualCurrent: wholeCon[0][state.count+1],
                     isBtnPulse: false,
+                    hasError: false
                 }
             }
             case 'UPDATE_CHOICE': {
                 return {
                     ...state,
                     disabled: false,
-                    actualCurrent: wholeCon[state.count],
-                    current: wholeCon[state.count+1],
-                    isBtnPulse: wholeCon[state.count+1]!=='object'?true:false,
+                    actualCurrent: wholeCon[0][state.count],
+                    current: wholeCon[0][state.count+1],
+                    isBtnPulse: wholeCon[0][state.count+1]!=='object'?true:false,
                 }
             }
             case 'RESET': {
@@ -68,9 +103,14 @@ export default function Interaction(props) {
         } else {
             dispatch({type: 'BUTTON_CLICKED'})
         }
+
+        if (state.temp.length!==0) {
+            updateConvo(state.temp);
+            state.length = state.temp.length-1;
+            state.temp = [];
+        }
     }
     useEffect(scrollToBottom);
-
     return (
         <>
         <style type="text/css">
@@ -105,12 +145,13 @@ export default function Interaction(props) {
             `}
         </style>
         { !props.on ? 
-            <div className="col col-md-4 convo"><Button variant="start" onClick={() => {props.turnOn(true)}}>Start</Button></div> 
+            <div className="col col-md-4 convo"><Button variant="start" onClick={() => {props.turnOn(true)}}>START</Button></div> 
         : (<div className="col col-md-4 convo">
             <div className={`conversation ${state.longDiv}`} id="style-3" >
                 <div className="divOverflow" >
-                    <Conversation active={props.active} wholeCon={wholeCon} actual={state.actualCurrent} id="container3" update={ () => { dispatch({type: 'UPDATE_CHOICE'}) } } current={state.current}  count={state.count} key="1" index={state.currentIndex}/>
+                    <Conversation active={props.active} wholeCon={wholeCon[0]} actual={state.actualCurrent} id="container3" update={ () => { dispatch({type: 'UPDATE_CHOICE' }) } } current={state.current}  count={state.count} key="1" index={state.currentIndex} updateConvo={(val)=>{ updateCon(val) }} />
                 </div>
+                { state.hasError ? <div>{state.errorMessage}</div> : '' }
                 <div id="reference1" ref={messageEndRef} ></div>
             </div>
             {state.isBtnPulse ? 

@@ -209,3 +209,8 @@ div.callout {
 .list-group-item:hover {
     background-color: #80d0a2;
 }
+
+.webObjImage {
+    width: 100%;
+    margin-top: 4vh;
+}
