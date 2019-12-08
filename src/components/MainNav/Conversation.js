@@ -6,11 +6,16 @@ import generateKey from '../Key';
 
 export default function Conversation(props) {
     let convo = [];
-    // const [hasCons, updateCons] = useState(false);
-    let { active, update, current, actual, updateConvo } = props;
+    let { active, update, current, actual, updateConvo,tillBtnClick, updateTill } = props;
+    
     for (let i=0; i<=props.count; i++) {
         if (i>1 && props.count===i) { //show one at a time
             let convString = Object.values(props.wholeCon[i])[0];
+            if (convString.includes('TILL') && !tillBtnClick) {
+                updateTill(true);
+            } else {
+                updateTill(false);
+            }
             if (Object.keys(props.wholeCon[i])[0] === 'john') {
                 convo.push(
                     <StyleRoot>
@@ -26,6 +31,15 @@ export default function Conversation(props) {
                     <div style={styles.fadeInDown} className="convo2">
                         <div className="callout isGreen right">{ convString.toUpperCase() }</div>
                         <div className="bgConvo-right"><img className="johnImage isGreen" alt="" src={`characters/${active.image}`} /></div>
+                    </div>
+                    </StyleRoot>
+                );
+            } else if (Object.keys(props.wholeCon[i])[0] === 'branch_manager') {
+                convo.push(
+                    <StyleRoot>
+                    <div style={styles.fadeInDown} className="convo2">
+                        <div className="callout isBlue right">{ convString.toUpperCase() }</div>
+                        <div className="bgConvo-right"><img className="johnImage isGreen" alt="" src={`characters/8.png`} /></div>
                     </div>
                     </StyleRoot>
                 );
@@ -50,6 +64,15 @@ export default function Conversation(props) {
                     <div style={styles.fadeInDown} className="convo2">
                         <div className="callout isGreen right">{ convString.toUpperCase() }</div>
                         <div className="bgConvo-right"><img className="johnImage isGreen" alt="" src={`characters/${active.image}`} /></div>
+                    </div>
+                    </StyleRoot>
+                );
+            } else if (Object.keys(props.wholeCon[i])[0] === 'branch_manager') {
+                convo.push(
+                    <StyleRoot>
+                    <div style={styles.fadeInDown} className="convo2">
+                        <div className="callout isBlue right">{ convString.toUpperCase() }</div>
+                        <div className="bgConvo-right"><img className="johnImage isGreen" alt="" src={`characters/8.png`} /></div>
                     </div>
                     </StyleRoot>
                 );
