@@ -114,6 +114,9 @@ div.callout {
 .isGreen {
     background-color: #00c555 !important;
 }
+.isBlue {
+    background-color: #34b9ef !important;
+}
 .bgConvo-right {
     
     margin: 2% 3%;
@@ -174,7 +177,7 @@ div.callout {
 
 .mainNavBtns {
     position: absolute;
-    bottom: 1vh;
+    bottom: 2vh;
     width: 100%;
 }
 .mainWebObject {
@@ -213,4 +216,21 @@ div.callout {
 .webObjImage {
     width: 100%;
     margin-top: 4vh;
+}
+
+.startContainer {
+    margin-top: 40vh;
+}
+
+.tillList {
+    position: absolute;
+    width: 5vw;
+    margin-top: 2vh !important;
+}
+
+.tillListItem {
+    background-color: transparent !important;
+    border: 0 !important;
+    padding: 0.50rem 1.25rem !important;
+    z-index: 9999;
 }
