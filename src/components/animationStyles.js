@@ -1,5 +1,5 @@
 import Radium from 'radium';
-import { fadeInDown, pulse, bounceIn } from 'react-animations';
+import { fadeInDown, pulse, bounceIn, fadeOut, fadeIn } from 'react-animations';
 
 export const styles = {
     fadeInDown: {
@@ -13,5 +13,13 @@ export const styles = {
     bounceIn: {
       animation: 'x 1s infinite',
         animationName: Radium.keyframes(bounceIn, 'bounceIn')
+    },
+    fadeOut: {
+      animation: 'x 1s',
+        animationName: Radium.keyframes(fadeOut, 'fadeOut')
+    },
+    fadeIn: {
+      animation: 'x 0.5s',
+        animationName: Radium.keyframes(fadeIn, 'fadeIn')
     }
 }
