@@ -9,6 +9,7 @@ import { styles } from '../animationStyles';
 export default function Interaction(props) {
     const messageEndRef = useRef(null);
     const current = [];
+    // const [isOn, turnOn] = useState(false);
     Object.keys(convoR).forEach(function(key) {
         if (parseInt(key) === props.active.id) current.push(convoR[key]);
     });
