@@ -1,77 +1,110 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Button from 'react-bootstrap/Button';
-import { fadeInDown } from 'react-animations';
+import ListGroup from 'react-bootstrap/ListGroup';
+// import { fadeInDown } from 'react-animations';
 // import Radium, {StyleRoot} from 'radium';
 import {StyleRoot} from 'radium';
+import { buttons, tillArray } from '../../customer';
 import { styles } from '../animationStyles';
+import generateKey from '../Key';
 
 export default function Webobject(props) {
-    const [element, updateEl] = useState('');
-    const { active, on } = props;
+    const { active, on, till, updateTillClick, updateEl, element } = props;
+
+    const updateElement = (val) => {
+        updateEl(val);
+        updateTillClick(true);
+    }
     return (
         <>
-        <style type="text/css">
-            {`
-            .btn-till {
-                background-color: #7bf1f1;
-                margin: 2%;
-                padding: 2% !important;
-                width: 8vw;
-                cursor: pointer;
-                font-size: 1.5rem;
-                line-height: 1.5;
-                border-radius: .3rem;
-            }
-            .btn-till:hover {
-                text-decoration: none;
-                background-color: #60d4d4;
-            }
-            .btn-till:active, .btn-till:focus {
-                text-decoration: none;
-                background-color: #4dbdbd !important;
-            }
-            .btn-jewelry {
-                background-color: #86b97e;
-                margin: 2%;
-                padding: 2% !important;
-                width: 8vw;
-                cursor: pointer;
-                font-size: 1.2rem;
-                line-height: 1.5;
-                border-radius: 18px;
-            }
-            `}
-        </style>
         <div className="col col-md-7 weboject">
             <div className="mainWebObject">
-                {on ? 
-                // <StyleRoot>
-                    <img className="webObjImage" src={active.package} alt=""/>
-                // </StyleRoot> 
-                : ( <ShowObject element={element}/>)}
+                { on ?
+                <ListGroup className="tillList">
+                    <TillArray update={updateEl} active={active}/>
+                </ListGroup>
+                : ''
+                }
+                <DisplayObject on={on} element={element} active={active} />
             </div>
             <div className="mainNavBtns">
-                <Button onClick={() => {updateEl('Money Changing')}} size="lg" variant="jewelry">Money Changing</Button>
-                <Button  onClick={() => {updateEl('T')}} size="lg" variant="till">T</Button>
-                <Button  onClick={() => {updateEl('I')}} size="lg" variant="till">I</Button>
-                <Button  onClick={() => {updateEl('L')}} size="lg" variant="till">L</Button>
-                <Button  onClick={() => {updateEl('L')}} size="lg" variant="till">L</Button>
+                { till 
+                    ? <StyleRoot><div style={styles.bounceIn}><Buttons on={on} key={generateKey()} click={(val) => {updateElement(val)}}/></div></StyleRoot> 
+                    : <>{on ? <Buttons on={on} key={generateKey()} click={(val) => {updateElement(val)}}/> : ''}</>  
+                }
+                
             </div>
         </div>
         </>
     );
 }
 
+const DisplayObject = (props) => {
+    const { on, element, active } = props;
+    let obj = [];
+    if ((on && element===null)) {
+        obj.push(<img className="webObjImage" src={active.package} alt=""/>);
+    } else if (on) {
+        obj.push(<ShowObject element={element}/>);
+    } else {
+        obj.push(<ShowObject element={element}/>);
+    }
+    return obj;
+}
 const ShowObject = (props) => {
-    // const styles = {
-    //     fadeInDown: {
-    //         animation: 'x 0.8s',
-    //         animationName: Radium.keyframes(fadeInDown, 'fadeInDown')
-    //     }
-    // }
     return (
         <StyleRoot>
-            <div ><div className="element">{props.element}</div></div>
+            <div ><div style={{top:'20vh'}} className="element">{props.element}</div></div>
         </StyleRoot>
     );
+}
+
+const TillArray = (props) => {
+    const { active, update } = props;
+    let tillArr = [];
+    let images = tillArray[active.id];
+    for (let i=0; i<images.length; i++) {
+        let el = <img alt="" style={{width:'80%'}} src={`currency/${images[i].image}`} />
+        tillArr.push(<ListGroup.Item className="tillListItem"><img onClick={()=>{update(el)}} style={{width:'65px', cursor: 'pointer'}} src={`currency/${images[i].image}`} alt="" /></ListGroup.Item>)
+    }
+    return tillArr;
+}
+
+const Buttons = (props) => {
+    const btn = [];
+    btn.push(<style type="text/css">
+        {`
+        .btn-till {
+            background-color: #7bf1f1;
+            margin: 2%;
+            padding: 2% !important;
+            width: 8vw;
+            cursor: pointer;
+            font-size: 1.5rem;
+            line-height: 1.5;
+            border-radius: .3rem;
+        }
+        .btn-till:hover {
+            text-decoration: none;
+            background-color: #60d4d4;
+        }
+        .btn-till:active, .btn-till:focus {
+            text-decoration: none;
+            background-color: #4dbdbd !important;
+        }
+        .btn-jewelry {
+            background-color: #86b97e;
+            margin: 2%;
+            padding: 2% !important;
+            width: 8vw;
+            cursor: pointer;
+            font-size: 1.2rem;
+            line-height: 1.5;
+            border-radius: 18px;
+        }
+        `}</style>);
+    for (let i=0; i<buttons.length; i++) {
+        btn.push(<Button onClick={ () => {props.click(buttons[i].title)} } key={i} size="lg" variant="till">{buttons[i].title}</Button>);
+    }
+    return btn;
 }
