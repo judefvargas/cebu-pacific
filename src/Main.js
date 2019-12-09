@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import TopNav from './components/TopNav/TopNav';
 import MainNav from './components/MainNav/MainNav';
-import { CUSTOMERS, currentCustomer, isShowModal } from './customer';
+import { player, CUSTOMERS, currentCustomer, isShowModal } from './customer';
 import ErrorHandler from './components/ErrorHandler';
 
 export default class Main extends Component {
@@ -18,6 +18,7 @@ export default class Main extends Component {
         const { currentCustomer, totalCount } = this.state;
         if ((currentCustomer+1) > totalCount) {
             this.setState({isShowModal: true});
+            player.SetVar('PLW_showModal', true);
             console.log('show modal here');
         } else {
             this.setState({ 
