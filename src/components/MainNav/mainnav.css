@@ -239,3 +239,13 @@ div.callout {
 .distractorFont {
     margin-top: 2vh;
 }
+
+.nextBtn {
+    background-color: rgb(253, 253, 36) !important;
+    color: black !important;
+}
+
+.nextBtn:hover {
+    background-color:rgb(241, 241, 52) !important;
+    color: black !important;
+}

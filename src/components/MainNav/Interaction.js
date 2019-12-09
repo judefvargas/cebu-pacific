@@ -31,6 +31,7 @@ export default function Interaction(props) {
         errorMessage: null, //error message container
         wholeCon: current[0], //whole conversation
         isNew: false,
+        btnTitle: 'NEXT'
     };
     const [state, dispatch] = useReducer(reducer, initVal);
     
@@ -100,6 +101,12 @@ export default function Interaction(props) {
                     isNew: action.payload
                 }
             }
+            case 'UPDATE_BTN_TITLE': {
+                return {
+                    ...state, 
+                    btnTitle: action.payload
+                }
+            }
             case 'RESET': {
                 return { ...initVal }
             }
@@ -121,6 +128,7 @@ export default function Interaction(props) {
     }
      /* Actions when next button is clicked */
      const onClick = () => {
+        
         let tempLength = state.length;
         if (state.temp.length!==0) {
             state.wholeCon = state.temp[0];
@@ -138,14 +146,17 @@ export default function Interaction(props) {
             
             setTimeout(() => {
                 dispatch({type: 'RESET'});
-
             }, 1000);
-
 
         } else {
             // props.updateNew(false);
             dispatch({type: 'BUTTON_CLICKED'})
         }
+        
+    }
+
+    if ((state.wholeCon.length-1 === state.count) && typeof(state.wholeCon[state.count])!=='string' && state.btnTitle!=='NEXT CUSTOMER') {
+        dispatch({type: 'UPDATE_BTN_TITLE', payload: 'NEXT CUSTOMER'});
     }
     /* For scrolling to bottom of div when next button is clicked (i.e. always show recent messages) */ 
     const scrollToBottom = () => {
@@ -153,6 +164,8 @@ export default function Interaction(props) {
             messageEndRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
     }
+    
+    // console.log(state.count);    
     useEffect(scrollToBottom);
     return (
         <>
@@ -199,7 +212,7 @@ export default function Interaction(props) {
                 { state.hasError ? <div>{state.errorMessage}</div> : '' }
                 <div id="reference1" ref={messageEndRef} ></div>
             </div></StyleRoot>
-            <Button className={state.hidden} disabled={state.disabled} onClick={ onClick.bind(this) } variant="next">NEXT</Button>
+        <Button className={state.btnTitle!=='NEXT'?'nextBtn':''} disabled={state.disabled} onClick={ onClick.bind(this) } variant="next">{state.btnTitle}</Button>
         </div>
         ) }
         </>
