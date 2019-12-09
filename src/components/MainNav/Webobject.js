@@ -2,19 +2,18 @@ import React from 'react'
 import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
 // import { fadeInDown } from 'react-animations';
-// import Radium, {StyleRoot} from 'radium';
 import {StyleRoot} from 'radium';
-import { buttons, tillArray } from '../../customer';
-import { styles } from '../animationStyles';
+import { player, buttons, tillArray } from '../../customer';
 import generateKey from '../Key';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
 export default function Webobject(props) {
-    const { active, on, till, updateTillClick, updateEl, element } = props;
+    const { active, on, updateTillClick, updateEl, element } = props;
 
     const updateElement = (val) => {
-        updateEl(val);
+        // updateEl(val);
+        player.SetVar('PLW_showTill', true);
         updateTillClick(true);
     }
     return (
