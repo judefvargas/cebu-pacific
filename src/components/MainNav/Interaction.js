@@ -73,10 +73,13 @@ export default function Interaction(props) {
             case 'UPDATE_CHOICE': {
                 return {
                     ...state,
+                    count: state.count +1,
                     disabled: false,
                     actualCurrent: state.wholeCon[state.count],
                     current: state.wholeCon[state.count+1],
                     isBtnPulse: state.wholeCon[state.count+1]!=='object'?true:false,
+                    hasError: false,
+                    wholeCon: state.temp[0]
                 }
             }
             case 'UPDATE_LENGTH': {
@@ -156,7 +159,7 @@ export default function Interaction(props) {
         <style type="text/css">
             {`
             .btn-next {
-                background-color: #707070;
+                background-color: #28a745;
                 color: white;
                 bottom: 0;
                 margin-top: 10%;
@@ -165,7 +168,7 @@ export default function Interaction(props) {
             }
             .btn-next:hover {
                 text-decoration: none;
-                background-color: #5a5757;
+                background-color: #218838;
                 color:white;
             }
             .btn-start {
@@ -181,10 +184,13 @@ export default function Interaction(props) {
                 border-color: #1e7e34;
                 color:white;
             }
+            .btn-next:disabled {
+                background-color: #968a8a
+            }
             `}
         </style>
         { (!props.on) 
-        ? <div className="col col-md-4 convo"><StyleRoot><div className="startContainer" style={styles.pulse} ><Button variant="start" onClick={() => {props.turnOn(true)}}>START</Button></div></StyleRoot></div>
+        ? <div className="col col-md-4 convo"><div className="startContainer" ><Button variant="start" onClick={() => {props.turnOn(true)}}>START</Button></div></div>
         : (<div className="col col-md-4 convo" >
             <StyleRoot><div className={`conversation ${state.longDiv}`} id="style-3" style={ (state.isNew) ? (styles.fadeOut) : {} }>
                 <div className="divOverflow" >
@@ -193,9 +199,7 @@ export default function Interaction(props) {
                 { state.hasError ? <div>{state.errorMessage}</div> : '' }
                 <div id="reference1" ref={messageEndRef} ></div>
             </div></StyleRoot>
-            {state.isBtnPulse ? (<StyleRoot>
-            <div style={styles.bounceIn} ><Button className={state.hidden} disabled={state.disabled} onClick={ onClick.bind(this) } variant="next">NEXT</Button></div></StyleRoot>) 
-            : (<Button className={state.hidden} disabled={state.disabled} onClick={ onClick.bind(this) } variant="next">NEXT</Button>)}
+            <Button className={state.hidden} disabled={state.disabled} onClick={ onClick.bind(this) } variant="next">NEXT</Button>
         </div>
         ) }
         </>

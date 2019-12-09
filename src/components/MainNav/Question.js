@@ -8,24 +8,6 @@ import generateKey from '../Key';
 
 export default function Question(props) {
     const qEndRef = useRef(null);
-    // const latestMessage = useRef('');
-    // const [state, dispatch] = useReducer(reducer, {
-    //     hasError: false,
-    //     errorMessage: null 
-    // });
-    // function reducer(state, action) {
-    //     switch(action.type) {
-    //         case 'UPDATE_ERROR': {
-    //             console.log(action.payload.bool);
-    //             return {
-    //                 ...state,
-    //                 hasError: action.payload.bool,
-    //                 errorMessage: action.payload.message
-    //             }
-    //         }
-    //         default: return state;
-    //     }
-    // }
   
     const scrollToTop = (ref) => {
         window.scrollTo(0, qEndRef.current.offsetTop)
@@ -36,7 +18,6 @@ export default function Question(props) {
     useEffect(scrollToTop);
     if (current === qid) {
         questionArr.push(
-            // <StyleRoot>
             <div style={styles.pulse} ref={qEndRef}>
                 <Card>
                     <div className="outer" >
@@ -47,7 +28,6 @@ export default function Question(props) {
                     </div>
                 </Card>
             </div>
-            // </StyleRoot> 
         );
     } else if(actual === qid) {
         questionArr.push(
@@ -107,11 +87,9 @@ function saveAnswer(prevAns, custId, qId, ans) {
 
 const Choices = (props) => {
     let choices = [];
-    // let prevAns = "{}";
     
     // action on choice click
     const onClick = (cId, qId, ansIndex) => {
-        props.update();
         let cons = searchObject(qId, consequences);
         if (cons===undefined) {
             props.updateConvo({ convo: cons, msg: 'No consequence data found.' });
@@ -119,6 +97,8 @@ const Choices = (props) => {
             let consFinal = searchObject(`choice ${(ansIndex+1)}`, cons);
             props.updateConvo({ convo: consFinal, msg: 'No consequence choice data found.'  });
         }
+        props.update();
+
     }
 
     for (let i=0; i<choicesList[props.qid].length; i++) {

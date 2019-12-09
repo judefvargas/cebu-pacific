@@ -133,8 +133,10 @@
 }
 
 .clock {
+    margin-left: 0.3vw;
     border: 1px solid black;
     border-radius: 50px;
+    width: 6vw;
     height: 6vw;
     background-color: white;
 }
@@ -191,7 +193,7 @@
     cursor: pointer;
     right: 4vw;
 }
-.popover {
+.bs-popover-right {
     z-index: 9999 !important;
     min-width: 70vw;
     height: 30vh;
