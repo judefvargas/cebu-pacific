@@ -5,11 +5,10 @@ import ListGroup from 'react-bootstrap/ListGroup';
 // import Radium, {StyleRoot} from 'radium';
 import {StyleRoot} from 'radium';
 import { buttons, tillArray } from '../../customer';
-import { styles } from '../animationStyles';
 import generateKey from '../Key';
 
 export default function Webobject(props) {
-    const { active, on, till, updateTillClick, updateEl, element } = props;
+    const { active, on, updateTillClick, updateEl, element } = props;
 
     const updateElement = (val) => {
         updateEl(val);
