@@ -12,10 +12,10 @@ export const answerList = player.GetVar('PLW_answerList');
 
 export const currentCustomer = player.GetVar('PLW_curCustomer');
 
-export const consequences = player.GetVar('PLW_consequences');
+export const consequences = JSON.parse(player.GetVar('PLW_consequences'));
 
-export const buttons =  player.GetVar('PLW_buttons');
+export const buttons =  JSON.parse(player.GetVar('PLW_buttons'));
 
 export const isShowModal = player.GetVar('PLW_showModal');
 
-export const tillArray = player.GetVar('PLW_currencies');
+export const tillArray = JSON.parse(player.GetVar('PLW_currencies'));
