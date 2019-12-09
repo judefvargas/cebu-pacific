@@ -9,18 +9,23 @@ export default function Conversation(props) {
     let { active, update, current, actual, updateConvo,tillBtnClick, updateTill } = props;
     
     for (let i=0; i<=props.count; i++) {
+        let convString = Object.values(props.wholeCon[i])[0];
         if (i>1 && props.count===i) { //show one at a time
-            let convString = Object.values(props.wholeCon[i])[0];
             if (convString.includes('TILL') && !tillBtnClick) {
                 updateTill(true);
             } else {
                 updateTill(false);
             }
+
+            if (convString.includes('… … …')) {
+                convString = <i>User looking at the provided forms</i>;
+            }
+            
             if (Object.keys(props.wholeCon[i])[0] === 'john') {
                 convo.push(
                     <StyleRoot>
                     <div style={styles.fadeInDown} className="convo1">
-                        <div className="callout isOrange">{ convString.toUpperCase() }</div>
+                        <div className="callout isOrange">{ convString }</div>
                         <div className="bgConvo-left right"><img className="johnImage isOrange" alt="" src={`characters/john.png`} /></div>
                     </div>
                     </StyleRoot>
@@ -29,7 +34,7 @@ export default function Conversation(props) {
                 convo.push(
                     <StyleRoot>
                     <div style={styles.fadeInDown} className="convo2">
-                        <div className="callout isGreen right">{ convString.toUpperCase() }</div>
+                        <div className="callout isGreen right">{ convString }</div>
                         <div className="bgConvo-right"><img className="johnImage isGreen" alt="" src={`characters/${active.image}`} /></div>
                     </div>
                     </StyleRoot>
@@ -38,7 +43,7 @@ export default function Conversation(props) {
                 convo.push(
                     <StyleRoot>
                     <div style={styles.fadeInDown} className="convo2">
-                        <div className="callout isBlue right">{ convString.toUpperCase() }</div>
+                        <div className="callout isBlue right">{ convString }</div>
                         <div className="bgConvo-right"><img className="johnImage isGreen" alt="" src={`characters/8.png`} /></div>
                     </div>
                     </StyleRoot>
@@ -48,12 +53,20 @@ export default function Conversation(props) {
             }
             
         } else {
-            let convString = Object.values(props.wholeCon[i])[0];
+            if (convString.includes('TILL') && !tillBtnClick) {
+                updateTill(true);
+            } else {
+                updateTill(false);
+            }
+
+            if (convString.includes('… … …')) {
+                convString = <i>User looking at the provided forms</i>;
+            }
             if (Object.keys(props.wholeCon[i])[0] === 'john') {
                 convo.push(
                     <StyleRoot>
                     <div style={styles.fadeInDown} className="convo1">
-                        <div className="callout isOrange">{ convString.toUpperCase() }</div>
+                        <div className="callout isOrange">{ convString }</div>
                         <div className="bgConvo-left right"><img className="johnImage isOrange" alt="" src={`characters/john.png`} /></div>
                     </div>
                     </StyleRoot>
@@ -62,7 +75,7 @@ export default function Conversation(props) {
                 convo.push(
                     <StyleRoot>
                     <div style={styles.fadeInDown} className="convo2">
-                        <div className="callout isGreen right">{ convString.toUpperCase() }</div>
+                        <div className="callout isGreen right">{ convString }</div>
                         <div className="bgConvo-right"><img className="johnImage isGreen" alt="" src={`characters/${active.image}`} /></div>
                     </div>
                     </StyleRoot>
@@ -71,7 +84,7 @@ export default function Conversation(props) {
                 convo.push(
                     <StyleRoot>
                     <div style={styles.fadeInDown} className="convo2">
-                        <div className="callout isBlue right">{ convString.toUpperCase() }</div>
+                        <div className="callout isBlue right">{ convString }</div>
                         <div className="bgConvo-right"><img className="johnImage isGreen" alt="" src={`characters/8.png`} /></div>
                     </div>
                     </StyleRoot>

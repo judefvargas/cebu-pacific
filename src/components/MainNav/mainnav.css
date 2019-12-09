@@ -7,7 +7,8 @@
 div.callout {
 	height:25vh;
 	width: 25vw;
-	float: left;
+    float: left;
+    text-align: left;
 }
 .convo {
     background-color: #a4e59a;
@@ -42,7 +43,7 @@ div.callout {
     right: 0;
 }
 div.callout {
-    font-size: 2.1vh;
+    font-size: 2.5vh;
     font-weight: 500;
 	background-color: #444;
     color: white;
@@ -124,7 +125,7 @@ div.callout {
 }
 
 .timer {
-    font-size: 3vh;
+    font-size: 2.8vh;
     padding: 1.8vh 0;
     font-weight: 700;
 }
@@ -190,7 +191,7 @@ div.callout {
 }
 
 .class2 {
-    width: 5.5vw;
+    font-size: 2.5vh;
     font-weight: 700;
     display: inline-block;
     margin: 8vh 0;
@@ -201,7 +202,7 @@ div.callout {
 }
 
 .fa-calendar {
-    margin-top: 3.3vh;
+    margin-top: 2.6vh;
     position: relative;
 }
 
@@ -233,4 +234,8 @@ div.callout {
     border: 0 !important;
     padding: 0.50rem 1.25rem !important;
     z-index: 9999;
+}
+
+.distractorFont {
+    margin-top: 2vh;
 }

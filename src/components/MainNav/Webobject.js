@@ -28,11 +28,7 @@ export default function Webobject(props) {
                 <DisplayObject on={on} element={element} active={active} />
             </div>
             <div className="mainNavBtns">
-                { till 
-                    ? <StyleRoot><div style={styles.bounceIn}><Buttons on={on} key={generateKey()} click={(val) => {updateElement(val)}}/></div></StyleRoot> 
-                    : <>{on ? <Buttons on={on} key={generateKey()} click={(val) => {updateElement(val)}}/> : ''}</>  
-                }
-                
+                {on ? <Buttons on={on} key={generateKey()} click={(val) => {updateElement(val)}}/> : ''}
             </div>
         </div>
         </>
@@ -78,9 +74,9 @@ const Buttons = (props) => {
             background-color: #7bf1f1;
             margin: 2%;
             padding: 2% !important;
-            width: 8vw;
+            width: 10vw;
             cursor: pointer;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             line-height: 1.5;
             border-radius: .3rem;
         }
