@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
-// import { fadeInDown } from 'react-animations';
 import {StyleRoot} from 'radium';
 import { player, buttons, tillArray, showCurrencies } from '../../customer';
 import generateKey from '../Key';
@@ -15,7 +14,6 @@ export default function Webobject(props) {
         updateTillClick(true);
         console.log('call storyline var');
     }
-    console.log(tillBtnClick);
     return (
         <>
         <div className="col col-md-7 weboject">

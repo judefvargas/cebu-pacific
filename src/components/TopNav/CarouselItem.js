@@ -35,7 +35,6 @@ const RenderImage = (props) => {
         alert(`${pos} clicked`);
     }
     let imageSpan = [];
-console.log(props.done.indexOf(props.id));
     if (props.idKey===1) {
         imageSpan.push(<span>
             { (props.done.indexOf(props.id) > -1) ?

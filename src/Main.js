@@ -20,7 +20,6 @@ export default class Main extends Component {
         if ((currentCustomer+1) > totalCount) {
             this.setState({isShowModal: true});
             player.SetVar('PLW_showModal', true);
-            console.log('show modal here');
         } else {
             let done = doneCustomers;
             player.SetVar('PLW_customers_done', done);
