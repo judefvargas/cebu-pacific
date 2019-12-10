@@ -1,6 +1,6 @@
 .grid-top-nav {
     /* height: 8vh; */
-    background-color: #a4e59a  ;
+    background-color: #01a045  ;
 }
 
 .col-top-nav {
@@ -171,20 +171,19 @@
 }
 .customerInteraction {
     z-index: 9999;
-    left: 0;
+    left: 10vw;
     bottom: 0;
     position: relative;
 }
 
 .currentCount {
-    margin-top: 5%;
+    left: 60%;
+    top: 40%;
     position: absolute;
-    border-radius: 4px;
-    font-weight: 700;
+    font-weight: 800;
     background-color: #80d0a2;
     width: 40px;
-    z-index: 999999 !important;
-    left: 3.5%;
+    font-size: 20px;
 }
 
 .fa-layers {
@@ -210,4 +209,9 @@
 .checkmark {
     top: 0;
     right: 2.3vw;
+}
+
+.information {
+    left: 40%;
+    top: 30%;
 }

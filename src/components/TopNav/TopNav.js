@@ -14,8 +14,9 @@ export default class TopNav extends Component {
           <div className="row grid-top-nav">
             <div className="col-md-4" style={{ paddingRight: 0 }}>
               <div className="col-md-12 interaction">
+                <img src="PPS logo.png" alt="" style={{width:'100px', float: 'left'}}/>
               <OverlayTrigger trigger="hover" placement="right" overlay={popover}>
-                  <span className="fa-layers fa-fw">
+                  <span className="fa-layers fa-fw information">
                       <FontAwesomeIcon icon="circle" size="lg" color="red" />
                       <FontAwesomeIcon icon="info" inverse size="sm"/>
                   </span>
