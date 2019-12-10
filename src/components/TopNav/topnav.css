@@ -191,3 +191,16 @@
     min-width: 70vw;
     height: 30vh;
 }
+
+.checkmark {
+    position: absolute;
+}
+
+.squareCheck {
+    color: #00800085;
+}
+
+.checkmark {
+    top: 0;
+    right: 3vw;
+}

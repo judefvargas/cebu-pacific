@@ -1,26 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
 // import { fadeInDown } from 'react-animations';
 // import Radium, {StyleRoot} from 'radium';
 import {StyleRoot} from 'radium';
-import { buttons, tillArray } from '../../customer';
+import { showCurrencies, buttons, tillArray } from '../../customer';
 import generateKey from '../Key';
 
 export default function Webobject(props) {
-    const { active, on, updateTillClick, updateEl, element } = props;
-
+    const { active, on, updateTillClick, updateEl, element, tillBtnClick } = props;
     const updateElement = (val) => {
         updateEl(val);
         updateTillClick(true);
+        console.log('call storyline var');
     }
+    console.log(tillBtnClick);
     return (
         <>
         <div className="col col-md-7 weboject">
             <div className="mainWebObject">
                 { on ?
                 <ListGroup className="tillList">
-                    <TillArray update={updateEl} active={active}/>
+                    { showCurrencies && tillBtnClick ?
+                    (<TillArray update={updateEl} active={active}/>)
+                    : ''}
                 </ListGroup>
                 : ''
                 }
