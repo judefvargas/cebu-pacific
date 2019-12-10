@@ -16,7 +16,10 @@ export default class Clock extends Component {
     
     render() {
         return (
-            <FormatDate date={this.state.date} />
+            <>
+                <FormatDate date={this.state.date} />
+                <img src="TIMER.png" alt="" style={{width:'6.4vw', position:'relative'}} />
+            </>
         )
     }
 }
@@ -25,8 +28,8 @@ const FormatDate = (props) => {
     let { date } = props;
     let actual = date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
     return (
-        <>
+        <span style={{color:'white', position:'absolute',zIndex:'9999',display:'block'}}>
             { actual }
-        </>
+        </span>
     )
 }

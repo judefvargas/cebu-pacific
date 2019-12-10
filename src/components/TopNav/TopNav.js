@@ -20,13 +20,13 @@ export default class TopNav extends Component {
                       <FontAwesomeIcon icon="info" inverse size="sm"/>
                   </span>
               </OverlayTrigger>
-            <div className="currentCount">{this.props.active.id}/{this.props.total}</div>
+              <div className="currentCount">{this.props.active.id}/{this.props.total}</div>
               <img className="customerInteraction" height="100%" width="76px" alt="" src={`characters/${this.props.active.image}`} />
               {/* <img className="john" height="100px" width="100px" alt="" src={`characters/john.png`} /> */}
               </div>
             </div>
             <div className="col-md-8 col-top-nav" >
-            <CustomerList active={this.props.active}/>
+            <CustomerList done={this.props.done} active={this.props.active}/>
             </div>
           </div>
         )

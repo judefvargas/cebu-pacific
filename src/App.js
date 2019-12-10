@@ -2,11 +2,11 @@ import React from 'react';
 import './App.css';
 import Main from './Main';
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCaretLeft, faCaretRight, faInfo, faCircle, faCalendar, faLayerGroup, faBook, faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
+import { faCaretLeft, faCaretRight, faInfo, faCircle, faCalendar, faLayerGroup, faBook, faQuestionCircle, faCheck, faSquare } from '@fortawesome/free-solid-svg-icons'
 
 function App() {
   document.body.style.overflow = "hidden";
-  library.add(faCaretLeft, faCaretRight, faInfo, faCircle, faCalendar, faLayerGroup, faBook, faQuestionCircle);
+  library.add(faCaretLeft, faCaretRight, faInfo, faCircle, faCalendar, faLayerGroup, faBook, faQuestionCircle, faCheck, faSquare);
   return (
     <div className="App">
       <Main />      

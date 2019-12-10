@@ -1,28 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
 // import { fadeInDown } from 'react-animations';
 import {StyleRoot} from 'radium';
-import { player, buttons, tillArray } from '../../customer';
+import { player, buttons, tillArray, showCurrencies } from '../../customer';
 import generateKey from '../Key';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
 export default function Webobject(props) {
-    const { active, on, updateTillClick, updateEl, element } = props;
-
+    const { active, on, updateTillClick, updateEl, element, tillBtnClick } = props;
     const updateElement = (val) => {
         // updateEl(val);
         player.SetVar('PLW_showTill', true);
         updateTillClick(true);
+        console.log('call storyline var');
     }
+    console.log(tillBtnClick);
     return (
         <>
         <div className="col col-md-7 weboject">
             <div className="mainWebObject">
                 { on ?
                 <ListGroup className="tillList">
-                    <TillArray update={updateEl} active={active}/>
+                    { showCurrencies && tillBtnClick ?
+                    (<TillArray update={updateEl} active={active}/>)
+                    : ''}
                 </ListGroup>
                 : ''
                 }

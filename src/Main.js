@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
 import TopNav from './components/TopNav/TopNav';
 import MainNav from './components/MainNav/MainNav';
-import { player, CUSTOMERS, currentCustomer, isShowModal } from './customer';
+import { player, CUSTOMERS, currentCustomer, isShowModal, doneCustomers } from './customer';
 import ErrorHandler from './components/ErrorHandler';
 
 export default class Main extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentCustomer: currentCustomer,
+            currentCustomer,
             activeCustomer: this.search(currentCustomer, CUSTOMERS), //pull from storyline variable currentCustomer* with initial 0
             totalCount: CUSTOMERS.length,
-            isShowModal: isShowModal
+            isShowModal,
+            doneCustomers
         }
     }
     incrementActive = () => {
@@ -21,9 +22,12 @@ export default class Main extends Component {
             player.SetVar('PLW_showModal', true);
             console.log('show modal here');
         } else {
+            let done = this.state.doneCustomers;
+            done.push(this.state.currentCustomer);
             this.setState({ 
                 currentCustomer: currentCustomer+1,
-                activeCustomer: this.search(this.state.currentCustomer+1, CUSTOMERS)
+                activeCustomer: this.search(this.state.currentCustomer+1, CUSTOMERS),
+                doneCustomers: done
             });
         }
     }
@@ -39,7 +43,7 @@ export default class Main extends Component {
         return (
             <>
                 <ErrorHandler>
-                <TopNav next={ this.incrementActive } total={this.state.totalCount} active={this.state.activeCustomer} />
+                <TopNav next={ this.incrementActive } done={this.state.doneCustomers} total={this.state.totalCount} active={this.state.activeCustomer} />
                 <MainNav next={ this.incrementActive } active={this.state.activeCustomer} />
                 </ErrorHandler>
             </>
