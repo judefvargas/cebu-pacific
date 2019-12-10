@@ -240,7 +240,7 @@ export const answerList = {
 export const currentCustomer = 1;
 
 export const buttons = [
-{id: 1, title: 'TILL'}
+{id: 1, title: 'PERFORM TILL'}
 ];
 
 export const isShowModal = false;
@@ -257,3 +257,8 @@ export const tillArray = {
   {"image": "defaced.jpg"}
 ]
 };
+
+
+export const showCurrencies = true; //PLW_showCurrencies
+
+export const doneCustomers = [];
