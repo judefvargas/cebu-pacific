@@ -2,7 +2,6 @@ import React from 'react'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip  from 'react-bootstrap/Tooltip';
 import Clock from './Clock';
-import {player} from '../../customer';
 
 export default function Distractors() {
     return (
@@ -37,10 +36,10 @@ export default function Distractors() {
 const btnClick = (pos) => {
     switch(pos) {
         case 'job aids':
-            player.SetVar('PLW_showJobAids', true);
+            // player.SetVar('PLW_showJobAids', true);
             break;
         case 'tutorial':
-            player.SetVar('PLW_showTutorial', true);
+            // player.SetVar('PLW_showTutorial', true);
             break;
         default:
             break;
