@@ -16,18 +16,19 @@ export default class Main extends Component {
         }
     }
     incrementActive = () => {
-        const { currentCustomer, totalCount } = this.state;
+        const { currentCustomer, totalCount, doneCustomers } = this.state;
         if ((currentCustomer+1) > totalCount) {
             this.setState({isShowModal: true});
             player.SetVar('PLW_showModal', true);
             console.log('show modal here');
         } else {
-            let done = this.state.doneCustomers;
+            let done = doneCustomers;
             player.SetVar('PLW_customers_done', done);
-            done.push(this.state.currentCustomer);
+            done.push(currentCustomer);
+            player.SetVar('PLW_curCustomer', currentCustomer+1);
             this.setState({ 
                 currentCustomer: currentCustomer+1,
-                activeCustomer: this.search(this.state.currentCustomer+1, CUSTOMERS),
+                activeCustomer: this.search(currentCustomer+1, CUSTOMERS),
                 doneCustomers: done
             });
         }
