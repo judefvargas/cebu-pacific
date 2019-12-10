@@ -23,6 +23,7 @@ export default class Main extends Component {
             console.log('show modal here');
         } else {
             let done = this.state.doneCustomers;
+            player.SetVar('PLW_customers_done', done);
             done.push(this.state.currentCustomer);
             this.setState({ 
                 currentCustomer: currentCustomer+1,

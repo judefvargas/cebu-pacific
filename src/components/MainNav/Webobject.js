@@ -11,7 +11,6 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 export default function Webobject(props) {
     const { active, on, updateTillClick, updateEl, element, tillBtnClick } = props;
     const updateElement = (val) => {
-        // updateEl(val);
         player.SetVar('PLW_showTill', true);
         updateTillClick(true);
         console.log('call storyline var');

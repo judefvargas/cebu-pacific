@@ -19,3 +19,7 @@ export const buttons =  JSON.parse(player.GetVar('PLW_buttons'));
 export const isShowModal = player.GetVar('PLW_showModal');
 
 export const tillArray = JSON.parse(player.GetVar('PLW_currencies'));
+
+export const showCurrencies = player.GetVar('PLW_showCurrencies');
+
+export const doneCustomers = JSON.parse(player.GetVar('PLW_customers_done'));
