@@ -262,3 +262,5 @@ export const tillArray = {
 export const showCurrencies = true; //PLW_showCurrencies
 
 export const doneCustomers = [];
+
+export const logo = 'PPS logo.png';
