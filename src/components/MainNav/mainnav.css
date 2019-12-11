@@ -51,10 +51,9 @@ div.callout {
     margin: 1.5%;
     min-height: 20px;
     z-index: 999;
-    left: 85%;
-    width: 80%;
+    width: auto;
     height: auto;
-    padding: 3%;
+    padding: 3.5%;
 }
 
 .calloutRight {
@@ -92,7 +91,8 @@ div.callout {
 }
 
 .right {
-	float: right !important;
+    float: right !important;
+    margin-right: 0.7vw !important;
 }
 #calloutText {
 	margin: 5%;
@@ -119,9 +119,8 @@ div.callout {
     background-color: #34b9ef !important;
 }
 .bgConvo-right {
-    
-    margin: 2% 3%;
     float: left;
+    clear: both;
 }
 
 .timer {
@@ -165,14 +164,10 @@ div.callout {
     box-shadow: 0 0 0 0.2rem rgba(197, 196, 196, 0.49)
 }
 
-.convo1 {
-    height: auto;
-    display: flex;
-}
-
-.convo2 {
+.convo1, .convo2 {
     height: auto;
     display: flow-root;
+    width: 100%;
 }
 
 .mainNavBtns {
@@ -254,4 +249,10 @@ div.callout {
 
 .distract {
     padding: 2vh 0;
+}
+
+.convoSpan {
+    /* display: inline-block; */
+    width: 68%;
+    margin: 0 auto;
 }

@@ -25,8 +25,8 @@ export default function Conversation(props) {
                 convo.push(
                     <StyleRoot>
                     <div style={styles.fadeInDown} className="convo1">
-                        <div className="callout isOrange">{ convString }</div>
-                        <div className="bgConvo-left right"><img className="johnImage isOrange" alt="" src={`characters/john.png`} /></div>
+                        <span className="convoSpan" style={{float:'right'}}><div className="callout isOrange right">{ convString }</div></span>
+                        {/* <div className="bgConvo-left right"><img className="johnImage isOrange" alt="" src={`characters/john.png`} /></div> */}
                     </div>
                     </StyleRoot>
                 );
@@ -34,8 +34,8 @@ export default function Conversation(props) {
                 convo.push(
                     <StyleRoot>
                     <div style={styles.fadeInDown} className="convo2">
-                        <div className="callout isGreen right">{ convString }</div>
                         <div className="bgConvo-right"><img className="johnImage isGreen" alt="" src={`characters/${active.image}`} /></div>
+                        <span className="convoSpan" style={{float:'left'}}><div className="callout isGreen" >{ convString }</div></span>
                     </div>
                     </StyleRoot>
                 );
@@ -43,8 +43,8 @@ export default function Conversation(props) {
                 convo.push(
                     <StyleRoot>
                     <div style={styles.fadeInDown} className="convo2">
-                        <div className="callout isBlue right">{ convString }</div>
                         <div className="bgConvo-right"><img className="johnImage isGreen" alt="" src={`characters/8.png`} /></div>
+                        <span className="convoSpan" style={{float:'left'}}><div className="callout isBlue ">{ convString }</div></span>
                     </div>
                     </StyleRoot>
                 );
@@ -66,8 +66,8 @@ export default function Conversation(props) {
                 convo.push(
                     <StyleRoot>
                     <div style={styles.fadeInDown} className="convo1">
-                        <div className="callout isOrange">{ convString }</div>
-                        <div className="bgConvo-left right"><img className="johnImage isOrange" alt="" src={`characters/john.png`} /></div>
+                    <span className="convoSpan" style={{float:'right'}}><div className="callout isOrange right">{ convString }</div></span>
+                        {/* <div className="bgConvo-left right"><img className="johnImage isOrange" alt="" src={`characters/john.png`} /></div> */}
                     </div>
                     </StyleRoot>
                 );
@@ -75,8 +75,8 @@ export default function Conversation(props) {
                 convo.push(
                     <StyleRoot>
                     <div style={styles.fadeInDown} className="convo2">
-                        <div className="callout isGreen right">{ convString }</div>
                         <div className="bgConvo-right"><img className="johnImage isGreen" alt="" src={`characters/${active.image}`} /></div>
+                        <span className="convoSpan" style={{float:'left'}}><div className="callout isGreen" >{ convString }</div></span>
                     </div>
                     </StyleRoot>
                 );
@@ -84,8 +84,8 @@ export default function Conversation(props) {
                 convo.push(
                     <StyleRoot>
                     <div style={styles.fadeInDown} className="convo2">
-                        <div className="callout isBlue right">{ convString }</div>
                         <div className="bgConvo-right"><img className="johnImage isGreen" alt="" src={`characters/8.png`} /></div>
+                        <span className="convoSpan" style={{float:'left'}}><div className="callout isBlue ">{ convString }</div></span>
                     </div>
                     </StyleRoot>
                 );

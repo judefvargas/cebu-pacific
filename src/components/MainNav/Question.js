@@ -13,7 +13,7 @@ export default function Question(props) {
         window.scrollTo(0, qEndRef.current.offsetTop)
     }
     const questionArr = [];
-    let { qid, actual, current, update, activeId, updateConvo } = props;
+    let { qid, current, update, activeId, updateConvo } = props;
     let question = questionList[qid];
     useEffect(scrollToTop);
     if (current === qid) {
@@ -29,19 +29,19 @@ export default function Question(props) {
                 </Card>
             </div>
         );
-    } else if(actual === qid) {
-        questionArr.push(
-            <div style={styles.pulse} ref={qEndRef}>
-                <Card>
-                    <div className="outer">
-                        <Card.Header>{ question }</Card.Header>
-                        <ListGroup variant="flush">
-                            <Choices update={update} updateConvo={updateConvo} activeId={activeId} key={generateKey()} qid={ qid }/>
-                        </ListGroup>
-                    </div>
-                </Card>
-            </div>    
-        );
+    // } else if(actual === qid) {
+    //     questionArr.push(
+    //         <div style={styles.pulse} ref={qEndRef}>
+    //             <Card>
+    //                 <div className="outer">
+    //                     <Card.Header>{ question }</Card.Header>
+    //                     <ListGroup variant="flush">
+    //                         <Choices update={update} updateConvo={updateConvo} activeId={activeId} key={generateKey()} qid={ qid }/>
+    //                     </ListGroup>
+    //                 </div>
+    //             </Card>
+    //         </div>    
+    //     );
     } else {
         questionArr.push(
             <div style={styles.pulse} ref={qEndRef}>

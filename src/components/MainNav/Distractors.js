@@ -49,7 +49,7 @@ const btnClick = (pos) => {
 const CurrentDate = () => {
     let monthNames = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JULY', 'AUG', 'SEPT', 'OCT', 'NOV', 'DEC']
     let currentDate = new Date();
-    let month = monthNames[currentDate.getMonth()];
+    // let month = monthNames[currentDate.getMonth()];
     let date = currentDate.getDate();
 
     // let actualDate = `${month}. ${date}`;
