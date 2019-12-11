@@ -4,6 +4,7 @@ import CustomerList from './Customers';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Popover from 'react-bootstrap/Popover';
+import {logo} from '../../customer';
 
 export default class TopNav extends Component {
     btnClick = (pos) => {
@@ -14,7 +15,7 @@ export default class TopNav extends Component {
           <div className="row grid-top-nav">
             <div className="col-md-4" style={{ paddingRight: 0 }}>
               <div className="col-md-12 interaction">
-                <img src="PPS logo.png" alt="" style={{width:'100px', float: 'left'}}/>
+                <img src={logo} alt="" style={{width:'100px', float: 'left'}}/>
               <OverlayTrigger trigger="hover" placement="right" overlay={popover}>
                   <span className="fa-layers fa-fw information">
                       <FontAwesomeIcon icon="circle" size="lg" color="red" />
