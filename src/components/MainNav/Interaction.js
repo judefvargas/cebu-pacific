@@ -161,7 +161,7 @@ export default function Interaction(props) {
     /* For scrolling to bottom of div when next button is clicked (i.e. always show recent messages) */ 
     const scrollToBottom = () => {
         if (state.count>1) {
-            messageEndRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            messageEndRef.current.scrollIntoView({ behavior: 'smooth' });
         }
     }
     
