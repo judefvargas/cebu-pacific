@@ -23,3 +23,5 @@ export const tillArray = JSON.parse(player.GetVar('PLW_currencies'));
 export const showCurrencies = player.GetVar('PLW_showCurrencies');
 
 export const doneCustomers = JSON.parse(player.GetVar('PLW_customers_done'));
+
+export const logo = player.GetVar('PLW_logo');
