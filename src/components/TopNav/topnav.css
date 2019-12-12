@@ -187,10 +187,10 @@
 }
 
 .fa-layers {
-    top: 5vh;
+    /* top: 2vh; */
     position: absolute;
     cursor: pointer;
-    right: 4vw;
+    /* right: 4vw; */
 }
 .bs-popover-right {
     z-index: 9999 !important;
@@ -208,7 +208,8 @@
 
 .checkmark {
     top: 0;
-    right: 2.3vw;
+    margin-left: 2.8vw;
+    /* right: 3vw; */
 }
 
 .information {

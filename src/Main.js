@@ -33,6 +33,13 @@ export default class Main extends Component {
         }
     }
 
+    updateActive = (id) => {
+        this.setState({
+            currentCustomer: id,
+            activeCustomer: this.search(id, CUSTOMERS)
+        });
+    }
+
     search = (value, array) => {
         let searchVal = array.find((object) => {
             if (object.id === value) return true;
@@ -44,7 +51,7 @@ export default class Main extends Component {
         return (
             <>
                 <ErrorHandler>
-                <TopNav next={ this.incrementActive } done={this.state.doneCustomers} total={this.state.totalCount} active={this.state.activeCustomer} />
+                <TopNav next={ this.incrementActive } done={this.state.doneCustomers} total={this.state.totalCount} active={this.state.activeCustomer} updateActive={(id)=>{this.updateActive(id)}} />
                 <MainNav next={ this.incrementActive } active={this.state.activeCustomer} />
                 </ErrorHandler>
             </>

@@ -20,7 +20,7 @@ export default function Webobject(props) {
             <div className="mainWebObject">
                 { on ?
                 <ListGroup className="tillList">
-                    { showCurrencies && tillBtnClick ?
+                    { showCurrencies && tillBtnClick && (tillArray[active.id]!==undefined) ?
                     (<TillArray update={updateEl} active={active}/>)
                     : ''}
                 </ListGroup>

@@ -28,7 +28,7 @@ export default class TopNav extends Component {
               </div>
             </div>
             <div className="col-md-8 col-top-nav" >
-            <CustomerList done={this.props.done} active={this.props.active}/>
+            <CustomerList done={this.props.done} active={this.props.active} updateActive={this.props.updateActive} />
             </div>
           </div>
         )
