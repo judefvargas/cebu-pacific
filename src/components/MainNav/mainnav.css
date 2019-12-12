@@ -26,7 +26,7 @@ div.callout {
     margin-top: 7%;
     overflow-y: scroll;
     overflow-x: hidden;
-    
+    scrollbar-width: thin;
 }
 .divOverflow {
     height: auto;
