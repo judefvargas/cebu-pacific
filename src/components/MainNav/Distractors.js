@@ -37,10 +37,10 @@ export default function Distractors() {
 const btnClick = (pos) => {
     switch(pos) {
         case 'job aids':
-            player.SetVar('PLW_showJobAids', true);
+            player.SetVar('CARGO_showJobAids', true);
             break;
         case 'tutorial':
-            player.SetVar('PLW_showTutorial', true);
+            player.SetVar('CARGO_showTutorial', true);
             break;
         default:
             break;

@@ -1,27 +1,27 @@
 export const player = window.parent.GetPlayer();
 
-export const CUSTOMERS = JSON.parse(player.GetVar('PLW_customers'));
+export const CUSTOMERS = JSON.parse(player.GetVar('CARGO_customers'));
 
-export const convoR = JSON.parse(player.GetVar('PLW_conversation'));
+export const convoR = JSON.parse(player.GetVar('CARGO_conversation'));
 
-export const questionList = JSON.parse(player.GetVar('PLW_questionList'));
+export const questionList = JSON.parse(player.GetVar('CARGO_questionList'));
 
-export const choicesList = JSON.parse(player.GetVar('PLW_choicesList'));
+export const choicesList = JSON.parse(player.GetVar('CARGO_choicesList'));
 
-export const answerList = player.GetVar('PLW_answerList');
+export const answerList = player.GetVar('CARGO_answerList');
 
-export const currentCustomer = player.GetVar('PLW_curCustomer');
+export const currentCustomer = player.GetVar('CARGO_curCustomer');
 
-export const consequences = JSON.parse(player.GetVar('PLW_consequences'));
+export const consequences = JSON.parse(player.GetVar('CARGO_consequences'));
 
-export const buttons =  JSON.parse(player.GetVar('PLW_buttons'));
+export const buttons =  JSON.parse(player.GetVar('CARGO_buttons'));
 
-export const isShowModal = player.GetVar('PLW_showModal');
+export const isShowModal = player.GetVar('CARGO_showModal');
 
-export const tillArray = JSON.parse(player.GetVar('PLW_currencies'));
+export const tillArray = JSON.parse(player.GetVar('CARGO_currencies'));
 
-export const showCurrencies = player.GetVar('PLW_showCurrencies');
+export const showCurrencies = player.GetVar('CARGO_showCurrencies');
 
-export const doneCustomers = JSON.parse(player.GetVar('PLW_customers_done'));
+export const doneCustomers = JSON.parse(player.GetVar('CARGO_customers_done'));
 
-export const logo = player.GetVar('PLW_logo');
+export const logo = player.GetVar('CARGO_logo');

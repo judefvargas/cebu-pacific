@@ -67,7 +67,7 @@ const searchObject = (searchVal, object) => {
 }
 function saveAnswer(prevAns, custId, qId, ans) {
     const customerAnswer = {};
-    // const prevAnswer = (player.GetVar('PLW_pastChoices'));
+    // const prevAnswer = (player.GetVar('CARGO_pastChoices'));
     const questionAns = {};
     const allQuestions = [];
     questionAns[qId] = ans;
@@ -82,7 +82,7 @@ function saveAnswer(prevAns, custId, qId, ans) {
         customerAnswer[custId.toString()] = allQuestions;
     }
     return customerAnswer;
-    // player.SetVar('PLW_pastChoices', customerAnswer);
+    // player.SetVar('CARGO_pastChoices', customerAnswer);
 }
 
 const Choices = (props) => {
