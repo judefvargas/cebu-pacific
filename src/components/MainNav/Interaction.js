@@ -14,22 +14,22 @@ export default function Interaction(props) {
         if (parseInt(key) === props.active.id) current.push(convoR[key]);
     });
 
-    let length = current[0].length-1;
+    // let length = current[0].length-1;
     /* Set initial values */
     const initVal = {
         count: 1,
         // currentIndex: 1,
         hidden: '', //for hiding next button
         longDiv: '', //if next button is hidden, chat will take up entire space
-        disabled: false, //button disable (for decision points)
-        length: length, //length of conversation
-        current: current[0][1],
+        disabled: current.length!==0 ? false : true, //button disable (for decision points)
+        length: current.length!==0 ? current[0].length-1 : 0, //length of conversation
+        current: current.length!==0 ? current[0][1] : 0,
         isBtnPulse: false, //button animation 
-        actualCurrent: current[0][1],
+        actualCurrent: current.length!==0 ? current[0][1] : 0,
         temp: [], //storage for consequences,
-        hasError: false, //has error message (no consequence data, etc)
-        errorMessage: null, //error message container
-        wholeCon: current[0], //whole conversation
+        hasError: current.length!==0 ? false : true, //has error message (no consequence data, etc)
+        errorMessage: current.length!==0 ? null : 'No conversation data available', //error message container
+        wholeCon: current.length!==0 ? current[0] : [], //whole conversation
         isNew: false,
         btnTitle: 'NEXT'
     };
@@ -107,6 +107,12 @@ export default function Interaction(props) {
                     btnTitle: action.payload
                 }
             }
+            case 'DISABLE_BUTTON': {
+                return {
+                    ...state,
+                    disabled: true
+                }
+            }
             case 'RESET': {
                 return { ...initVal }
             }
@@ -139,17 +145,17 @@ export default function Interaction(props) {
      
         if (state.count+1===tempLength) {
             dispatch({type: 'UPDATE_NEW', payload: true});
-            
+            dispatch({type: 'DISABLE_BUTTON'});
             props.updateEl(null);
             props.updateTillClick(false);
-            props.next();
-            
             setTimeout(() => {
+                props.next()
+
                 dispatch({type: 'RESET'});
+
             }, 1000);
 
         } else {
-            // props.updateNew(false);
             dispatch({type: 'BUTTON_CLICKED'})
         }
         
@@ -161,7 +167,7 @@ export default function Interaction(props) {
     /* For scrolling to bottom of div when next button is clicked (i.e. always show recent messages) */ 
     const scrollToBottom = () => {
         if (state.count>1) {
-            messageEndRef.current.scrollIntoView({ behavior: 'smooth' });
+            messageEndRef.current.scrollIntoView({ behavior: 'smooth', inline: 'end' });
         }
     }
     
@@ -207,7 +213,8 @@ export default function Interaction(props) {
         : (<div className="col col-md-4 convo" >
             <StyleRoot><div className={`conversation ${state.longDiv}`} id="style-3" style={ (state.isNew) ? (styles.fadeOut) : {} }>
                 <div className="divOverflow" >
-                    <Conversation active={props.active} wholeCon={state.wholeCon} actual={state.actualCurrent} id="container3" update={ () => { dispatch({type: 'UPDATE_CHOICE' }) } } current={state.current}  count={state.count} key="1" updateConvo={(val)=>{ updateCon(val) }} updateTill={props.updateTill} tillBtnClick={props.tillBtnClick} />
+                    { state.wholeCon.length!==0 ? 
+                    (<Conversation active={props.active} wholeCon={state.wholeCon} actual={state.actualCurrent} id="container3" update={ () => { dispatch({type: 'UPDATE_CHOICE' }) } } current={state.current}  count={state.count} key="1" updateConvo={(val)=>{ updateCon(val) }} updateTill={props.updateTill} tillBtnClick={props.tillBtnClick} />) : '' }
                 </div>
                 { state.hasError ? <div>{state.errorMessage}</div> : '' }
                 <div id="reference1" ref={messageEndRef} ></div>
