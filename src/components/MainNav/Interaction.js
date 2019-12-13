@@ -60,6 +60,9 @@ export default function Interaction(props) {
     function reducer(state, action) {
         switch(action.type) {
             case 'BUTTON_CLICKED': {
+                console.log(state.wholeCon);
+                localStorage.setItem('conversation', state.wholeCon);
+                console.log(localStorage.getItem('conversation'));
                 return {
                     ...state,
                     count: state.count+1,
@@ -153,7 +156,7 @@ export default function Interaction(props) {
 
                 dispatch({type: 'RESET'});
 
-            }, 1000);
+            }, 500);
 
         } else {
             dispatch({type: 'BUTTON_CLICKED'})
