@@ -15,7 +15,7 @@ export const styles = {
         animationName: Radium.keyframes(bounceIn, 'bounceIn')
     },
     fadeOut: {
-      animation: 'x 1s',
+      animation: 'x 0.5s',
         animationName: Radium.keyframes(fadeOut, 'fadeOut')
     },
     fadeIn: {

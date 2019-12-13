@@ -15,7 +15,7 @@ export default class TopNav extends Component {
           <div className="row grid-top-nav">
             <div className="col-md-4" style={{ paddingRight: 0 }}>
               <div className="col-md-12 interaction">
-                <img src={logo} alt="" style={{width:'100px', float: 'left'}}/>
+                <img src={logo} alt="" style={{width:'100px', float: 'left', marginTop: '3%'}}/>
               <OverlayTrigger trigger="hover" placement="right" overlay={popover}>
                   <span className="fa-layers fa-fw information">
                       <FontAwesomeIcon icon="circle" size="lg" color="red" />
