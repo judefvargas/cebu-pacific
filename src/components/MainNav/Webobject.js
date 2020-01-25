@@ -4,11 +4,13 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import {StyleRoot} from 'radium';
 import { showCurrencies, buttons, tillArray } from '../../customer';
 import generateKey from '../Key';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 export default function Webobject(props) {
     const { active, on, updateTillClick, updateEl, element, tillBtnClick } = props;
     const updateElement = (val) => {
-        updateEl(val);
+        //player.SetVar('CARGO_showTill', true);
         updateTillClick(true);
         console.log('call storyline var');
     }
@@ -38,7 +40,7 @@ const DisplayObject = (props) => {
     const { on, element, active } = props;
     let obj = [];
     if ((on && element===null)) {
-        obj.push(<img className="webObjImage" src={active.package} alt=""/>);
+        obj.push(<LazyLoadImage placeholderSrc={active.package} effect="blur" className="webObjImage" src={active.package} alt=""/>);
     } else if (on) {
         obj.push(<ShowObject element={element}/>);
     } else {
@@ -59,8 +61,8 @@ const TillArray = (props) => {
     let tillArr = [];
     let images = tillArray[active.id];
     for (let i=0; i<images.length; i++) {
-        let el = <img alt="" style={{width:'80%'}} src={`currency/${images[i].image}`} />
-        tillArr.push(<ListGroup.Item className="tillListItem"><img onClick={()=>{update(el)}} style={{width:'65px', cursor: 'pointer'}} src={`currency/${images[i].image}`} alt="" /></ListGroup.Item>)
+        let el = <LazyLoadImage placeholderSrc={`currency/${images[i].image}`} effect="blur" alt="" style={{width:'80%'}} src={`currency/${images[i].image}`} />
+        tillArr.push(<ListGroup.Item className="tillListItem"><LazyLoadImage placeholderSrc={`currency/${images[i].image}`}effect="blur" onClick={()=>{update(el)}} style={{width:'65px', cursor: 'pointer'}} src={`currency/${images[i].image}`} alt="" /></ListGroup.Item>)
     }
     return tillArr;
 }

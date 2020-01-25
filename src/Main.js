@@ -16,10 +16,10 @@ export default class Main extends Component {
         }
     }
     incrementActive = () => {
-        const { currentCustomer, totalCount } = this.state;
+        const { currentCustomer, totalCount, doneCustomers } = this.state;
         if ((currentCustomer+1) > totalCount) {
             this.setState({isShowModal: true});
-            console.log('show modal here');
+            player.SetVar('CARGO_showModal', true);
         } else {
             let done = this.state.doneCustomers;
             done.push(this.state.currentCustomer);

@@ -123,6 +123,11 @@
     cursor: pointer;
 }
 
+.carousel-inner {
+    display: -webkit-inline-box;
+    display: -moz-inline-box;
+}
+
 .isHidden {
     display: none;
 }
@@ -153,6 +158,8 @@
 
 .carousel-item {
     width: auto !important;
+    margin-right: 0 !important;
+    float: none !important;
 }
 .interaction {
     background: url('./customer-john.png');
