@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useReducer } from 'react'
 import './mainnav.css';
-import { CUSTOMERS, convoR } from '../../customer';
+import { player, CUSTOMERS, convoR } from '../../customer';
 import Button from 'react-bootstrap/Button';
 import Conversation from './Conversation';
 import { styles } from '../animationStyles';
@@ -144,7 +144,7 @@ export default function Interaction(props) {
         }
         if (state.count+1===tempLength) {
             if (CUSTOMERS.length===props.active.id) {
-                // player.SetVar('CARGO_showResults', true);
+                player.SetVar('CARGO_showResults', true);
             } else {
                 dispatch({type: 'UPDATE_NEW', payload: true});
                 dispatch({type: 'DISABLE_BUTTON'});
