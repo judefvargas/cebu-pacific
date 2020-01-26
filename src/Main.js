@@ -19,7 +19,7 @@ export default class Main extends Component {
         const { currentCustomer, totalCount, doneCustomers } = this.state;
         if ((currentCustomer+1) > totalCount) {
             this.setState({isShowModal: true});
-            player.SetVar('CARGO_showModal', true);
+            // player.SetVar('CARGO_showModal', true);
         } else {
             let done = this.state.doneCustomers;
             done.push(this.state.currentCustomer);

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useReducer } from 'react'
 import './mainnav.css';
-import { convoR } from '../../customer';
+import { CUSTOMERS, convoR } from '../../customer';
 import Button from 'react-bootstrap/Button';
 import Conversation from './Conversation';
 import { styles } from '../animationStyles';
@@ -60,9 +60,7 @@ export default function Interaction(props) {
     function reducer(state, action) {
         switch(action.type) {
             case 'BUTTON_CLICKED': {
-                console.log(state.wholeCon);
-                localStorage.setItem('conversation', state.wholeCon);
-                console.log(localStorage.getItem('conversation'));
+                // localStorage.setItem('conversation', state.wholeCon);
                 return {
                     ...state,
                     count: state.count+1,
@@ -137,7 +135,6 @@ export default function Interaction(props) {
     }
      /* Actions when next button is clicked */
      const onClick = () => {
-        
         let tempLength = state.length;
         if (state.temp.length!==0) {
             state.wholeCon = state.temp[0];
@@ -145,18 +142,20 @@ export default function Interaction(props) {
             dispatch({type: 'UPDATE_LENGTH', payload: state.temp[0].length});
             state.temp = [];
         }
-     
         if (state.count+1===tempLength) {
-            dispatch({type: 'UPDATE_NEW', payload: true});
-            dispatch({type: 'DISABLE_BUTTON'});
-            props.updateEl(null);
-            props.updateTillClick(false);
-            setTimeout(() => {
-                props.next()
-
-                dispatch({type: 'RESET'});
-
-            }, 500);
+            if (CUSTOMERS.length===props.active.id) {
+                // player.SetVar('CARGO_showResults', true);
+            } else {
+                dispatch({type: 'UPDATE_NEW', payload: true});
+                dispatch({type: 'DISABLE_BUTTON'});
+                props.updateEl(null);
+                props.updateTillClick(false);
+                setTimeout(() => {
+                    props.next()
+                    dispatch({type: 'RESET'});
+    
+                }, 500);
+            }
 
         } else {
             dispatch({type: 'BUTTON_CLICKED'})
@@ -164,8 +163,12 @@ export default function Interaction(props) {
         
     }
 
-    if ((state.wholeCon.length-1 === state.count) && typeof(state.wholeCon[state.count])!=='string' && state.btnTitle!=='NEXT CUSTOMER') {
-        dispatch({type: 'UPDATE_BTN_TITLE', payload: 'NEXT CUSTOMER'});
+    if ((state.wholeCon.length-1 === state.count) && typeof(state.wholeCon[state.count])!=='string' && state.btnTitle!=='NEXT CUSTOMER' && state.btnTitle!=='SHOW RESULTS') {
+        if (CUSTOMERS.length===props.active.id) {
+            dispatch({type: 'UPDATE_BTN_TITLE', payload: 'SHOW RESULTS'});
+        } else {
+            dispatch({type: 'UPDATE_BTN_TITLE', payload: 'NEXT CUSTOMER'});
+        }
     }
     /* For scrolling to bottom of div when next button is clicked (i.e. always show recent messages) */ 
     const scrollToBottom = () => {
@@ -174,7 +177,6 @@ export default function Interaction(props) {
         }
     }
     
-    // console.log(state.count);    
     useEffect(scrollToBottom);
     return (
         <>
