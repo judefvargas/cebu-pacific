@@ -25,3 +25,7 @@ export const showCurrencies = player.GetVar('CARGO_showCurrencies');
 export const doneCustomers = JSON.parse(player.GetVar('CARGO_customers_done'));
 
 export const logo = player.GetVar('CARGO_logo');
+
+export const initChatCount = player.GetVar('CARGO_initialMsgCount');
+
+export const allowClick = player.GetVar('CARGO_allowClick');
