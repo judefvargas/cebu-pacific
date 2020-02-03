@@ -18,7 +18,7 @@ export default function Interaction(props) {
    
     /* Set initial values */
     const initVal = {
-        count: initChatCount, //chat message count initially shown
+        count: initChatCount - 1, //chat message count initially shown
         // currentIndex: 1,
         hidden: '', //for hiding next button
         longDiv: '', //if next button is hidden, chat will take up entire space
