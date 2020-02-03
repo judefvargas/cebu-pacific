@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect, forwardRef } from 'react'
 import './topnav.css';
 import CustomerList from './Customers';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Popover from 'react-bootstrap/Popover';
-import {logo} from '../../customer';
+import { doneCustomers, logo } from '../../customer';
 
 export default class TopNav extends Component {
     btnClick = (pos) => {
@@ -16,13 +16,13 @@ export default class TopNav extends Component {
             <div className="col-md-4" style={{ paddingRight: 0 }}>
               <div className="col-md-12 interaction">
                 <img src={logo} alt="" style={{width:'100px', float: 'left', marginTop: '3%'}}/>
-              <OverlayTrigger trigger="hover" placement="right" overlay={popover}>
+              <OverlayTrigger trigger="click" rootClose placement="right" overlay={<PopoverComponent data={this.props.active}/>}>
                   <span className="fa-layers fa-fw information">
                       <FontAwesomeIcon icon="circle" size="lg" color="red" />
                       <FontAwesomeIcon icon="info" inverse size="sm"/>
                   </span>
               </OverlayTrigger>
-              <div className="currentCount">{this.props.active.id}/{this.props.total}</div>
+              <div className="currentCount">{doneCustomers.length+1}/{this.props.total}</div>
               <img className="customerInteraction" height="100%" width="76px" alt="" src={`characters/${this.props.active.image}`} />
               {/* <img className="john" height="100px" width="100px" alt="" src={`characters/john.png`} /> */}
               </div>
@@ -35,21 +35,30 @@ export default class TopNav extends Component {
     }
 }
 
-const popover = (
-  <Popover id="popover-basic">
-      <Popover.Content>
-          <h4>INFORMATION</h4>
-          <div className="row">
-              <div className="col-md-4">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-              </div>
-              <div className="col-md-4">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-              </div>
-              <div className="col-md-4">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-              </div>
-          </div>
-      </Popover.Content>
-  </Popover>
+const PopoverComponent = forwardRef(
+  ({ scheduleUpdate, children, ...props }, ref) => {
+    useEffect(() => {
+      scheduleUpdate();
+    }, [children, scheduleUpdate]);
+    return (
+      <Popover ref={ref} id="popover-basic" {...props}>
+        <Popover.Content>
+            <h4>INFORMATION</h4>
+            <div className="popoverRow row">
+                <div className="col-md-4" style={{textAlign: 'center'}}>
+                <img className="" height="100%" alt="" src={`characters/${props.data.image}`} />
+                  
+                </div>
+                <div className="col-md-4">
+                <b>Name:</b> {props.data.name}<br/>
+                <b>Age: </b> {props.data.age}
+                </div>
+                <div className="col-md-4">
+                "{props.data.text}"
+                </div>
+            </div>
+        </Popover.Content>
+    </Popover>
+    );
+  },
 );

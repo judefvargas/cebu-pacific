@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useReducer } from 'react'
 import './mainnav.css';
-import { CUSTOMERS, convoR } from '../../customer';
+import { CUSTOMERS, convoR, initChatCount } from '../../customer';
 import Button from 'react-bootstrap/Button';
 import Conversation from './Conversation';
 import { styles } from '../animationStyles';
@@ -8,16 +8,17 @@ import {StyleRoot} from 'radium';
 
 export default function Interaction(props) {
     const messageEndRef = useRef(null);
-    const current = [];
+    let current = [];
     /* Set current conversation according to current active id */
-    Object.keys(convoR).forEach(function(key) {
-        if (parseInt(key) === props.active.id) current.push(convoR[key]);
-    });
 
-    // let length = current[0].length-1;
+    for (let [key, value] of Object.entries(convoR)) {
+        if (parseInt(key) === props.active.id) current.push(value);
+    }
+
+   
     /* Set initial values */
     const initVal = {
-        count: 1,
+        count: initChatCount, //chat message count initially shown
         // currentIndex: 1,
         hidden: '', //for hiding next button
         longDiv: '', //if next button is hidden, chat will take up entire space
@@ -33,7 +34,12 @@ export default function Interaction(props) {
         isNew: false,
         btnTitle: 'NEXT'
     };
+
+     useEffect(() => {
+        dispatch({type: 'RESET'});
+      }, [props.active.id]);
     const [state, dispatch] = useReducer(reducer, initVal);
+    console.log(initVal)
     
     /* Insert object to specific index in object */
     const insertToObject = (obj, newObj, index) => {
@@ -172,7 +178,7 @@ export default function Interaction(props) {
     }
     /* For scrolling to bottom of div when next button is clicked (i.e. always show recent messages) */ 
     const scrollToBottom = () => {
-        if (state.count>1) {
+        if (state.count>1 && messageEndRef.current!==null) {
             messageEndRef.current.scrollIntoView({ behavior: 'smooth', inline: 'end' });
         }
     }

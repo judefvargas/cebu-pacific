@@ -1,6 +1,6 @@
 import React from 'react';
 import ProgressBar from 'react-bootstrap/ProgressBar';
-// import { CUSTOMERS } from '../../customer';
+import { allowClick } from '../../customer';
 import generateKey from '../Key';
 // import { StyleRoot } from 'radium';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -55,7 +55,9 @@ const search = (value, array) => {
 
 const RenderImage = (props) => {
     const btnClick = () => {
-        // props.updateActive(props.id);
+        if (allowClick) {
+            props.updateActive(props.id);
+        }
     }
     let imageSpan = [];
     imageSpan.push(<span>
