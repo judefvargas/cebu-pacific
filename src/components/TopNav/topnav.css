@@ -216,3 +216,16 @@
     left: 78%;
     top: 43%;
 }
+
+.popover-body {
+    height: 100%;
+}
+
+.popoverRow * {
+    height: 100%
+}
+
+.popoverRow {
+    height: 90%;
+    position: relative;
+}
