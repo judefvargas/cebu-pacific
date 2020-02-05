@@ -29,3 +29,7 @@ export const logo = player.GetVar('CARGO_logo');
 export const initChatCount = player.GetVar('CARGO_initialMsgCount');
 
 export const allowClick = player.GetVar('CARGO_allowClick');
+
+export const scoring = player.GetVar('CARGO_scoring');
+
+export const buttonTitles = player.GetVar('CARGO_buttonTitles');
