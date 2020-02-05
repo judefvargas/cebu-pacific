@@ -39,7 +39,6 @@ export default function Interaction(props) {
         dispatch({type: 'RESET'});
       }, [props.active.id]);
     const [state, dispatch] = useReducer(reducer, initVal);
-    console.log(initVal)
     
     /* Insert object to specific index in object */
     const insertToObject = (obj, newObj, index) => {
