@@ -3,8 +3,9 @@ import Card from 'react-bootstrap/Card';
 // import {StyleRoot} from 'radium';
 import { styles } from '../animationStyles';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { questionList, choicesList, consequences } from '../../customer';
+import { answerList, questionList, choicesList, consequences } from '../../customer';
 import generateKey from '../Key';
+import { updateTotal } from '../storylineActions';
 
 export default function Question(props) {
     const qEndRef = useRef(null);
@@ -89,7 +90,15 @@ const Choices = (props) => {
     let choices = [];
     
     // action on choice click
-    const onClick = (cId, qId, ansIndex) => {
+    const onClick = (qId, ansIndex) => {
+        let correctAnsArr = answerList[qId];
+        // correct answer is answer index + 1
+        if (correctAnsArr[0] === (ansIndex+1)) {
+            updateTotal(true);
+        } else {
+            updateTotal(false);
+        }
+        console.log(correctAnsArr);
         let cons = searchObject(qId, consequences);
         if (cons===undefined) {
             props.updateConvo({ convo: cons, msg: 'No consequence data found.' });
@@ -103,7 +112,7 @@ const Choices = (props) => {
 
     for (let i=0; i<choicesList[props.qid].length; i++) {
         choices.push(
-            <ListGroup.Item key={i} onClick={ () => {onClick(props.activeId, props.qid, i)} }>{ choicesList[props.qid][i] }</ListGroup.Item>
+            <ListGroup.Item key={i} onClick={ () => {onClick(props.qid, i)} }>{ choicesList[props.qid][i] }</ListGroup.Item>
         );
     }
     return choices;

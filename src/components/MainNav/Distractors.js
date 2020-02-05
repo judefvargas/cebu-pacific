@@ -2,6 +2,7 @@ import React from 'react'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip  from 'react-bootstrap/Tooltip';
 import Clock from './Clock';
+import { buttonTitles } from '../../customer';
 
 export default function Distractors() {
     return (
@@ -15,7 +16,7 @@ export default function Distractors() {
 
             <OverlayTrigger trigger="hover" placement="left" overlay={ 
                 <Tooltip >
-                    Job Aids
+                    { buttonTitles.job_aids }
                 </Tooltip> }>
                 <span style={{cursor: 'pointer'}}>
                     <img alt="" onClick={btnClick.bind(this, 'job aids')} src="book.png" style={{width:'5vw', padding:'2vh 0'}} />
@@ -24,7 +25,7 @@ export default function Distractors() {
 
             <OverlayTrigger trigger="hover" placement="left" overlay={
                 <Tooltip >
-                    Tutorial
+                    { buttonTitles.tutorial }
                 </Tooltip> }>
                 <span style={{cursor: 'pointer'}}>
                     <img alt="" onClick={btnClick.bind(this, 'tutorial')} src="gmark.png" style={{width:'5vw'}} />
