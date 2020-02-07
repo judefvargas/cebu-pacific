@@ -7,10 +7,14 @@ export function updateTotal(isCorrect) {
 
     let currentTotal = player.GetVar('CARGO_totalScore');
     if (isCorrect) {
-        score = correctPoints;
+        score = parseInt(correctPoints);
     } else {
-        score = incorrectPoints;
+        score = parseInt(incorrectPoints);
     }
-    let newTotal = currentTotal + score;
+    let newTotal = parseInt(currentTotal) + score;
     player.SetVar('CARGO_totalScore', newTotal);
+}
+
+export function updateDone(customerId) {
+    
 }

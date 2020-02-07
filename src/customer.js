@@ -8,7 +8,7 @@ export const questionList = JSON.parse(player.GetVar('CARGO_questionList'));
 
 export const choicesList = JSON.parse(player.GetVar('CARGO_choicesList'));
 
-export const answerList = player.GetVar('CARGO_answerList');
+export const answerList = JSON.parse(player.GetVar('CARGO_answerList'));
 
 export const currentCustomer = player.GetVar('CARGO_curCustomer');
 
@@ -30,6 +30,6 @@ export const initChatCount = player.GetVar('CARGO_initialMsgCount');
 
 export const allowClick = player.GetVar('CARGO_allowClick');
 
-export const scoring = player.GetVar('CARGO_scoring');
+export const scoring = JSON.parse(player.GetVar('CARGO_scoring'));
 
-export const buttonTitles = player.GetVar('CARGO_buttonTitles');
+export const buttonTitles = JSON.parse(player.GetVar('CARGO_buttonTitles'));
