@@ -1,14 +1,14 @@
 // export const player = window.parent.GetPlayer();
 
-export const CUSTOMERS = [    {       "id":1,      "name":"Jude Vargas",      "age":25,      "image":"4.png",      "package":"bag.png",      "text":"I'd like to transfer my dog"   }];
+export const CUSTOMERS = [    {       "id":1,      "name":"Annabelle Reyes",      "age":25,      "image":"4.png",      "package":"bag.png",      "text":"I'd like to transfer my dog"   }, {       "id":2,      "name":"Robert Downey",      "age":32,      "image":"1.png",      "package":"money.png",      "text":"I'd like to transfer my bag"   }];
 
-export const convoR = ({    "1":[       {          "customer":"Ipapapalit ko sana to, kaso hindi ko na alam kung anu-anong mga pera ‘to kasi natira lang ‘to sa biyahe namin."      },    "q1", "q2" ]});
+export const convoR = ({    "1":[       {          "customer":"Ipapapalit ko sana to, kaso hindi ko na alam kung anu-anong mga pera ‘to kasi natira lang ‘to sa biyahe namin."      },    "q1", "q2" ], "2":[       {          "customer":"Magandang Umaga po."      },    {          "customer":"Magpapapalit po sana ako ng pera."      }, {          "john":"Ah sige po, magkano po ang ipapapalit ninyo"      }, "q2" ]});
 
 export const questionList = ({    "q1":"Magkano ang papalitan mo?", "q2":"Mapapalitan mo ba ang lahat ng pera?" });
 
 export const choicesList = ({    "q1":[       "400 Chinese Yuan, at 300 Taiwan Dollars po, Ma’am Shaira.",      "400 Chinese Yuan, 300 Taiwan Dollars, 20 Bangladeshi Taka, at 500 Peruvian Sol po.",      "300 Chinese Yuan at 400 Taiwan Dollars po, Ma’am Shaira. Hindi po namin tinatanggap ang pera ng Bangladesh at Peru."   ], "q2":["Ma’am Shaira, hindi ko po mapaprocess ‘yung isang 100 Taiwan Dollar dahil may mali po. Pero pwede naman po ‘yung iba.", "Ma’am Shaira, hindi ko po mapaprocess ‘yung isang 100 Chinese Yuan dahil 2000 series pa po. Pero pwede naman po ‘yung iba. ", "Ma’am Shaira, ok naman po lahat ng bills. Palitan ko na po."]   });
 
-export const answerList = {  "q1": [    "CHOICE 1"  ]};
+export const answerList = {  "q1": [1], "q2": [2] };
 
 export const currentCustomer = 1;
 
@@ -22,6 +22,17 @@ export const tillArray = ({    "1":[       {          "image":"100dollars.jpg"  
 
 export const showCurrencies = false;
 
-export const doneCustomers = ([]);
+export const doneCustomers = [];
 
 export const logo = "PPS logo.png";
+
+export const allowClick = true;
+
+export const initChatCount = 0;
+
+export const scoring = {"correct":2,"incorrect":1 };
+
+export const buttonTitles = {
+    "job_aids": "Job Aids", 
+    "tutorial": "Tutorial"
+}
