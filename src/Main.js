@@ -16,7 +16,7 @@ export default class Main extends Component {
         }
     }
     incrementActive = () => {
-        const { currentCustomer, totalCount, doneCustomers } = this.state;
+        const { currentCustomer, totalCount } = this.state;
         if ((currentCustomer+1) > totalCount) {
             this.setState({isShowModal: true});
             // player.SetVar('CARGO_showModal', true);
@@ -46,11 +46,12 @@ export default class Main extends Component {
         return searchVal;
     }
     render() {
+        let { doneCustomers, totalCount, activeCustomer } = this.state;
         return (
             <>
                 <ErrorHandler>
-                <TopNav next={ this.incrementActive } done={this.state.doneCustomers} total={this.state.totalCount} active={this.state.activeCustomer} updateActive={(id)=>{this.updateActive(id)}} />
-                <MainNav next={ this.incrementActive } active={this.state.activeCustomer} />
+                <TopNav next={ this.incrementActive } done={doneCustomers} total={totalCount} active={activeCustomer} updateActive={(id)=>{this.updateActive(id)}} />
+                <MainNav next={ this.incrementActive } active={ activeCustomer } />
                 </ErrorHandler>
             </>
         )

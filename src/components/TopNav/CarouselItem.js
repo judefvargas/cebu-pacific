@@ -1,25 +1,22 @@
 import React from 'react';
-import ProgressBar from 'react-bootstrap/ProgressBar';
-import { allowClick } from '../../customer';
+// import ProgressBar from 'react-bootstrap/ProgressBar';
+// import { player, allowClick } from '../../customer';
 import generateKey from '../Key';
-// import { StyleRoot } from 'radium';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Image } from './Image';
 
 export default function CarouselItem(props) {
-    const {active} = props;
+    const {done, active, updateActive} = props;
     let actualArr = search(active.id, props.array);
     //remove done from array and push to last 
-    // console.log(props.done);
     let temp = [];
-    if (props.done.length !== 0) {
+    if (done.length !== 0) {
         for (let i=0; i<actualArr.length; i++) {
-            if (props.done.indexOf(actualArr[i].id) > -1) {
+            if (done.indexOf(actualArr[i].id) > -1) {
                 temp.push(actualArr[i]);
                 actualArr.sort(function(a, b) { 
                     return a.id - b.id;
                 })
                 actualArr.splice(i, 1);
-                
             }
         }
         
@@ -36,12 +33,12 @@ export default function CarouselItem(props) {
     for (let j=0; j<actualArr.length; j++) {
         cs.push(
             <span key={generateKey()} className="customer-list">
-                <ProgressBar  key={generateKey()}>
+                {/* <ProgressBar  key={generateKey()}>
                     <ProgressBar  variant="loading" now={33.33} />
                     <ProgressBar  variant="loading" now={33.33} />
                     <ProgressBar  variant="done" now={33.33}  />
-                </ProgressBar>
-                <RenderImage done={props.done} activeId={active.id} idKey={j} key={generateKey()} image={actualArr[j].image} id={actualArr[j].id} updateActive={props.updateActive}/>
+                </ProgressBar> */}
+                <Image done={done} idKey={j} key={generateKey()} image={actualArr[j].image} id={actualArr[j].id} updateActive={updateActive}/>
             </span>
         );
     }
@@ -53,22 +50,3 @@ const search = (value, array) => {
     return arr;
 }
 
-const RenderImage = (props) => {
-    const btnClick = () => {
-        if (allowClick) {
-            props.updateActive(props.id);
-        }
-    }
-    let imageSpan = [];
-    imageSpan.push(<span>
-        { (props.done.indexOf(props.id) > -1) ?
-        (<span className="fa-layers fa-fw checkmark">
-            <FontAwesomeIcon icon="square" className="squareCheck" color="green" size="lg" />
-            <FontAwesomeIcon icon="check" inverse color="green"  size=""/>
-        </span>) : '' }
-        <span className={`customerSpan `}>
-            <img onClick={btnClick.bind(this)} key={props.idKey} className={`customerImage ${ (props.idKey>=5 ? 'customerGrayImage': '') }`} alt="" src={`characters/${props.image}`} />
-        </span>
-    </span>);
-    return imageSpan;
-}

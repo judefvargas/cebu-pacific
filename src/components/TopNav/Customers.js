@@ -15,7 +15,7 @@ export default function CustomerList (props) {
             }
             `}
         </style>
-        <CustomerCarousel done={props.done} active={props.active} updateActive={props.updateActive}/>
+        <CustomerCarousel {...props} />
         </>
     );
 }
