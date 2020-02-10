@@ -30,7 +30,7 @@ export default function CustomerCarousel(props) {
     for (let i=0; i<allChunks.length; i++) {
         carousel.push(
             <Carousel.Item className={props.currentActive===i ? 'carousel-item active' : 'carousel-item' } key={generateKey()} >
-                <span key={generateKey()} className="col-md-10"><CarouselItem done={props.done} active={props.active} key={generateKey()} updateActive={props.updateActive} array={allChunks[i]} /></span>
+                <span key={generateKey()} className="col-md-10"><CarouselItem {...props} key={generateKey()} array={allChunks[i]} /></span>
             </Carousel.Item>)
     }
 

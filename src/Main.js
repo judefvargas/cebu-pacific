@@ -16,18 +16,18 @@ export default class Main extends Component {
         }
     }
     incrementActive = () => {
-        const { currentCustomer, totalCount, doneCustomers } = this.state;
+        const { currentCustomer, totalCount } = this.state;
         if ((currentCustomer+1) > totalCount) {
             this.setState({isShowModal: true});
         } else {
-            let done = doneCustomers;
-            player.SetVar('CARGO_customers_done', done);
-            done.push(currentCustomer);
+            let currentDone = this.state.doneCustomers;
+            currentDone.push(currentCustomer);
+            player.SetVar('CARGO_customers_done', currentDone.toString());
             player.SetVar('CARGO_curCustomer', currentCustomer+1);
             this.setState({ 
                 currentCustomer: currentCustomer+1,
                 activeCustomer: this.search(currentCustomer+1, CUSTOMERS),
-                doneCustomers: done
+                doneCustomers: currentDone
             });
         }
     }
@@ -47,11 +47,12 @@ export default class Main extends Component {
         return searchVal;
     }
     render() {
+        let { doneCustomers, totalCount, activeCustomer } = this.state;
         return (
             <>
                 <ErrorHandler>
-                <TopNav next={ this.incrementActive } done={this.state.doneCustomers} total={this.state.totalCount} active={this.state.activeCustomer} updateActive={(id)=>{this.updateActive(id)}} />
-                <MainNav next={ this.incrementActive } active={this.state.activeCustomer} />
+                <TopNav next={ this.incrementActive } done={doneCustomers} total={totalCount} active={activeCustomer} updateActive={(id)=>{this.updateActive(id)}} />
+                <MainNav next={ this.incrementActive } active={ activeCustomer } />
                 </ErrorHandler>
             </>
         )

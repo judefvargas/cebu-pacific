@@ -3,9 +3,9 @@ import Card from 'react-bootstrap/Card';
 // import {StyleRoot} from 'radium';
 import { styles } from '../animationStyles';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { answerList, questionList, choicesList, consequences } from '../../customer';
+import { Choices } from './Choices';
+import { questionList } from '../../customer';
 import generateKey from '../Key';
-import { updateTotal } from '../storylineActions';
 
 export default function Question(props) {
     const qEndRef = useRef(null);
@@ -14,7 +14,7 @@ export default function Question(props) {
         window.scrollTo(0, qEndRef.current.offsetTop)
     }
     const questionArr = [];
-    let { qid, current, update, activeId, updateConvo } = props;
+    let { qid, current } = props;
     let question = questionList[qid];
     useEffect(scrollToTop);
     if (current === qid) {
@@ -24,25 +24,12 @@ export default function Question(props) {
                     <div className="outer" >
                         <Card.Header>{ question }</Card.Header>
                         <ListGroup variant="flush">
-                            <Choices update={update} updateConvo={updateConvo} activeId={activeId} key={generateKey()} qid={ qid } />
+                            <Choices { ...props } key={generateKey()} />
                         </ListGroup>
                     </div>
                 </Card>
             </div>
         );
-    // } else if(actual === qid) {
-    //     questionArr.push(
-    //         <div style={styles.pulse} ref={qEndRef}>
-    //             <Card>
-    //                 <div className="outer">
-    //                     <Card.Header>{ question }</Card.Header>
-    //                     <ListGroup variant="flush">
-    //                         <Choices update={update} updateConvo={updateConvo} activeId={activeId} key={generateKey()} qid={ qid }/>
-    //                     </ListGroup>
-    //                 </div>
-    //             </Card>
-    //         </div>    
-    //     );
     } else {
         questionArr.push(
             <div style={styles.pulse} ref={qEndRef}>
@@ -50,7 +37,7 @@ export default function Question(props) {
                     <div className="outer" style={{pointerEvents: "none"}}>
                         <Card.Header>{ question }</Card.Header>
                         <ListGroup variant="flush">
-                            <Choices update={update} updateConvo={updateConvo} activeId={activeId} key={generateKey()} qid={ qid } />
+                            <Choices { ...props } key={generateKey()} />
                         </ListGroup>
                     </div>
                 </Card>
@@ -58,61 +45,4 @@ export default function Question(props) {
         );
     }
     return questionArr;
-}
-const searchObject = (searchVal, object) => {
-    for (const [key, value] of Object.entries(object)) {
-        if ((key)===searchVal) {
-            return value;
-        }
-    }
-}
-function saveAnswer(prevAns, custId, qId, ans) {
-    const customerAnswer = {};
-    // const prevAnswer = (player.GetVar('CARGO_pastChoices'));
-    const questionAns = {};
-    const allQuestions = [];
-    questionAns[qId] = ans;
-// console.log(questionAns);
-    if (typeof(prevAnswer)!=='string') { 
-        let qList = searchObject(custId, prevAns);
-        // console.log(qList);
-        qList.push(questionAns);
-        customerAnswer[custId.toString()] = qList;
-    } else {
-        allQuestions.push(questionAns);
-        customerAnswer[custId.toString()] = allQuestions;
-    }
-    return customerAnswer;
-    // player.SetVar('CARGO_pastChoices', customerAnswer);
-}
-
-const Choices = (props) => {
-    let choices = [];
-    
-    // action on choice click
-    const onClick = (qId, ansIndex) => {
-        let correctAnsArr = answerList[qId];
-        // correct answer is answer index + 1
-        if (correctAnsArr[0] === (ansIndex+1)) {
-            updateTotal(true);
-        } else {
-            updateTotal(false);
-        }
-        let cons = searchObject(qId, consequences);
-        if (cons===undefined) {
-            props.updateConvo({ convo: cons, msg: 'No consequence data found.' });
-        } else {
-            let consFinal = searchObject(`choice ${(ansIndex+1)}`, cons);
-            props.updateConvo({ convo: consFinal, msg: 'No consequence choice data found.'  });
-        }
-        props.update();
-
-    }
-
-    for (let i=0; i<choicesList[props.qid].length; i++) {
-        choices.push(
-            <ListGroup.Item key={i} onClick={ () => {onClick(props.qid, i)} }>{ choicesList[props.qid][i] }</ListGroup.Item>
-        );
-    }
-    return choices;
 }
