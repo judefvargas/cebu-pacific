@@ -1,4 +1,4 @@
-import { scoring } from '../customer';
+import { scoring, pastChoices } from '../customer';
 
 export function updateTotal(isCorrect) {
     let correctPoints = scoring.correct;
@@ -15,4 +15,17 @@ export function updateTotal(isCorrect) {
     console.log(newTotal);
     // let newTotal = currentTotal + score;
     // player.SetVar('CARGO_totalScore', newTotal);
+}
+
+export function saveAnswer(cId, qId, choiceId) {
+    // let answers = JSON.parse(player.GetVar('CARGO_pastChoices'));
+    let answers = {};
+    let prevAns = '';
+    let ans = pastChoices[cId];
+    if (ans !== undefined) {
+        prevAns = ans;
+    }
+    let actualAns = Object.assign({qId: choiceId}, prevAns)
+    answers[cId] = actualAns;
+
 }
