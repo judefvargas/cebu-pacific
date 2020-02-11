@@ -1,5 +1,5 @@
 import React from 'react';
-import { updateTotal } from '../storylineActions';
+import { updateTotal, saveAnswer } from '../storylineActions';
 import { answerList, choicesList, consequences } from '../../customer';
 import ListGroup from 'react-bootstrap/ListGroup';
 
@@ -15,6 +15,7 @@ export const Choices = (props) => {
         } else {
             updateTotal(false);
         }
+        saveAnswer(props.activeId, props.qid, ansIndex+1);
         let cons = searchObject(qId, consequences);
         if (cons===undefined) {
             props.updateConvo({ convo: cons, msg: 'No consequence data found.' });

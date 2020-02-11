@@ -33,3 +33,5 @@ export const allowClick = player.GetVar('CARGO_allowClick');
 export const scoring = JSON.parse(player.GetVar('CARGO_scoring'));
 
 export const buttonTitles = JSON.parse(player.GetVar('CARGO_buttonTitles'));
+
+export const pastChoices = JSON.parse(player.GetVar('CARGO_pastChoices'));

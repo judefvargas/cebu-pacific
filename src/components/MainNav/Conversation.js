@@ -48,14 +48,12 @@ export default function Conversation(props) {
                 );
             } else {
                 convo.push(<Question 
-                    actual={ actual } 
-                    update={update} 
+                    { ...props }
                     key={generateKey()} 
-                    current={current} 
                     qid={props.wholeCon[i]} 
                     onDisabled={props.isDisabled} 
                     activeId={active.id} 
-                    updateConvo={updateConvo} />);
+                   />);
             }
             
         } else {
