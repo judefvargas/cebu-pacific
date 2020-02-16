@@ -21,13 +21,11 @@ export default class Main extends Component {
             this.setState({isShowModal: true});
             // player.SetVar('CARGO_showModal', true);
         } else {
-            let done = this.state.doneCustomers;
-            done.push(this.state.currentCustomer);
-            this.setState({ 
+            this.setState(state => ({ 
                 currentCustomer: currentCustomer+1,
                 activeCustomer: this.search(this.state.currentCustomer+1, CUSTOMERS),
-                doneCustomers: done
-            });
+                doneCustomers: [...state.doneCustomers, state.currentCustomer]
+            }));
         }
     }
 
