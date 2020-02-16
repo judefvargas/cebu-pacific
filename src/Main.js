@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import TopNav from './components/TopNav/TopNav';
 import MainNav from './components/MainNav/MainNav';
-import { player, CUSTOMERS, currentCustomer, isShowModal, doneCustomers } from './customer';
+import { player, CUSTOMERS, currentCustomer, doneCustomers } from './customer';
 import ErrorHandler from './components/ErrorHandler';
 
 export default class Main extends Component {
@@ -11,14 +11,14 @@ export default class Main extends Component {
             currentCustomer,
             activeCustomer: this.search(currentCustomer, CUSTOMERS), //pull from storyline variable currentCustomer* with initial 0
             totalCount: CUSTOMERS.length,
-            isShowModal,
+            // isShowModal,
             doneCustomers
         }
     }
     incrementActive = () => {
         const { currentCustomer, totalCount } = this.state;
         if ((currentCustomer+1) > totalCount) {
-            this.setState({isShowModal: true});
+            // this.setState({isShowModal: true});
         } else {
             let currentDone = this.state.doneCustomers;
             currentDone.push(currentCustomer);
