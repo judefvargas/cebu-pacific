@@ -2,7 +2,8 @@ import React from 'react';
 // import ProgressBar from 'react-bootstrap/ProgressBar';
 // import { player, allowClick } from '../../customer';
 import generateKey from '../Key';
-const Image = React.lazy(() => import('./Image')); 
+import { Image } from './Image';
+// const Image = React.lazy(() => import('./Image')); 
 
 export default function CarouselItem(props) {
     const {done, active, updateActive} = props;
