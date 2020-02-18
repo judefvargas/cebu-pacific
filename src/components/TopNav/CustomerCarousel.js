@@ -20,6 +20,7 @@ export default function CustomerCarousel(props) {
     let additionalClass = '';
     let interval = null;
     let indicators = false;
+    let controls = false;
     
     let chunk = 10;
     let carousel = [];
@@ -41,7 +42,7 @@ export default function CustomerCarousel(props) {
     let prevBtn = <FontAwesomeIcon icon="caret-left" className={`caret caretLeft ${additionalClass}`} size="2x" />;
 
     return (
-        <Carousel activeIndex={index} direction={direction} onSelect={handleSelect} interval={interval} indicators={indicators} nextIcon={nextBtn} prevIcon={prevBtn}>
+        <Carousel activeIndex={index} direction={direction} onSelect={handleSelect} controls={controls} interval={interval} indicators={indicators} nextIcon={nextBtn} prevIcon={prevBtn}>
         { carousel }
         </Carousel>
     );

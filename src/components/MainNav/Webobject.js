@@ -2,21 +2,21 @@ import React from 'react'
 import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
 import {StyleRoot} from 'radium';
-import { player, buttons, tillArray, showCurrencies } from '../../customer';
+import { player, showCurrencies, buttons, tillArray, allowImgClick } from '../../customer';
 import generateKey from '../Key';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
 export default function Webobject(props) {
     const { active, on, updateTillClick, updateEl, element, tillBtnClick } = props;
-    const updateElement = (val) => {
+    const updateElement = () => {
         player.SetVar('CARGO_showTill', true);
         updateTillClick(true);
         console.log('call storyline var');
     }
     return (
         <>
-        <div className="col col-md-7 weboject">
+        <div className="col col-md-4 weboject">
             <div className="mainWebObject">
                 { on ?
                 <ListGroup className="tillList">
@@ -26,10 +26,10 @@ export default function Webobject(props) {
                 </ListGroup>
                 : ''
                 }
-                <DisplayObject on={on} element={element} active={active} />
+                <DisplayObject on={on} element={element} click={() => {updateElement()}} active={active} />
             </div>
             <div className="mainNavBtns">
-                {on ? <Buttons on={on} key={generateKey()} click={(val) => {updateElement(val)}}/> : ''}
+                {on ? <Buttons on={on} key={generateKey()} click={() => {updateElement()}}/> : ''}
             </div>
         </div>
         </>
@@ -37,10 +37,15 @@ export default function Webobject(props) {
 }
 
 const DisplayObject = (props) => {
+    function checkAllow() {
+        if (allowImgClick) {
+            props.click();
+        }
+    }
     const { on, element, active } = props;
     let obj = [];
     if ((on && element===null)) {
-        obj.push(<LazyLoadImage placeholderSrc={active.package} effect="blur" className="webObjImage" src={active.package} alt=""/>);
+        obj.push(<LazyLoadImage placeholderSrc={active.package} onClick={ () => {checkAllow()} } style={{cursor: (allowImgClick ? 'pointer' : '')}} effect="blur" className="webObjImage" src={active.package} alt=""/>);
     } else if (on) {
         obj.push(<ShowObject element={element}/>);
     } else {
@@ -72,14 +77,16 @@ const Buttons = (props) => {
     btn.push(<style type="text/css">
         {`
         .btn-till {
-            background-color: #7bf1f1;
             margin: 2%;
-            padding: 2% !important;
             width: 10vw;
             cursor: pointer;
             font-size: 1.2rem;
             line-height: 1.5;
             border-radius: .3rem;
+            padding: 10px 40px!important;
+            min-width: 200px;
+            margin-bottom: 40px;
+            background-color: #a4e59a;
         }
         .btn-till:hover {
             text-decoration: none;
@@ -101,7 +108,7 @@ const Buttons = (props) => {
         }
         `}</style>);
     for (let i=0; i<buttons.length; i++) {
-        btn.push(<Button onClick={ () => {props.click(buttons[i].title)} } key={i} size="lg" variant="till">{buttons[i].title}</Button>);
+        btn.push(<Button onClick={ () => {props.click()} } key={i} size="lg" variant="till">{buttons[i].title}</Button>);
     }
     return btn;
 }

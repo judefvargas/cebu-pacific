@@ -212,13 +212,18 @@ div.callout {
 
 .webObjImage {
     width: 100%;
-    margin-top: 4vh;
+    margin-top: 140px;
 }
 
 .startContainer {
     margin-top: 40vh;
 }
-
+.startContainer button {
+    height: 70px;
+    background-color: #ed1f24;
+    font-size: 20px;
+    font-weight: bold;
+}
 .tillList {
     position: absolute;
     width: 5vw;

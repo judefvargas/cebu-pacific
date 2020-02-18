@@ -5,6 +5,8 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Popover from 'react-bootstrap/Popover';
 import { logo } from '../../customer';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 export default function TopNav(props) {
     let { done } = props;
@@ -21,8 +23,7 @@ export default function TopNav(props) {
               </span>
           </OverlayTrigger>
           <div className="currentCount">{done.length+1}/{props.total}</div>
-          <img className="customerInteraction" height="100%" width="76px" alt="" src={`characters/${props.active.image}`} />
-          {/* <img className="john" height="100px" width="100px" alt="" src={`characters/john.png`} /> */}
+          <LazyLoadImage placeholderSrc={`characters/${props.active.image}`} effect="blur" className="customerInteraction" height="100%" width="76px" src={`characters/${props.active.image}`} alt=""/>
           </div>
         </div>
         <div className="col-md-8 col-top-nav" >
@@ -42,15 +43,15 @@ const PopoverComponent = forwardRef(
         <Popover.Content>
             <h4>INFORMATION</h4>
             <div className="popoverRow row">
-                <div className="col-md-4" style={{textAlign: 'center'}}>
+                <div className="col-md-2" style={{textAlign: 'center'}}>
                 <img className="" height="100%" alt="" src={`characters/${props.data.image}`} />
                   
                 </div>
-                <div className="col-md-4">
+                <div className="col-md-2">
                 <b>Name:</b> {props.data.name}<br/>
                 <b>Age: </b> {props.data.age}
                 </div>
-                <div className="col-md-4">
+                <div className="col-md-8">
                 "{props.data.text}"
                 </div>
             </div>
