@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useReducer } from 'react'
 import './mainnav.css';
-import { CUSTOMERS, convoR, initChatCount } from '../../customer';
+import { CUSTOMERS, convoR, initChatCount, conversation } from '../../customer';
 import Button from 'react-bootstrap/Button';
 import Conversation from './Conversation';
 import { styles } from '../animationStyles';
@@ -12,118 +12,122 @@ export default function Interaction(props) {
     /* Set current conversation according to current active id */
 
     for (let [key, value] of Object.entries(convoR)) {
-        if (parseInt(key) === props.active.id) current.push(value);
+      if (parseInt(key) === props.active.id) current.push(value);
     }
 
    
     /* Set initial values */
     const initVal = {
-        count: initChatCount, //chat message count initially shown
-        // currentIndex: 1,
-        hidden: '', //for hiding next button
-        longDiv: '', //if next button is hidden, chat will take up entire space
-        disabled: current.length!==0 ? false : true, //button disable (for decision points)
-        length: current.length!==0 ? current[0].length-1 : 0, //length of conversation
-        current: current.length!==0 ? current[0][1] : 0,
-        isBtnPulse: false, //button animation 
-        actualCurrent: current.length!==0 ? current[0][1] : 0,
-        temp: [], //storage for consequences,
-        hasError: current.length!==0 ? false : true, //has error message (no consequence data, etc)
-        errorMessage: current.length!==0 ? null : 'No conversation data available', //error message container
-        wholeCon: current.length!==0 ? current[0] : [], //whole conversation
-        isNew: false,
-        btnTitle: 'NEXT'
+      count: initChatCount, //chat message count initially shown
+      // currentIndex: 1,
+      hidden: '', //for hiding next button
+      longDiv: '', //if next button is hidden, chat will take up entire space
+      disabled: current.length!==0 ? false : true, //button disable (for decision points)
+      length: current.length!==0 ? current[0].length-1 : 0, //length of conversation
+      current: current.length!==0 ? current[0][1] : 0,
+      isBtnPulse: false, //button animation 
+      actualCurrent: current.length!==0 ? current[0][1] : 0,
+      temp: [], //storage for consequences,
+      hasError: current.length!==0 ? false : true, //has error message (no consequence data, etc)
+      errorMessage: current.length!==0 ? null : 'No conversation data available', //error message container
+      wholeCon: current.length!==0 ? current[0] : [], //whole conversation
+      isNew: false,
+      btnTitle: 'NEXT'
     };
 
-     useEffect(() => {
-        dispatch({type: 'RESET'});
-      }, [props.active.id]);
+    useEffect(() => {
+      dispatch({type: 'RESET'});
+    }, [props.active.id]);
     const [state, dispatch] = useReducer(reducer, initVal);
     
     /* Insert object to specific index in object */
     const insertToObject = (obj, newObj, index) => {
-        let temp = [];
-        let final = [];
-        for (const [key, value] of Object.entries(obj)) {
-            if (parseInt(key)>index) {
-                temp.push(value);
-                delete obj[key];
-            } else {
-                final.push(obj[key]);
-            }
-        }
+      let temp = [];
+      let final = [];
+      for (const [key, value] of Object.entries(obj)) {
+          if (parseInt(key)>index) {
+            temp.push(value);
+            delete obj[key];
+          } else {
+            final.push(obj[key]);
+          }
+      }
 
-        for(let i=0; i<newObj.length; i++) {
-            final.push(newObj[i]);
-        }
-        for(let j=0; j<temp.length; j++) {
-            final.push(temp[j]);
-        }
-        return final;
+      for(let i=0; i<newObj.length; i++) {
+        final.push(newObj[i]);
+      }
+      for(let j=0; j<temp.length; j++) {
+        final.push(temp[j]);
+      }
+      return final;
     }
     /* Reducer */
     function reducer(state, action) {
-        switch(action.type) {
-            case 'BUTTON_CLICKED': {
-                // localStorage.setItem('conversation', state.wholeCon);
-                return {
-                    ...state,
-                    count: state.count+1,
-                    // currentIndex: (state.currentIndex===1)?0:1,
-                    disabled: typeof(state.wholeCon[state.count+1])!=='object' ? true : false,
-                    current: state.wholeCon[state.count+1],
-                    actualCurrent: state.wholeCon[state.count+1],
-                    isBtnPulse: false,
-                    hasError: false
-                }
-            }
-            case 'UPDATE_CHOICE': {
-                return {
-                    ...state,
-                    count: state.count +1,
-                    disabled: false,
-                    actualCurrent: state.wholeCon[state.count],
-                    current: state.wholeCon[state.count+1],
-                    isBtnPulse: state.wholeCon[state.count+1]!=='object'?true:false,
-                    hasError: false,
-                    wholeCon: state.temp[0]
-                }
-            }
-            case 'UPDATE_LENGTH': {
-                return {
-                    ...state,
-                    length: action.payload
-                }
-            }
-            case 'UPDATE_TEMP': {
-                return {
-                    ...state, 
-                    temp: action.payload
-                }
-            }
-            case 'UPDATE_NEW': {
-                return {
-                    ...state, 
-                    isNew: action.payload
-                }
-            }
-            case 'UPDATE_BTN_TITLE': {
-                return {
-                    ...state, 
-                    btnTitle: action.payload
-                }
-            }
-            case 'DISABLE_BUTTON': {
-                return {
-                    ...state,
-                    disabled: true
-                }
-            }
-            case 'RESET': {
-                return { ...initVal }
-            }
-            default: return state;
+      switch(action.type) {
+        case 'BUTTON_CLICKED': {
+          // localStorage.setItem('conversation', state.wholeCon);
+          return {
+            ...state,
+            count: state.count+1,
+            disabled: typeof(state.wholeCon[state.count+1])!=='object' ? true : false,
+            current: state.wholeCon[state.count+1],
+            actualCurrent: state.wholeCon[state.count+1],
+            isBtnPulse: false,
+            hasError: false
+          }
         }
+        case 'UPDATE_CHOICE': {
+          return {
+            ...state,
+            count: state.count +1,
+            disabled: false,
+            actualCurrent: state.wholeCon[state.count],
+            current: state.wholeCon[state.count+1],
+            isBtnPulse: state.wholeCon[state.count+1]!=='object'?true:false,
+            hasError: false,
+            wholeCon: state.temp[0]
+          }
+        }
+        case 'UPDATE_LENGTH': {
+          return {
+            ...state,
+            length: action.payload
+          }
+        }
+        case 'UPDATE_TEMP': {
+          return {
+            ...state, 
+            temp: action.payload
+          }
+        }
+        case 'UPDATE_NEW': {
+          return {
+            ...state, 
+            isNew: action.payload
+          }
+        }
+        case 'UPDATE_BTN_TITLE': {
+          return {
+            ...state, 
+            btnTitle: action.payload
+          }
+        }
+        case 'DISABLE_BUTTON': {
+          return {
+            ...state,
+            disabled: true
+          }
+        }
+        case 'RESET': {
+          return { ...initVal }
+        }
+        default: return state;
+      }
+    }
+
+    function startConversation() {
+      props.turnOn();
+      console.log(convoR[1]);
     }
     /* Update conversation data */
     const updateCon = (convoData) => {
@@ -219,7 +223,7 @@ export default function Interaction(props) {
             `}
         </style>
         { (!props.on) 
-        ? <div className="col col-md-7 convo"><div className="startContainer" ><Button variant="start" onClick={() => {props.turnOn(true)}}>START CONVERSATION</Button></div></div>
+        ? <div className="col col-md-7 convo"><div className="startContainer" ><Button variant="start" onClick={() => {startConversation()}}>START CONVERSATION</Button></div></div>
         : (<div className="col col-md-7 convo" >
             <StyleRoot><div className={`conversation ${state.longDiv}`} id="style-3" style={ (state.isNew) ? (styles.fadeOut) : {} }>
                 <div className="divOverflow" >
