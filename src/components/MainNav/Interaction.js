@@ -188,11 +188,11 @@ export default function Interaction(props) {
         <style type="text/css">
             {`
             .btn-next {
-                background-color: #28a745;
+                background-color: #ed1f24;;
                 color: white;
                 bottom: 0;
-                margin-top: 10%;
-                height: 5vh;
+                margin-top: 20px;
+                height: 45px;
                 width: 72%;
             }
             .btn-next:hover {
@@ -219,8 +219,8 @@ export default function Interaction(props) {
             `}
         </style>
         { (!props.on) 
-        ? <div className="col col-md-4 convo"><div className="startContainer" ><Button variant="start" onClick={() => {props.turnOn(true)}}>START</Button></div></div>
-        : (<div className="col col-md-4 convo" >
+        ? <div className="col col-md-7 convo"><div className="startContainer" ><Button variant="start" onClick={() => {props.turnOn(true)}}>START CONVERSATION</Button></div></div>
+        : (<div className="col col-md-7 convo" >
             <StyleRoot><div className={`conversation ${state.longDiv}`} id="style-3" style={ (state.isNew) ? (styles.fadeOut) : {} }>
                 <div className="divOverflow" >
                     { state.wholeCon.length!==0 ? 

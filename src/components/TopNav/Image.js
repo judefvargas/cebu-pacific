@@ -1,8 +1,10 @@
 import React from 'react';
 import { allowClick } from '../../customer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
-export const Image = ({ done, idKey, image, id, updateActive }) => {
+function Image({ done, idKey, image, id, updateActive }) {
   // let { done, idKey, image, id, updateActive } = props;
   const btnClick = () => {
     if (allowClick && done.indexOf(id)===-1) {
@@ -16,14 +18,18 @@ export const Image = ({ done, idKey, image, id, updateActive }) => {
       <FontAwesomeIcon icon="square" className="squareCheck" color="green" size="lg" />
       <FontAwesomeIcon icon="check" inverse color="green"  size=""/>
     </span>) : '' }
-    <span className={`customerSpan `}>
-      <img 
+    <span className={`customerSpan `} style={{cursor:(allowClick ? 'pointer' : '')}}>
+      <LazyLoadImage
         onClick={btnClick.bind(this)}
-        key={idKey}
+        placeholderSrc={`characters/${image}`} 
+        effect="blur" 
         className={`customerImage ${ (idKey>=5 ? 'customerGrayImage': '') }`} 
-        alt=""
-        src={`characters/${image}`} />
+        height="100%" 
+        src={`characters/${image}`} 
+      alt="" />
     </span>
   </span>);
   return imageSpan;
 }
+
+export default Image;

@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {lazy, Suspense} from 'react';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import ProgressBar from 'react-bootstrap/ProgressBar';
 // import { player, allowClick } from '../../customer';
 import generateKey from '../Key';
-const Image = React.lazy(() => import('./Image')); 
+import Image from './Image';
+// const Image = lazy(() => import('./Image')); 
 
 export default function CarouselItem(props) {
     const {done, active, updateActive} = props;
@@ -38,7 +40,14 @@ export default function CarouselItem(props) {
                     <ProgressBar  variant="loading" now={33.33} />
                     <ProgressBar  variant="done" now={33.33}  />
                 </ProgressBar> */}
-                <Image done={done} idKey={j} key={generateKey()} image={actualArr[j].image} id={actualArr[j].id} updateActive={updateActive}/>
+                {/* <Suspense fallback={<FontAwesomeIcon icon="spinner" rotation={90} inverse />}> */}
+                    <Image done={done} 
+                        idKey={j} 
+                        key={generateKey()} 
+                        image={actualArr[j].image} 
+                        id={actualArr[j].id} 
+                        updateActive={updateActive}/>
+                {/* </Suspense> */}
             </span>
         );
     }

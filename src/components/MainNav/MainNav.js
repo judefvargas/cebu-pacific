@@ -10,12 +10,29 @@ export default function MainNav(props) {
     const [element, updateEl] = useState(null); //element shown on TILL
     const [tillBtnClick, updateTillClick] = useState(false); 
     const { active, next } = props;
+
     return (
         <div className="row grid-main-nav">
-            <Interaction active={active} on={isOn} turnOn={() => {turnOn(true)}} next={next} updateTill={ (val)=>{ updateTill(val) } } tillBtnClick={tillBtnClick} updateEl={(val)=>{updateEl(val)}} updateTillClick={(val)=>{updateTillClick(val)}} />
-            <Webobject active={active} tillBtnClick={tillBtnClick} on={isOn} till={hasTill} updateTillClick={(val)=>{updateTillClick(val)}} updateEl={(val)=>{updateEl(val)}} element={element}/>
+            <Interaction 
+              active={active} 
+              on={isOn} 
+              turnOn={() => {turnOn(true)}} 
+              next={next} 
+              updateTill={ (val)=>{ updateTill(val) } } 
+              tillBtnClick={tillBtnClick} 
+              updateEl={(val)=>{updateEl(val)}} 
+              updateTillClick={(val)=>{updateTillClick(val)}} />
 
-            <Distractors />
+            <Webobject 
+              active={active} 
+              tillBtnClick={tillBtnClick} 
+              on={isOn} 
+              till={hasTill} 
+              updateTillClick={(val)=>{updateTillClick(val)}} 
+              updateEl={(val)=>{updateEl(val)}} 
+              element={element}/>
+
+            <Distractors active={active} />
         </div>
     )
 }

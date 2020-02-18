@@ -35,7 +35,6 @@
     -webkit-box-shadow: 0 0 5px 0.3rem rgba(187, 155, 155, 0.18)
 }
 .customerImage {
-    cursor: pointer;
     width: 7vh;
     height: 7vh;
     border-radius: 45%;
@@ -228,4 +227,9 @@
 .popoverRow {
     height: 90%;
     position: relative;
+    font-size: 20px;
+}
+
+.popoverRow img {
+    padding-bottom: 35px;
 }
