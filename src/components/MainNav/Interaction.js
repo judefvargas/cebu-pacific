@@ -149,7 +149,7 @@ export default function Interaction(props) {
         }
         if (state.count+1===tempLength) {
             if (CUSTOMERS.length===props.active.id) {
-                player.SetVar('CARGO_showResults', true);
+                player.SetVar('CHAT_showResults', true);
             } else {
                 dispatch({type: 'UPDATE_NEW', payload: true});
                 dispatch({type: 'DISABLE_BUTTON'});

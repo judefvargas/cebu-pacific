@@ -22,8 +22,8 @@ export default class Main extends Component {
         } else {
             let currentDone = this.state.doneCustomers;
             currentDone.push(currentCustomer);
-            player.SetVar('CARGO_customers_done', currentDone.toString());
-            player.SetVar('CARGO_curCustomer', currentCustomer+1);
+            player.SetVar('CHAT_customers_done', currentDone.toString());
+            player.SetVar('CHAT_curCustomer', currentCustomer+1);
             this.setState(state => ({ 
                 currentCustomer: currentCustomer+1,
                 activeCustomer: this.search(this.state.currentCustomer+1, CUSTOMERS),
