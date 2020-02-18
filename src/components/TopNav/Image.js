@@ -18,7 +18,7 @@ function Image({ done, idKey, image, id, updateActive }) {
       <FontAwesomeIcon icon="square" className="squareCheck" color="green" size="lg" />
       <FontAwesomeIcon icon="check" inverse color="green"  size=""/>
     </span>) : '' }
-    <span className={`customerSpan `} style={{cursor:(allowClick ? 'pointer' : '')}}>
+    <span className={`customerSpan `} style={{cursor:((allowClick && done.indexOf(id)===-1) ? 'pointer' : '')}}>
       <LazyLoadImage
         onClick={btnClick.bind(this)}
         placeholderSrc={`characters/${image}`} 
