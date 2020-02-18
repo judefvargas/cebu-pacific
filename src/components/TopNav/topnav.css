@@ -1,14 +1,13 @@
 .grid-top-nav {
-    /* height: 8vh; */
+    height: 68px;
     background-color: #01a045  ;
 }
 
 .col-top-nav {
-    padding: 1em;
+    padding: 0.5em;
 }
 .caret {
     cursor: pointer;
-    /* position: absolute; */
     top: 5vh;
 }
 .customerSpan {
@@ -50,9 +49,6 @@
 .bg-success {
     background-color: #00ff00 !important;
 }
-/* .caretLeft {
-    left: 5%;
-} */
 .customer-list {
     margin: 4.5vh;
 }
@@ -60,9 +56,7 @@
     padding: 0 2%;
 }
 .img-container {
-    /* position: relative; */
     cursor: pointer;
-    /* margin: 0 2%; */
     float: left;
     overflow: hidden;
     display: contents;
@@ -77,14 +71,10 @@
     left:0;
     z-index:99;
 }
-/* .image-span {
-    margin: 1% 2%;
-} */
 .queue {
     margin: 0 3% 0 0;
     height: 95%;
     border-radius: 50%;
-    /* border: 1px solid black; */
 }
 
 .progress {
@@ -94,22 +84,12 @@
     display: inline-flex !important;
     width: 45px;
     top: 4.25vh;
-    /* margin-left: 3%; */
     border: 0.5px solid black;
-    /* -webkit-transform-origin: 0 100%;
-    -webkit-transform: rotate(90deg);
-    -moz-transform-origin: 0 100%;
-    -moz-transform: rotate(90deg);
-    -ms-transform-origin: 0 100%;
-    -ms-transform: rotate(90deg);
-    transform-origin: 0 100%;
-    transform: rotate(90deg); */
 }
 
 .progress-bar {
     border: 0.8px solid black;
 }
-
 
 .navBtn {
     margin: 0 1.5%;
@@ -173,6 +153,8 @@
     left: 10vw;
     bottom: 0;
     position: relative;
+    width: 65px;
+    height: 65px;
 }
 
 .currentCount {
@@ -186,10 +168,8 @@
 }
 
 .fa-layers {
-    /* top: 2vh; */
     position: absolute;
     cursor: pointer;
-    /* right: 4vw; */
 }
 .bs-popover-right {
     z-index: 9999 !important;
@@ -208,11 +188,10 @@
 .checkmark {
     top: 0;
     margin-left: 2.8vw;
-    /* right: 3vw; */
 }
 
 .information {
-    left: 78%;
+    left: 74%;
     top: 43%;
 }
 
