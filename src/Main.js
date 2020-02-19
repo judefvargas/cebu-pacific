@@ -20,8 +20,7 @@ export default class Main extends Component {
         if ((currentCustomer+1) > totalCount) {
             // this.setState({isShowModal: true});
         } else {
-            let currentDone = this.state.doneCustomers;
-            currentDone.push(currentCustomer);
+            let currentDone = [...this.state.doneCustomers, this.state.currentCustomer];
             player.SetVar('CHAT_customers_done', currentDone.toString());
             player.SetVar('CHAT_curCustomer', currentCustomer+1);
             this.setState(state => ({ 
