@@ -15,7 +15,6 @@ export default function Interaction(props) {
       if (parseInt(key) === props.active.id) current.push(value);
     }
 
-   
     /* Set initial values */
     const initVal = {
       count: initChatCount, //chat message count initially shown
@@ -127,115 +126,116 @@ export default function Interaction(props) {
 
     function startConversation() {
       props.turnOn();
-      console.log(convoR[1]);
+      localStorage.setItem('CHAT_currentConvoPos', JSON.stringify(convoR));
+      // player.SetVar('CHAT_currentConvoPos', JSON.stringify(convoR));
+      console.log(convoR);
     }
     /* Update conversation data */
-    const updateCon = (convoData) => {
-        if (convoData.convo===undefined) {
-            state.hasError = true;
-            state.errorMessage = convoData.msg;
-        } else {
-            state.hasError = false;
-            let completeConvo = state.wholeCon;
+    function updateCon(convoData) {
+      if (convoData.convo===undefined) {
+        state.hasError = true;
+        state.errorMessage = convoData.msg;
+      } else {
+        state.hasError = false;
+        let completeConvo = state.wholeCon;
 
-            let c = insertToObject(completeConvo, convoData.convo, state.count);
-            dispatch({type: 'UPDATE_TEMP', payload: [c]});
-        }
+        let c = insertToObject(completeConvo, convoData.convo, state.count);
+        dispatch({type: 'UPDATE_TEMP', payload: [c]});
+      }
     }
-     /* Actions when next button is clicked */
-     const onClick = () => {
-        let tempLength = state.length;
-        if (state.temp.length!==0) {
-            state.wholeCon = state.temp[0];
-            tempLength = state.temp[0].length;
-            dispatch({type: 'UPDATE_LENGTH', payload: state.temp[0].length});
-            state.temp = [];
-        }
-        if (state.count+1===tempLength) {
-            if (CUSTOMERS.length===props.active.id) {
-                // player.SetVar('CARGO_showResults', true);
-            } else {
-                dispatch({type: 'UPDATE_NEW', payload: true});
-                dispatch({type: 'DISABLE_BUTTON'});
-                props.updateEl(null);
-                props.updateTillClick(false);
-                setTimeout(() => {
-                    props.next()
-                    dispatch({type: 'RESET'});
-    
-                }, 500);
-            }
 
+    /* Actions when next button is clicked */
+    function onClick() {
+      let tempLength = state.length;
+      if (state.temp.length!==0) {
+        state.wholeCon = state.temp[0];
+        tempLength = state.temp[0].length;
+        dispatch({type: 'UPDATE_LENGTH', payload: state.temp[0].length});
+        state.temp = [];
+      }
+      if (state.count+1===tempLength) {
+        if (CUSTOMERS.length===props.active.id) {
+          localStorage.setItem('CHAT_showResults', true);
+          // player.SetVar('CHAT_showResults', true);
         } else {
-            dispatch({type: 'BUTTON_CLICKED'})
+          dispatch({type: 'UPDATE_NEW', payload: true});
+          dispatch({type: 'DISABLE_BUTTON'});
+          props.updateEl(null);
+          props.updateTillClick(false);
+          setTimeout(() => {
+            props.next()
+            dispatch({type: 'RESET'});
+          }, 500);
         }
-        
+      } else {
+          dispatch({type: 'BUTTON_CLICKED'})
+      }
     }
 
     if ((state.wholeCon.length-1 === state.count) && typeof(state.wholeCon[state.count])!=='string' && state.btnTitle!=='NEXT CUSTOMER' && state.btnTitle!=='SHOW RESULTS') {
-        if (CUSTOMERS.length===props.active.id) {
-            dispatch({type: 'UPDATE_BTN_TITLE', payload: 'SHOW RESULTS'});
-        } else {
-            dispatch({type: 'UPDATE_BTN_TITLE', payload: 'NEXT CUSTOMER'});
-        }
+      if (CUSTOMERS.length===props.active.id) {
+        dispatch({type: 'UPDATE_BTN_TITLE', payload: 'SHOW RESULTS'});
+      } else {
+        dispatch({type: 'UPDATE_BTN_TITLE', payload: 'NEXT CUSTOMER'});
+      }
     }
     /* For scrolling to bottom of div when next button is clicked (i.e. always show recent messages) */ 
     const scrollToBottom = () => {
-        if (state.count>1 && messageEndRef.current!==null) {
-            messageEndRef.current.scrollIntoView({ behavior: 'smooth', inline: 'end' });
-        }
+      if (state.count>1 && messageEndRef.current!==null) {
+        messageEndRef.current.scrollIntoView({ behavior: 'smooth', inline: 'end' });
+      }
     }
     
     useEffect(scrollToBottom);
     return (
-        <>
-        <style type="text/css">
-            {`
-            .btn-next {
-                background-color: #ed1f24;;
-                color: white;
-                bottom: 0;
-                margin-top: 20px;
-                height: 45px;
-                width: 72%;
-            }
-            .btn-next:hover {
-                text-decoration: none;
-                background-color: #218838;
-                color:white;
-            }
-            .btn-start {
-                background-color: #28a745;
-                color: white;
-                bottom: 0;
-                height: 5vh;
-                width: 72%;
-            }
-            .btn-start:hover {
-                text-decoration: none;
-                background-color: #218838;
-                border-color: #1e7e34;
-                color:white;
-            }
-            .btn-next:disabled {
-                background-color: #968a8a
-            }
-            `}
-        </style>
-        { (!props.on) 
-        ? <div className="col col-md-7 convo"><div className="startContainer" ><Button variant="start" onClick={() => {startConversation()}}>START CONVERSATION</Button></div></div>
-        : (<div className="col col-md-7 convo" >
-            <StyleRoot><div className={`conversation ${state.longDiv}`} id="style-3" style={ (state.isNew) ? (styles.fadeOut) : {} }>
-                <div className="divOverflow" >
-                    { state.wholeCon.length!==0 ? 
-                    (<Conversation active={props.active} wholeCon={state.wholeCon} actual={state.actualCurrent} id="container3" update={ () => { dispatch({type: 'UPDATE_CHOICE' }) } } current={state.current}  count={state.count} key="1" updateConvo={(val)=>{ updateCon(val) }} updateTill={props.updateTill} tillBtnClick={props.tillBtnClick} />) : '' }
-                </div>
-                { state.hasError ? <div>{state.errorMessage}</div> : '' }
-                <div id="reference1" ref={messageEndRef} ></div>
-            </div></StyleRoot>
-        <Button className={state.btnTitle!=='NEXT'?'nextBtn':''} disabled={state.disabled} onClick={ onClick.bind(this) } variant="next">{state.btnTitle}</Button>
-        </div>
-        ) }
-        </>
+      <>
+      <style type="text/css">
+        {`
+        .btn-next {
+          background-color: #ed1f24;;
+          color: white;
+          bottom: 0;
+          margin-top: 20px;
+          height: 45px;
+          width: 72%;
+        }
+        .btn-next:hover {
+          text-decoration: none;
+          background-color: #218838;
+          color:white;
+        }
+        .btn-start {
+          background-color: #28a745;
+          color: white;
+          bottom: 0;
+          height: 5vh;
+          width: 72%;
+        }
+        .btn-start:hover {
+          text-decoration: none;
+          background-color: #218838;
+          border-color: #1e7e34;
+          color:white;
+        }
+        .btn-next:disabled {
+          background-color: #968a8a
+        }
+        `}
+      </style>
+      { (!props.on) 
+      ? <div className="col col-md-7 convo"><div className="startContainer" ><Button variant="start" onClick={() => {startConversation()}}>START CONVERSATION</Button></div></div>
+      : (<div className="col col-md-7 convo" >
+        <StyleRoot><div className={`conversation ${state.longDiv}`} id="style-3" style={ (state.isNew) ? (styles.fadeOut) : {} }>
+          <div className="divOverflow" >
+            { state.wholeCon.length!==0 ? 
+            (<Conversation active={props.active} wholeCon={state.wholeCon} actual={state.actualCurrent} id="container3" update={ () => { dispatch({type: 'UPDATE_CHOICE' }) } } current={state.current}  count={state.count} key="1" updateConvo={(val)=>{ updateCon(val) }} updateTill={props.updateTill} tillBtnClick={props.tillBtnClick} />) : '' }
+          </div>
+          { state.hasError ? <div>{state.errorMessage}</div> : '' }
+          <div id="reference1" ref={messageEndRef} ></div>
+        </div></StyleRoot>
+      <Button className={state.btnTitle!=='NEXT'?'nextBtn':''} disabled={state.disabled} onClick={ onClick.bind(this) } variant="next">{state.btnTitle}</Button>
+      </div>
+      ) }
+      </>
     );
 }
