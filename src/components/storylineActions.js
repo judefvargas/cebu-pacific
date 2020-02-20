@@ -22,7 +22,6 @@ export function saveAnswer(cId, qId, choiceId) {
     let prevAns = '';
     let ans = pastChoices[cId];
     if (ans !== undefined) {
-        console.log('i am here');
         prevAns = ans;
     }
     let actualAns = Object.assign({qId: choiceId}, prevAns)
@@ -35,7 +34,8 @@ export function saveChatIndex(activeId, count, isNew) {
   let trackArr = [];
   let trackingIndex = {};
   let index = isNew ? count : (count + 1);
-  let currentTracking = localStorage.getItem('CHAT_indexTracking');
+  let currentTracking = player.GetVar('CHAT_indexTracking');
+  // let currentTracking = localStorage.getItem('CHAT_indexTracking');
   if (currentTracking !== null) {
     currentTracking = JSON.parse(currentTracking);
     /* if null, check if existing then assign existing index else assign 0 as index */
@@ -57,11 +57,13 @@ export function saveChatIndex(activeId, count, isNew) {
     trackingIndex[activeId] = index;
     trackArr.push(trackingIndex);
   }
-  localStorage.setItem('CHAT_indexTracking', JSON.stringify(trackArr));
+  player.SetVar('CHAT_indexTracking', JSON.stringify(trackArr));
+  // localStorage.setItem('CHAT_indexTracking', JSON.stringify(trackArr));
 }
 
 export function saveConvoPosition(activeId, convoArray) {
-  let previous = localStorage.getItem('CHAT_currentConvoPos');
+  // let previous = localStorage.getItem('CHAT_currentConvoPos');
+  let previous = player.GetVar('CHAT_currentConvoPos');
   let allConvo = [];
   let updConvo = {};
 
@@ -85,8 +87,8 @@ export function saveConvoPosition(activeId, convoArray) {
     updConvo[activeId] = convoArray;
     allConvo.push(updConvo);
   }
-  
-  localStorage.setItem('CHAT_currentConvoPos', JSON.stringify(allConvo));
+  player.SetVar('CHAT_currentConvoPos', JSON.stringify(allConvo));
+  // localStorage.setItem('CHAT_currentConvoPos', JSON.stringify(allConvo));
 }
 
 export function getInitial() {
