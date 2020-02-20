@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useReducer } from 'react'
 import './mainnav.css';
-import { CUSTOMERS, convoR, initChatCount, conversation } from '../../customer';
+import { CUSTOMERS, convoR, initChatCount } from '../../customer';
 import Button from 'react-bootstrap/Button';
 import Conversation from './Conversation';
 import { styles } from '../animationStyles';
 import {StyleRoot} from 'radium';
+import { saveChatIndex, saveConvoPosition } from '../storylineActions';
 
 export default function Interaction(props) {
     const messageEndRef = useRef(null);
@@ -25,7 +26,7 @@ export default function Interaction(props) {
       length: current.length!==0 ? current[0].length-1 : 0, //length of conversation
       current: current.length!==0 ? current[0][1] : 0,
       isBtnPulse: false, //button animation 
-      actualCurrent: current.length!==0 ? current[0][1] : 0,
+      // actualCurrent: current.length!==0 ? current[0][1] : 0,
       temp: [], //storage for consequences,
       hasError: current.length!==0 ? false : true, //has error message (no consequence data, etc)
       errorMessage: current.length!==0 ? null : 'No conversation data available', //error message container
@@ -64,13 +65,12 @@ export default function Interaction(props) {
     function reducer(state, action) {
       switch(action.type) {
         case 'BUTTON_CLICKED': {
-          // localStorage.setItem('conversation', state.wholeCon);
           return {
             ...state,
             count: state.count+1,
             disabled: typeof(state.wholeCon[state.count+1])!=='object' ? true : false,
             current: state.wholeCon[state.count+1],
-            actualCurrent: state.wholeCon[state.count+1],
+            // actualCurrent: state.wholeCon[state.count+1],
             isBtnPulse: false,
             hasError: false
           }
@@ -80,7 +80,7 @@ export default function Interaction(props) {
             ...state,
             count: state.count +1,
             disabled: false,
-            actualCurrent: state.wholeCon[state.count],
+            // actualCurrent: state.wholeCon[state.count],
             current: state.wholeCon[state.count+1],
             isBtnPulse: state.wholeCon[state.count+1]!=='object'?true:false,
             hasError: false,
@@ -126,10 +126,23 @@ export default function Interaction(props) {
 
     function startConversation() {
       props.turnOn();
-      localStorage.setItem('CHAT_currentConvoPos', JSON.stringify(convoR));
+      let newObj;
+      for (let [key, value] of Object.entries(convoR)) {
+        if (parseInt(props.active.id) === parseInt(key)) {
+          newObj = new Map([
+            [key, value]
+          ]);
+        }
+        
+      }
+      const obj = Object.fromEntries(newObj);
+      let indexTracking = {};
+      indexTracking[props.active.id] = state.count;
+      localStorage.setItem('CHAT_currentConvoPos', JSON.stringify([obj]));
+      localStorage.setItem('CHAT_indexTracking', JSON.stringify([indexTracking]));
       // player.SetVar('CHAT_currentConvoPos', JSON.stringify(convoR));
-      console.log(convoR);
     }
+
     /* Update conversation data */
     function updateCon(convoData) {
       if (convoData.convo===undefined) {
@@ -140,6 +153,7 @@ export default function Interaction(props) {
         let completeConvo = state.wholeCon;
 
         let c = insertToObject(completeConvo, convoData.convo, state.count);
+        saveConvoPosition(props.active.id, c);
         dispatch({type: 'UPDATE_TEMP', payload: [c]});
       }
     }
@@ -147,17 +161,22 @@ export default function Interaction(props) {
     /* Actions when next button is clicked */
     function onClick() {
       let tempLength = state.length;
-      if (state.temp.length!==0) {
+      if (state.temp.length!==0) { // for consequences
+        // saveChatIndex(props.active.id, state.count);
         state.wholeCon = state.temp[0];
         tempLength = state.temp[0].length;
+        saveConvoPosition(props.active.id, state.wholeCon);
         dispatch({type: 'UPDATE_LENGTH', payload: state.temp[0].length});
         state.temp = [];
       }
       if (state.count+1===tempLength) {
+        /* if all done, show results */
         if (CUSTOMERS.length===props.active.id) {
-          localStorage.setItem('CHAT_showResults', true);
+          localStorage.setItem('CHAT_showResults', true); 
           // player.SetVar('CHAT_showResults', true);
+        /* Go to next customer */
         } else {
+          saveChatIndex(props.active.id+1, null, true);
           dispatch({type: 'UPDATE_NEW', payload: true});
           dispatch({type: 'DISABLE_BUTTON'});
           props.updateEl(null);
@@ -166,9 +185,14 @@ export default function Interaction(props) {
             props.next()
             dispatch({type: 'RESET'});
           }, 500);
+          saveConvoPosition(props.active.id+1, convoR[`${props.active.id+1}`])
+
         }
+      /* Show next item in conversation */
       } else {
-          dispatch({type: 'BUTTON_CLICKED'})
+        dispatch({type: 'BUTTON_CLICKED'})
+        saveChatIndex(props.active.id, state.count);
+        // let curIndex = localStorage.getItem('CHAT_indexTracking');
       }
     }
 
@@ -228,7 +252,18 @@ export default function Interaction(props) {
         <StyleRoot><div className={`conversation ${state.longDiv}`} id="style-3" style={ (state.isNew) ? (styles.fadeOut) : {} }>
           <div className="divOverflow" >
             { state.wholeCon.length!==0 ? 
-            (<Conversation active={props.active} wholeCon={state.wholeCon} actual={state.actualCurrent} id="container3" update={ () => { dispatch({type: 'UPDATE_CHOICE' }) } } current={state.current}  count={state.count} key="1" updateConvo={(val)=>{ updateCon(val) }} updateTill={props.updateTill} tillBtnClick={props.tillBtnClick} />) : '' }
+            (<Conversation 
+              active={props.active} 
+              wholeCon={state.wholeCon} 
+              // actual={state.actualCurrent} 
+              id="container3" 
+              update={ () => { dispatch({type: 'UPDATE_CHOICE' }) } } 
+              current={state.current}  
+              count={state.count} 
+              key="1" 
+              updateConvo={(val)=>{ updateCon(val) }} 
+              updateTill={props.updateTill} 
+              tillBtnClick={props.tillBtnClick} />) : '' }
           </div>
           { state.hasError ? <div>{state.errorMessage}</div> : '' }
           <div id="reference1" ref={messageEndRef} ></div>
@@ -237,5 +272,5 @@ export default function Interaction(props) {
       </div>
       ) }
       </>
-    );
+  );
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { updateTotal, saveAnswer } from '../storylineActions';
+import { updateTotal, saveAnswer, saveChatIndex, } from '../storylineActions';
 import { answerList, choicesList, consequences } from '../../customer';
 import ListGroup from 'react-bootstrap/ListGroup';
 
@@ -23,6 +23,7 @@ export const Choices = (props) => {
             let consFinal = searchObject(`choice ${(ansIndex+1)}`, cons);
             props.updateConvo({ convo: consFinal, msg: 'No consequence choice data found.'  });
         }
+        saveChatIndex(props.activeId, props.count);
         props.update();
 
     }

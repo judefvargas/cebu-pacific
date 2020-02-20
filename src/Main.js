@@ -21,6 +21,12 @@ export default class Main extends Component {
             this.setState({isShowModal: true});
             // player.SetVar('CARGO_showModal', true);
         } else {
+            let currentDone = [...this.state.doneCustomers, this.state.currentCustomer];
+            // player.SetVar('CHAT_customers_done', currentDone.toString());
+            // player.SetVar('CHAT_curCustomer', currentCustomer+1);
+            localStorage.setItem('CHAT_customers_done', currentDone.toString());
+            localStorage.setItem('CHAT_curCustomer', currentCustomer+1);
+
             this.setState(state => ({ 
                 currentCustomer: currentCustomer+1,
                 activeCustomer: this.search(this.state.currentCustomer+1, CUSTOMERS),
@@ -30,6 +36,9 @@ export default class Main extends Component {
     }
 
     updateActive = (id) => {
+        // player.SetVar('CHAT_customers_done', currentDone.toString());
+        // player.SetVar('CHAT_curCustomer', currentCustomer+1);
+        localStorage.setItem('CHAT_curCustomer', id);
         this.setState({
             currentCustomer: id,
             activeCustomer: this.search(id, CUSTOMERS)

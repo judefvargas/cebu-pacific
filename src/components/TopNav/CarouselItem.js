@@ -1,4 +1,4 @@
-import React, {lazy, Suspense} from 'react';
+import React from 'react';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import ProgressBar from 'react-bootstrap/ProgressBar';
 // import { player, allowClick } from '../../customer';
@@ -43,7 +43,6 @@ export default function CarouselItem(props) {
                 {/* <Suspense fallback={<FontAwesomeIcon icon="spinner" rotation={90} inverse />}> */}
                     <Image done={done} 
                         idKey={j} 
-                        key={generateKey()} 
                         image={actualArr[j].image} 
                         id={actualArr[j].id} 
                         updateActive={updateActive}/>

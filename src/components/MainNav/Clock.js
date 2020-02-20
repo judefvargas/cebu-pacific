@@ -1,24 +1,36 @@
 import React, { Component } from 'react'
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 export default class Clock extends Component {
     constructor(props) {
         super(props)
-    
+        const date = Object.assign({}, props.active.date);
+        const time = Object.assign({}, props.active.time);
+        const clockDate = new Date(`${time} ${date}`);
         this.state = {
-            date: new Date(2019, 10, 14, 10, 40)
-            // date: new Date(2019, 10, 14, 10, 40, 20),
+            date: new Date(clockDate)
         }
-        setInterval(
-            () => this.setState({date: new Date(this.state.date.setMinutes(this.state.date.getMinutes()+10) ) }),
-            5000
-        ); //tick every 5 seconds, add 10 minutes to date
+        let curDate = Object.assign({}, this.state.date);
+
+        // setInterval(
+        //     () => curDate = new Date(curDate.setMinutes(curDate.getMinutes()+10) ),
+        //     // () => this.setState({date: new Date(curDate.setMinutes(curDate.getMinutes()+10) ) }),
+        //     5000
+        // ); //tick every 5 seconds, add 10 minutes to date
+        console.log(curDate)
     }
-    
+    componentDidUpdate(prevProps) {
+        // if (this.props.active !== prevProps.active) {
+        //     console.log('here');
+        //     this.setState({date: new Date(this.state.date.setMinutes(this.state.date.getMinutes()+10) ) });
+        // }
+    }
     render() {
         return (
             <>
                 <FormatDate date={this.state.date} />
-                <img src="TIMER.png" alt="" style={{width:'6.4vw', position:'relative'}} />
+                <LazyLoadImage placeholderSrc={`TIMER.png`} effect="blur" alt=""  style={{width:'6.4vw', position:'relative'}} src={`TIMER.png`} />
             </>
         )
     }
