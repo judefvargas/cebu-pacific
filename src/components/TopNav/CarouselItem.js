@@ -42,7 +42,6 @@ export default function CarouselItem(props) {
                 {/* <Suspense fallback={<FontAwesomeIcon icon="spinner" rotation={90} inverse />}> */}
                     <Image done={done} 
                         idKey={j} 
-                        key={generateKey()} 
                         image={actualArr[j].image} 
                         id={actualArr[j].id} 
                         updateActive={updateActive}/>

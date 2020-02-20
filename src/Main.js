@@ -32,6 +32,10 @@ export default class Main extends Component {
     }
 
     updateActive = (id) => {
+        // player.SetVar('CHAT_customers_done', currentDone.toString());
+        // player.SetVar('CHAT_curCustomer', currentCustomer+1);
+        player.SetVar('CHAT_curCustomer', id);
+        // localStorage.setItem('CHAT_curCustomer', id);
         this.setState({
             currentCustomer: id,
             activeCustomer: this.search(id, CUSTOMERS)

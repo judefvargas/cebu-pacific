@@ -10,7 +10,6 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 
 export default function TopNav(props) {
     let { done } = props;
-console.log(done);
     return (
       <div className="row grid-top-nav">
         <div className="col-md-4" style={{ paddingRight: 0 }}>

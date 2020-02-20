@@ -3,11 +3,13 @@ import { allowClick } from '../../customer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import { saveChatIndex } from '../storylineActions';
 
 function Image({ done, idKey, image, id, updateActive }) {
   // let { done, idKey, image, id, updateActive } = props;
   const btnClick = () => {
     if (allowClick && done.indexOf(id)===-1) {
+      saveChatIndex(id, null, true);
       updateActive(id);
     }
   }
