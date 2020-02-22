@@ -21,7 +21,7 @@ export default class Main extends Component {
             // this.setState({isShowModal: true});
         } else {
             let currentDone = [...this.state.doneCustomers, this.state.currentCustomer];
-            player.SetVar('CHAT_customers_done', currentDone.toString());
+            player.SetVar('CHAT_customers_done', JSON.stringify(currentDone));
             player.SetVar('CHAT_curCustomer', currentCustomer+1);
             this.setState(state => ({ 
                 currentCustomer: currentCustomer+1,

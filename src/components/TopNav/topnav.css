@@ -136,9 +136,7 @@
 }
 
 .carousel-item {
-    width: auto !important;
-    margin-right: 0 !important;
-    float: none !important;
+    text-align: left;
 }
 .interaction {
     background: url('./customer-john.png');
