@@ -27,6 +27,8 @@ export function saveAnswer(cId, qId, choiceId) {
     }
     let actualAns = Object.assign({qId: choiceId}, prevAns)
     answers[cId] = actualAns;
+    localStorage.setItem('CHAT_pastChoices', JSON.stringify(answers));
+    // player.SetVar('CHAT_pastChoices', JSON.stringify(answers));
 
 }
 

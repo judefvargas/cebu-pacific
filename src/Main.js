@@ -24,7 +24,7 @@ export default class Main extends Component {
             let currentDone = [...this.state.doneCustomers, this.state.currentCustomer];
             // player.SetVar('CHAT_customers_done', currentDone.toString());
             // player.SetVar('CHAT_curCustomer', currentCustomer+1);
-            localStorage.setItem('CHAT_customers_done', currentDone.toString());
+            localStorage.setItem('CHAT_customers_done', JSON.stringify(currentDone));
             localStorage.setItem('CHAT_curCustomer', currentCustomer+1);
 
             this.setState(state => ({ 
