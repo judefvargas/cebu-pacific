@@ -1,21 +1,24 @@
-import React, { useState, } from 'react'
+import React, { useState, useEffect, } from 'react'
 import './mainnav.css';
 import Interaction from './Interaction';
 import Webobject from './Webobject';
 import Distractors from './Distractors';
-import { player } from '../../customer';
+// import { player } from '../../customer';
 
 export default function MainNav(props) {
-  let currentConversation = JSON.parse(player.GetVar('CHAT_currentConvoPos'));
+  let currentConversation = JSON.parse(localStorage.getItem('CHAT_currentConvoPos'));
   
   const [isOn, turnOn] = useState(false); //Start toggle
-  if (JSON.stringify(currentConversation) !== '{}') {
-    turnOn(true);
-  }
+
+  useEffect(() => {
+    if ((currentConversation!==null && currentConversation.length!==0)) {
+      turnOn(true);
+    }
+  }, [])
   const [hasTill, updateTill] = useState(false); //TILL toggle
   const [element, updateEl] = useState(null); //element shown on TILL
   const [tillBtnClick, updateTillClick] = useState(false); 
-  const { active, next } = props;
+  const { active, next, done, } = props;
 
   return (
     <div className="row grid-main-nav">
@@ -23,7 +26,8 @@ export default function MainNav(props) {
         active={active} 
         on={isOn} 
         turnOn={() => {turnOn(true)}} 
-        next={next} 
+        next={next}
+        done={done}
         updateTill={ (val)=>{ updateTill(val) } } 
         tillBtnClick={tillBtnClick} 
         updateEl={(val)=>{updateEl(val)}} 

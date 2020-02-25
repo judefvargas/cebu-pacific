@@ -18,7 +18,6 @@ export default class Clock extends Component {
         //     // () => this.setState({date: new Date(curDate.setMinutes(curDate.getMinutes()+10) ) }),
         //     5000
         // ); //tick every 5 seconds, add 10 minutes to date
-        console.log(curDate)
     }
     componentDidUpdate(prevProps) {
         // if (this.props.active !== prevProps.active) {

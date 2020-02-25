@@ -5,41 +5,54 @@ import Button from 'react-bootstrap/Button';
 import Conversation from './Conversation';
 import { styles } from '../animationStyles';
 import {StyleRoot} from 'radium';
-import { saveChatIndex, saveConvoPosition } from '../storylineActions';
+import { saveChatIndex, saveConvoPosition, searchNext, hasConvoData, } from '../storylineActions';
 
 export default function Interaction(props) {
     const messageEndRef = useRef(null);
-    let current = [];
-    /* Set current conversation according to current active id */
+    let storedConversation = JSON.parse(localStorage.getItem('CHAT_currentConvoPos'));
+    let indexTracking = JSON.parse(localStorage.getItem('CHAT_indexTracking'));
+    let actualIndex = searchIndex(indexTracking, props.active.id);
+    let actualConversation = searchIndex(storedConversation, props.active.id);
+    // let notDone = searchUnfinished(CUSTOMERS, props.done, props.active.id);
 
-    for (let [key, value] of Object.entries(convoR)) {
-      if (parseInt(key) === props.active.id) current.push(value);
-    }
+    const current = React.useMemo(() => {
+      let curArr = [];
+      if (actualConversation!==null && storedConversation!==null && storedConversation.length!==0) {
+        curArr.push(actualConversation);
+      } else {
+        for (let [key, value] of Object.entries(convoR)) {
+          if (parseInt(key) === props.active.id) curArr.push(value);
+        }
+      }
+      return curArr;
+    }, [actualConversation, props.active.id, storedConversation]);
 
+    let actualArray = [...current];
+    let currentConvoString = (indexTracking!==null) ? actualArray[0][actualIndex] : null; //current string being shown to user
     /* Set initial values */
     const initVal = {
-      count: initChatCount-1, //chat message count initially shown
-      // currentIndex: 1,
+      count: (storedConversation!==null && storedConversation.length!==0) 
+        ? actualIndex 
+        : initChatCount, //chat message count initially shown
       hidden: '', //for hiding next button
       longDiv: '', //if next button is hidden, chat will take up entire space
-      disabled: current.length!==0 ? false : true, //button disable (for decision points)
-      length: current.length!==0 ? current[0].length-1 : 0, //length of conversation
-      current: current.length!==0 ? current[0][1] : 0,
+      disabled: (actualArray.length===0 || typeof(currentConvoString) === 'string') ? true : false, //button disable (for decision points)
+      length: actualArray.length!==0 ? actualArray[0].length : 0, //length of conversation
+      current: actualArray.length!==0 ? currentConvoString : 0,
       isBtnPulse: false, //button animation 
-      // actualCurrent: current.length!==0 ? current[0][1] : 0,
+      // actualCurrent: actualArray.length!==0 ? actualArray[0][1] : 0,
       temp: [], //storage for consequences,
-      hasError: current.length!==0 ? false : true, //has error message (no consequence data, etc)
-      errorMessage: current.length!==0 ? null : 'No conversation data available', //error message container
-      wholeCon: current.length!==0 ? current[0] : [], //whole conversation
+      hasError: actualArray.length!==0 ? false : true, //has error message (no consequence data, etc)
+      errorMessage: actualArray.length!==0 ? null : 'No conversation data available', //error message container
+      wholeCon: actualArray.length!==0 ? actualArray[0] : [], //whole conversation
       isNew: false,
       btnTitle: 'NEXT'
     };
-
+    // console.log(initVal);
     useEffect(() => {
       dispatch({type: 'RESET'});
     }, [props.active.id]);
     const [state, dispatch] = useReducer(reducer, initVal);
-    
     /* Insert object to specific index in object */
     const insertToObject = (obj, newObj, index) => {
       let temp = [];
@@ -170,22 +183,26 @@ export default function Interaction(props) {
         state.temp = [];
       }
       if (state.count+1===tempLength) {
+        let aArr = [...props.done, props.active.id];
         /* if all done, show results */
-        if (CUSTOMERS.length===props.active.id) {
+        if (CUSTOMERS.length===aArr.length) {
           localStorage.setItem('CHAT_showResults', true); 
           // player.SetVar('CHAT_showResults', true);
         /* Go to next customer */
         } else {
-          saveChatIndex(props.active.id+1, null, true);
           dispatch({type: 'UPDATE_NEW', payload: true});
           dispatch({type: 'DISABLE_BUTTON'});
           props.updateEl(null);
           props.updateTillClick(false);
+          let next = searchNext(props.active.id, props.done);
           setTimeout(() => {
             props.next()
             dispatch({type: 'RESET'});
           }, 500);
-          saveConvoPosition(props.active.id+1, convoR[`${props.active.id+1}`])
+          if (props.active.id < next && !hasConvoData(next)) {
+            saveChatIndex(next, null, true);
+            saveConvoPosition(next, convoR[next])
+          }
 
         }
       /* Show next item in conversation */
@@ -195,9 +212,9 @@ export default function Interaction(props) {
         // let curIndex = localStorage.getItem('CHAT_indexTracking');
       }
     }
-
     if ((state.wholeCon.length-1 === state.count) && typeof(state.wholeCon[state.count])!=='string' && state.btnTitle!=='NEXT CUSTOMER' && state.btnTitle!=='SHOW RESULTS') {
-      if (CUSTOMERS.length===props.active.id) {
+      let aArr = [...props.done, props.active.id];
+      if (CUSTOMERS.length===aArr.length) {
         dispatch({type: 'UPDATE_BTN_TITLE', payload: 'SHOW RESULTS'});
       } else {
         dispatch({type: 'UPDATE_BTN_TITLE', payload: 'NEXT CUSTOMER'});
@@ -247,7 +264,11 @@ export default function Interaction(props) {
         `}
       </style>
       { (!props.on) 
-      ? <div className="col col-md-7 convo"><div className="startContainer" ><Button variant="start" onClick={() => {startConversation()}}>START CONVERSATION</Button></div></div>
+      ? <div className="col col-md-7 convo">
+          <div className="startContainer" >
+            <Button variant="start" onClick={() => {startConversation()}}>START CONVERSATION</Button>
+          </div>
+        </div>
       : (<div className="col col-md-7 convo" >
         <StyleRoot><div className={`conversation ${state.longDiv}`} id="style-3" style={ (state.isNew) ? (styles.fadeOut) : {} }>
           <div className="divOverflow" >
@@ -268,9 +289,24 @@ export default function Interaction(props) {
           { state.hasError ? <div>{state.errorMessage}</div> : '' }
           <div id="reference1" ref={messageEndRef} ></div>
         </div></StyleRoot>
-      <Button className={state.btnTitle!=='NEXT'?'nextBtn':''} disabled={state.disabled} onClick={ onClick.bind(this) } variant="next">{state.btnTitle}</Button>
+      <Button className={state.btnTitle!=='NEXT'?'nextBtn':''} 
+        disabled={state.disabled} 
+        onClick={ onClick.bind(this) } 
+        variant="next">{state.btnTitle}
+      </Button>
       </div>
       ) }
       </>
   );
+}
+
+const searchIndex = (indArr, activeId) => {
+  let searchVal;
+  if(indArr !== null) {
+    let tempArr = indArr.filter((object) => parseInt(Object.keys(object)[0]) === activeId)
+    searchVal = tempArr.length!==0 ? tempArr[0][activeId] : null; 
+  } else {
+    searchVal = null;
+  }
+  return searchVal;
 }
