@@ -9,7 +9,6 @@ import generateKey from '../Key';
 
 export default function Question(props) {
   const qEndRef = useRef(null);
-
   const scrollToTop = (ref) => {
     window.scrollTo(0, qEndRef.current.offsetTop)
   }

@@ -1,4 +1,4 @@
-import { player, scoring, pastChoices, } from '../customer';
+import { player, CUSTOMERS, scoring, } from '../customer';
 
 export function updateTotal(isCorrect) {
     let correctPoints = scoring.correct;
@@ -11,23 +11,49 @@ export function updateTotal(isCorrect) {
     } else {
         score = parseInt(incorrectPoints);
     }
-
     let newTotal = parseInt(currentTotal) + score;
     player.SetVar('CHAT_totalScore', newTotal);
 }
 
 export function saveAnswer(cId, qId, choiceId) {
+    let answers = JSON.parse(player.GetVar('CHAT_pastChoices'));
+    // let answers = JSON.parse(localStorage.getItem('CHAT_pastChoices'));
+    let ansObj = {};
+    let allAns = [];
     // let answers = JSON.parse(player.GetVar('CHAT_pastChoices'));
-    let answers = {};
-    let prevAns = '';
-    let ans = pastChoices[cId];
-    if (ans !== undefined) {
-        prevAns = ans;
+    // let answers = {};
+    let prevAns = {};
+    let tempObj = {};
+    if (answers.length!==0) {
+      let curAns = JSON.parse(answers);
+      let customerPrevAns = findCustomerAnswer(curAns, cId); // returns array [index, value]
+      let newAns;
+      if (customerPrevAns!==null) {
+        let prevAnsIndex = customerPrevAns[0];
+        // parse through everything in array
+        for (let i in curAns) {
+          // if it contains the previous answers for the customer, assign prevAns
+          if (prevAnsIndex === parseInt(i)) {
+            newAns = Object.assign({}, curAns[customerPrevAns[0]]);
+            prevAns = newAns[cId];
+          // else push object to allAns
+          } else {
+            allAns.push(curAns[i])
+          }
+        }
+      } else {
+        // push all previous to allAns array
+        for(let i in curAns) {
+          allAns.push(curAns[i]);
+        }
+      }
     }
-    let actualAns = Object.assign({qId: choiceId}, prevAns)
-    answers[cId] = actualAns;
-    player.SetVar('CHAT_pastChoices', JSON.stringify(answers));
-
+    tempObj[qId] = choiceId; //assign question to answer
+    let actualAns = Object.assign(tempObj, prevAns); //put in object to be assigned to customer id 
+    ansObj[cId] = actualAns; //assign answers to question
+    allAns.push(ansObj);
+    player.SetVar('CHAT_pastChoices', JSON.stringify(allAns));
+    // localStorage.setItem('CHAT_pastChoices', JSON.stringify(allAns));
 }
 
 export function saveChatIndex(activeId, count, isNew) {
@@ -35,8 +61,8 @@ export function saveChatIndex(activeId, count, isNew) {
   let trackingIndex = {};
   let index = isNew ? count : (count + 1);
   let currentTracking = player.GetVar('CHAT_indexTracking');
-  // let currentTracking = localStorage.getItem('CHAT_indexTracking');
-  if (currentTracking !== null) {
+  // let currentTracking = localStorage.getItem('CHAT_indexTracking') ?? [];
+  if (currentTracking.length!==0) {
     currentTracking = JSON.parse(currentTracking);
     /* if null, check if existing then assign existing index else assign 0 as index */
     if (searchIfExisting(activeId, currentTracking)) {
@@ -63,11 +89,11 @@ export function saveChatIndex(activeId, count, isNew) {
 
 export function saveConvoPosition(activeId, convoArray) {
   // let previous = localStorage.getItem('CHAT_currentConvoPos');
-  let previous = player.GetVar('CHAT_currentConvoPos');
+  let previous = JSON.parse(player.GetVar('CHAT_currentConvoPos'));
   let allConvo = [];
   let updConvo = {};
 
-  if (previous !== null) {
+  if (previous.length!==0) {
     previous = JSON.parse(previous);
     if (searchIfExisting(activeId, previous)) {
       for (let i in previous) {
@@ -98,6 +124,60 @@ export function getInitial() {
 const searchIfExisting = (id, array) => {
   for (let key in array) {
     if (parseInt(Object.keys(array[key])[0]) === id) {
+      return true;
+    }
+  }
+  return false;
+}
+export const searchUnfinished = (doneCustomers, activeId) => {
+  let unfinished = CUSTOMERS.filter((object) => {
+    if (doneCustomers.indexOf(parseInt(object.id)) === -1 
+      && parseInt(object.id)!==activeId) 
+      return true;
+    else return false;
+  });
+  let actual;
+  if(unfinished.length!==0) {
+    actual = unfinished.map(element => {
+      return element.id;
+    });  
+  }
+  return actual;
+}
+
+const findCustomerAnswer = (ansArray, customerId) => {
+  for (let i=0; i<ansArray.length; i++) {
+    for (const [key, value] of Object.entries(ansArray[i])) {
+      if (parseInt(key)===parseInt(customerId)) {
+        return [i, value];
+      }
+    }
+  }
+  return null;
+}
+
+
+export const searchNext = (activeId, doneArray) => {
+  let next;
+  let notDone = searchUnfinished(doneArray, activeId);
+  for (let i in CUSTOMERS) {
+    let current = CUSTOMERS[i];
+    if ((parseInt(current.id) === parseInt(activeId))) {
+      next = CUSTOMERS[parseInt(i)+1];
+      if (next!==undefined && doneArray.indexOf(next.id)===-1) {
+        return next.id;
+      } else {
+        return notDone[0];
+      }
+    }
+  }
+}
+
+export const hasConvoData = (activeId) => {
+  let convo = JSON.parse(player.GetVar('CHAT_currentConvoPos'));
+  // let convo = JSON.parse(localStorage.getItem('CHAT_currentConvoPos'));
+  for (let i in convo) {
+    if ((convo[i][activeId]) !== undefined) {
       return true;
     }
   }
