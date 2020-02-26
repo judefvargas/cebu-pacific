@@ -35,7 +35,7 @@ export default function Interaction(props) {
     const initVal = {
       count: (storedConversation!==null && storedConversation.length!==0) 
         ? actualIndex 
-        : initChatCount, //chat message count initially shown
+        : initChatCount-1, //chat message count initially shown
       hidden: '', //for hiding next button
       longDiv: '', //if next button is hidden, chat will take up entire space
       disabled: (actualArray.length===0 || typeof(currentConvoString) === 'string') ? true : false, //button disable (for decision points)

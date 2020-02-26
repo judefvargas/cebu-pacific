@@ -25,7 +25,7 @@ export function saveAnswer(cId, qId, choiceId) {
     let prevAns = {};
     let tempObj = {};
     if (answers.length!==0) {
-      let curAns = JSON.parse(answers);
+      let curAns = (answers);
       let customerPrevAns = findCustomerAnswer(curAns, cId); // returns array [index, value]
       let newAns;
       if (customerPrevAns!==null) {
@@ -60,10 +60,9 @@ export function saveChatIndex(activeId, count, isNew) {
   let trackArr = [];
   let trackingIndex = {};
   let index = isNew ? count : (count + 1);
-  let currentTracking = player.GetVar('CHAT_indexTracking');
+  let currentTracking = JSON.parse(player.GetVar('CHAT_indexTracking'));
   // let currentTracking = localStorage.getItem('CHAT_indexTracking') ?? [];
   if (currentTracking.length!==0) {
-    currentTracking = JSON.parse(currentTracking);
     /* if null, check if existing then assign existing index else assign 0 as index */
     if (searchIfExisting(activeId, currentTracking)) {
       for (let i in currentTracking) {
@@ -94,7 +93,6 @@ export function saveConvoPosition(activeId, convoArray) {
   let updConvo = {};
 
   if (previous.length!==0) {
-    previous = JSON.parse(previous);
     if (searchIfExisting(activeId, previous)) {
       for (let i in previous) {
         if (parseInt(Object.keys(previous[i])[0]) === activeId) {
