@@ -18,7 +18,7 @@ function Image({ done, idKey, image, id, updateActive }) {
     { (done.indexOf(id) > -1) ?
     (<span className="fa-layers fa-fw checkmark">
       <FontAwesomeIcon icon="square" className="squareCheck" color="green" size="lg" />
-      <FontAwesomeIcon icon="check" inverse color="green"  size=""/>
+      <FontAwesomeIcon icon="check" inverse color="green" />
     </span>) : '' }
     <span className={`customerSpan `} style={{cursor:((allowClick && done.indexOf(id)===-1) ? 'pointer' : '')}}>
       <LazyLoadImage

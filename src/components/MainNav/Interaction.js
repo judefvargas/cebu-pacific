@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useReducer } from 'react'
 import './mainnav.css';
-import { player, CUSTOMERS, convoR, initChatCount } from '../../customer';
+import { player, CUSTOMERS, convoR, initChatCount, shouldStart, } from '../../customer';
 import Button from 'react-bootstrap/Button';
 import Conversation from './Conversation';
 import { styles } from '../animationStyles';
@@ -30,6 +30,7 @@ export default function Interaction(props) {
     }, [actualConversation, props.active.id, storedConversation]);
 
     let actualArray = [...current];
+
     let currentConvoString = (indexTracking!==null) ? actualArray[0][actualIndex] : null; //current string being shown to user
     /* Set initial values */
     const initVal = {
@@ -55,6 +56,13 @@ export default function Interaction(props) {
       dispatch({type: 'RESET'});
     }, [props.active.id]);
     const [state, dispatch] = useReducer(reducer, initVal);
+
+    useEffect(() => {
+      if (shouldStart && !hasConvoData(props.active.id)) {
+        saveConvoPosition(props.active.id, state.wholeCon);
+        saveChatIndex(props.active.id, state.count);
+      }
+    }, [shouldStart])
     /* Insert object to specific index in object */
     const insertToObject = (obj, newObj, index) => {
       let temp = [];

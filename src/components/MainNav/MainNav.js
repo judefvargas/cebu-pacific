@@ -3,7 +3,7 @@ import './mainnav.css';
 import Interaction from './Interaction';
 import Webobject from './Webobject';
 import Distractors from './Distractors';
-import { player } from '../../customer';
+import { player, shouldStart, } from '../../customer';
 
 export default function MainNav(props) {
   let currentConversation = JSON.parse(player.GetVar('CHAT_currentConvoPos'));
@@ -12,7 +12,7 @@ export default function MainNav(props) {
   const [isOn, turnOn] = useState(false); //Start toggle
 
   useEffect(() => {
-    if ((currentConversation!==null && currentConversation.length!==0)) {
+    if ((currentConversation!==null && currentConversation.length!==0) || shouldStart) {
       turnOn(true);
     }
   }, [])

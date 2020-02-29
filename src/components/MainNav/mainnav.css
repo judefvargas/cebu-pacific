@@ -188,7 +188,7 @@ div.callout {
     font-size: 5.2vh;
     font-weight: 700;
     display: inline-block;
-    margin: 1.7vh 0.6vw;
+    margin: 1.7vh 1.2vw;
     padding: 1%;
     word-wrap: break-word;
     position: absolute;
@@ -260,4 +260,14 @@ div.callout {
     /* display: inline-block; */
     width: 68%;
     margin: 0 auto;
+}
+
+.actualMonth {
+    position: absolute;
+    z-index: 999;
+    color: white;
+    margin-left: 2vw;
+    font-weight: 700;
+    font-size: 14px;
+    margin-top: 2%;
 }
