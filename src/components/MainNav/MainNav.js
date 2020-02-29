@@ -3,11 +3,10 @@ import './mainnav.css';
 import Interaction from './Interaction';
 import Webobject from './Webobject';
 import Distractors from './Distractors';
-import { player, shouldStart, } from '../../customer';
+import { player, shouldStart, restart, } from '../../customer';
 
 export default function MainNav(props) {
   let currentConversation = JSON.parse(player.GetVar('CHAT_currentConvoPos'));
-  // let currentConversation = JSON.parse(localStorage.getItem('CHAT_currentConvoPos'));
   
   const [isOn, turnOn] = useState(false); //Start toggle
 
@@ -16,6 +15,17 @@ export default function MainNav(props) {
       turnOn(true);
     }
   }, [])
+
+  useEffect(() => {
+    console.log(restart);
+    if (restart) {
+      console.log('has restarted')
+      player.SetVar('CHAT_currentConvoPos', '[]');
+      player.SetVar('CHAT_indexTracking', '[]');
+      player.SetVar('CHAT_totalScore', 0);
+      turnOn(false);
+    }
+  }, [restart])
   const [hasTill, updateTill] = useState(false); //TILL toggle
   const [element, updateEl] = useState(null); //element shown on TILL
   const [tillBtnClick, updateTillClick] = useState(false); 

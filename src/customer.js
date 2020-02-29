@@ -37,3 +37,7 @@ export const buttonTitles = JSON.parse(player.GetVar('CHAT_buttonTitles'));
 export const pastChoices = JSON.parse(player.GetVar('CHAT_pastChoices'));
 
 export const allowImgClick = player.GetVar('CHAT_allowTillmageClick');
+
+export const shouldStart = player.GetVar('CHAT_automaticStart');
+
+export const restart = player.GetVar('CHAT_reset');
