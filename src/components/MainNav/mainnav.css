@@ -271,3 +271,7 @@ div.callout {
     font-size: 14px;
     margin-top: 2%;
 }
+
+.list-group-item-warning {
+    background-color: #f1f12780 !important;
+}

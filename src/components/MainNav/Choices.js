@@ -1,5 +1,5 @@
 import React from 'react';
-import { updateTotal, saveAnswer, saveChatIndex, } from '../storylineActions';
+import { updateTotal, saveAnswer, saveChatIndex, questionHasAnswer, } from '../storylineActions';
 import { answerList, choicesList, consequences } from '../../customer';
 import ListGroup from 'react-bootstrap/ListGroup';
 
@@ -27,10 +27,19 @@ export const Choices = (props) => {
         props.update();
 
     }
-
+    let answers = localStorage.getItem('CHAT_pastChoices') ?? [];
+    let curAns;
+    if (answers.length!==0) {
+        answers = JSON.parse(answers);
+        curAns = questionHasAnswer(props.qid, props.activeId);
+    }
     for (let i=0; i<choicesList[props.qid].length; i++) {
+        let bgColor = '';
+        if (curAns===i+1) {
+            bgColor = 'warning';
+        }
         choices.push(
-            <ListGroup.Item key={i} onClick={ () => {onClick(props.qid, i)} }>{ choicesList[props.qid][i] }</ListGroup.Item>
+            <ListGroup.Item variant={bgColor} key={i} onClick={ () => {onClick(props.qid, i)} }>{ choicesList[props.qid][i] }</ListGroup.Item>
         );
     }
     return choices;
