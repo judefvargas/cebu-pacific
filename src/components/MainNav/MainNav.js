@@ -16,21 +16,22 @@ export default function MainNav(props) {
     }
   }, [])
 
-  useEffect(() => {
-    console.log(restart);
-    if (restart) {
-      console.log('has restarted')
-      player.SetVar('CHAT_currentConvoPos', '[]');
-      player.SetVar('CHAT_indexTracking', '[]');
-      player.SetVar('CHAT_totalScore', 0);
-      turnOn(false);
-    }
-  }, [restart])
   const [hasTill, updateTill] = useState(false); //TILL toggle
   const [element, updateEl] = useState(null); //element shown on TILL
   const [tillBtnClick, updateTillClick] = useState(false); 
   const { active, next, done, } = props;
-
+  useEffect(() => {
+    if (restart==='true') {
+      // console.log('has restarted')
+      player.SetVar('CHAT_currentConvoPos', '[]');
+      player.SetVar('CHAT_indexTracking', '[]');
+      player.SetVar('CHAT_totalScore', 0);
+      player.SetVar('CHAT_pastChoices', '[]');
+      player.SetVar('CHAT_customers_done', '[]');
+      player.SetVar('CHAT_curCustomer', 1);
+      turnOn(false);
+    }
+  }, [restart])
   return (
     <div className="row grid-main-nav">
       <Interaction 

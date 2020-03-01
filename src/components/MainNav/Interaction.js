@@ -60,7 +60,7 @@ export default function Interaction(props) {
     useEffect(() => {
       if (shouldStart && !hasConvoData(props.active.id)) {
         saveConvoPosition(props.active.id, state.wholeCon);
-        saveChatIndex(props.active.id, state.count);
+        saveChatIndex(props.active.id, state.count-1);
       }
     }, [shouldStart])
     /* Insert object to specific index in object */
