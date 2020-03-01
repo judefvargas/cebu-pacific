@@ -12,7 +12,6 @@ export default function Webobject(props) {
     const updateElement = () => {
         player.SetVar('CHAT_showTill', true);
         updateTillClick(true);
-        console.log('call storyline var');
     }
     return (
         <>
@@ -39,6 +38,7 @@ export default function Webobject(props) {
 const DisplayObject = (props) => {
     function checkAllow() {
         if (allowImgClick) {
+            player.SetVar('CHAT_imageIsClicked', true);
             props.click();
         }
     }

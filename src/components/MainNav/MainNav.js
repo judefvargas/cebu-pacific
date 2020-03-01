@@ -3,7 +3,7 @@ import './mainnav.css';
 import Interaction from './Interaction';
 import Webobject from './Webobject';
 import Distractors from './Distractors';
-import { player, shouldStart, restart, } from '../../customer';
+import { player, shouldStart, } from '../../customer';
 
 export default function MainNav(props) {
   let currentConversation = JSON.parse(player.GetVar('CHAT_currentConvoPos'));
@@ -20,18 +20,19 @@ export default function MainNav(props) {
   const [element, updateEl] = useState(null); //element shown on TILL
   const [tillBtnClick, updateTillClick] = useState(false); 
   const { active, next, done, } = props;
-  useEffect(() => {
-    if (restart==='true') {
-      // console.log('has restarted')
-      player.SetVar('CHAT_currentConvoPos', '[]');
-      player.SetVar('CHAT_indexTracking', '[]');
-      player.SetVar('CHAT_totalScore', 0);
-      player.SetVar('CHAT_pastChoices', '[]');
-      player.SetVar('CHAT_customers_done', '[]');
-      player.SetVar('CHAT_curCustomer', 1);
-      turnOn(false);
-    }
-  }, [restart])
+  // let restart = player.GetVar('CHAT_reset');
+  // useEffect(() => {
+  //   if (restart) {
+  //     // console.log('has restarted')
+  //     player.SetVar('CHAT_currentConvoPos', '[]');
+  //     player.SetVar('CHAT_indexTracking', '[]');
+  //     player.SetVar('CHAT_totalScore', 0);
+  //     player.SetVar('CHAT_pastChoices', '[]');
+  //     player.SetVar('CHAT_customers_done', '[]');
+  //     player.SetVar('CHAT_curCustomer', 1);
+  //     turnOn(false);
+  //   }
+  // }, [restart])
   return (
     <div className="row grid-main-nav">
       <Interaction 
