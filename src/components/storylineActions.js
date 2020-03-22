@@ -183,9 +183,9 @@ export const hasConvoData = (activeId) => {
 }
 
 export const questionHasAnswer = (questionId, customerId) => {
-  let answers = localStorage.getItem('CHAT_pastChoices') ?? [];
+  let answers = JSON.parse(player.GetVar('CHAT_pastChoices'));
+  // let answers = localStorage.getItem('CHAT_pastChoices') ?? [];
   if (answers.length!==0) {
-    answers = JSON.parse(answers);
     let ans = findCustomerAnswer(answers, customerId);
     let actualAns = '';
     if (ans!==null) {

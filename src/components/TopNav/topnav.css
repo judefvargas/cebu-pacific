@@ -50,7 +50,7 @@
     background-color: #00ff00 !important;
 }
 .customer-list {
-    margin: 4.5vh;
+    margin: 1.5vh;
 }
 .col-md-10 {
     padding: 0 2%;
@@ -153,6 +153,8 @@
     position: relative;
     width: 65px;
     height: 65px;
+    background-color: yellow;
+    margin: 2px;
 }
 
 .currentCount {

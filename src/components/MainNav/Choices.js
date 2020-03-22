@@ -27,15 +27,11 @@ export const Choices = (props) => {
         props.update();
 
     }
-    let answers = localStorage.getItem('CHAT_pastChoices') ?? [];
     let curAns;
-    if (answers.length!==0) {
-        answers = JSON.parse(answers);
-        curAns = questionHasAnswer(props.qid, props.activeId);
-    }
+    curAns = questionHasAnswer(props.qid, props.activeId);
     for (let i=0; i<choicesList[props.qid].length; i++) {
         let bgColor = '';
-        if (curAns===i+1) {
+        if (curAns!==null && curAns===i+1) {
             bgColor = 'warning';
         }
         choices.push(
