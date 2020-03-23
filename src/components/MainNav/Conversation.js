@@ -19,7 +19,7 @@ export default function Conversation(props) {
                 convString = <i>User looking at the provided forms</i>;
             }
             
-            if (Object.keys(props.wholeCon[i])[0] === 'john') {
+            if (Object.keys(props.wholeCon[i])[0] === 'teller') {
                 convo.push(
                     <StyleRoot>
                     <div style={styles.fadeInDown} className="convo1">
@@ -45,6 +45,8 @@ export default function Conversation(props) {
                     </div>
                     </StyleRoot>
                 );
+            } else if (props.wholeCon[i].includes("EXIT-NEXT")) {
+                props.next();
             } else {
                 convo.push(<Question 
                     { ...props }
@@ -64,7 +66,7 @@ export default function Conversation(props) {
             if (convString.includes('… … …')) {
                 convString = <i>User looking at the provided forms</i>;
             }
-            if (Object.keys(props.wholeCon[i])[0] === 'john') {
+            if (Object.keys(props.wholeCon[i])[0] === 'teller') {
                 convo.push(
                     <StyleRoot>
                     <div style={styles.fadeInDown} className="convo1">
@@ -90,6 +92,8 @@ export default function Conversation(props) {
                     </div>
                     </StyleRoot>
                 );
+            } else if (props.wholeCon[i].includes("EXIT-NEXT")) {
+                props.next();
             } else {
                 convo.push(<Question 
                     { ...props }

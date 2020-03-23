@@ -296,7 +296,8 @@ export default function Interaction(props) {
               key="1" 
               updateConvo={(val)=>{ updateCon(val) }} 
               updateTill={props.updateTill} 
-              tillBtnClick={props.tillBtnClick} />) : '' }
+              tillBtnClick={props.tillBtnClick} 
+              next={props.next} />) : '' }
           </div>
           { state.hasError ? <div>{state.errorMessage}</div> : '' }
           <div id="reference1" ref={messageEndRef} ></div>
