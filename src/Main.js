@@ -11,6 +11,7 @@ export default class Main extends Component {
         let current = player.GetVar('CHAT_curCustomer') ?? currentCustomer;
         // let current = localStorage.getItem('CHAT_curCustomer') ?? currentCustomer;
         let actualDone = JSON.parse(player.GetVar('CHAT_customers_done'));
+      
         // let actualDone = localStorage.getItem('CHAT_customers_done') ?? [];
         current = parseInt(current);
         this.state = {

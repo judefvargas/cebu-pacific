@@ -5,11 +5,11 @@ import Button from 'react-bootstrap/Button';
 import Conversation from './Conversation';
 import { styles } from '../animationStyles';
 import {StyleRoot} from 'radium';
-import { saveChatIndex, saveConvoPosition, searchNext, hasConvoData, } from '../storylineActions';
+import { saveChatIndex, saveConvoPosition, searchNext, hasConvoData, returnDataAtPosition, } from '../storylineActions';
 
 export default function Interaction(props) {
     const messageEndRef = useRef(null);
-    let storedConversation = JSON.parse(player.GetVar('CHAT_currentConvoPos'));
+    let storedConversation = hasConvoData(props.active.id) ? returnDataAtPosition(props.active.id) : null;
     // let storedConversation = JSON.parse(localStorage.getItem('CHAT_currentConvoPos'));
     let indexTracking = JSON.parse(player.GetVar('CHAT_indexTracking'));
     // let indexTracking = JSON.parse(localStorage.getItem('CHAT_indexTracking'));
@@ -31,7 +31,7 @@ export default function Interaction(props) {
 
     let actualArray = [...current];
 
-    let currentConvoString = (indexTracking!==null) ? actualArray[0][actualIndex] : null; //current string being shown to user
+    let currentConvoString = (actualIndex) ? actualArray[0][actualIndex] : null; //current string being shown to user
     /* Set initial values */
     const initVal = {
       count: (storedConversation!==null && storedConversation.length!==0) 
@@ -53,6 +53,7 @@ export default function Interaction(props) {
     };
     // console.log(initVal);
     useEffect(() => {
+      console.log(`dispatched ${props.active.id}`)
       dispatch({type: 'RESET'});
     }, [props.active.id]);
     const [state, dispatch] = useReducer(reducer, initVal);
@@ -141,6 +142,7 @@ export default function Interaction(props) {
           }
         }
         case 'RESET': {
+          // console.log(initVal);
           return { ...initVal }
         }
         default: return state;
@@ -297,6 +299,7 @@ export default function Interaction(props) {
               updateConvo={(val)=>{ updateCon(val) }} 
               updateTill={props.updateTill} 
               tillBtnClick={props.tillBtnClick} 
+              reset={() => { dispatch({type: 'RESET'}) }}
               next={props.next} />) : '' }
           </div>
           { state.hasError ? <div>{state.errorMessage}</div> : '' }

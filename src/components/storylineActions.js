@@ -196,3 +196,9 @@ export const questionHasAnswer = (questionId, customerId) => {
   }
   return null;
 }
+
+export const returnDataAtPosition = (activeId) => {
+  let convo = JSON.parse(player.GetVar('CHAT_currentConvoPos'));
+  const filtered = convo.filter(item => item[activeId]);
+  return filtered;
+}
