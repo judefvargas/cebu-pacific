@@ -53,7 +53,6 @@ export default function Interaction(props) {
     };
     // console.log(initVal);
     useEffect(() => {
-      console.log(`dispatched ${props.active.id}`)
       dispatch({type: 'RESET'});
     }, [props.active.id]);
     const [state, dispatch] = useReducer(reducer, initVal);
@@ -234,6 +233,10 @@ export default function Interaction(props) {
         dispatch({type: 'UPDATE_BTN_TITLE', payload: 'NEXT CUSTOMER'});
       }
     }
+    let aArr = [...props.done, props.active.id];
+    if ((state.wholeCon[state.count] === 'EXIT-NEXT' || (state.wholeCon[state.count+1] && state.wholeCon[state.count+1] === 'EXIT-NEXT')) && aArr.length >= CUSTOMERS.length && state.btnTitle!=='SHOW DETAILS') {
+      dispatch({type: 'UPDATE_BTN_TITLE', payload: 'SHOW DETAILS'});
+    }
     /* For scrolling to bottom of div when next button is clicked (i.e. always show recent messages) */ 
     const scrollToBottom = () => {
       if (state.count>1 && messageEndRef.current!==null) {
@@ -300,6 +303,7 @@ export default function Interaction(props) {
               updateTill={props.updateTill} 
               tillBtnClick={props.tillBtnClick} 
               reset={() => { dispatch({type: 'RESET'}) }}
+              updateTitle={(payload) =>{dispatch({type: 'UPDATE_BTN_TITLE', payload: payload})}}
               next={props.next} />) : '' }
           </div>
           { state.hasError ? <div>{state.errorMessage}</div> : '' }

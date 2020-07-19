@@ -18,6 +18,7 @@ export default function Conversation(props) {
             } else {
                 updateTill(false);
             }
+            let currentDone = [...actualDone, props.active.id];
 
             if (convString.includes('… … …')) {
                 convString = <i>User looking at the provided forms</i>;
@@ -50,13 +51,20 @@ export default function Conversation(props) {
                     </StyleRoot>
                 );
             } else if (props.wholeCon[i].includes("EXIT-NEXT")) {
-                let currentDone = [...actualDone, props.active.id];
                 if (currentDone.length === total) {
-                    player.SetVar('CARGO_showModal', true);
+                    player.SetVar('CHAT_customers_done', JSON.stringify(currentDone));
+                    // localStorage.setItem('CHAT_customers_done', JSON.stringify(currentDone));
                     i = props.count +1;
+                    player.SetVar('CHAT_showDetails', true);
+                    // localStorage.setItem('CHAT_showDetails', true);
                 } else {
-                    props.reset();
-                    props.next();
+                    if (currentDone.length > total) {
+                        player.SetVar('CHAT_showDetails', true);
+                        // localStorage.setItem('CHAT_showDetails', true);
+                    } else {
+                        props.reset();
+                        props.next();
+                    }
                 }
             } else {
                 convo.push(<Question 
