@@ -52,6 +52,7 @@ export default function Conversation(props) {
             } else if (props.wholeCon[i].includes("EXIT-NEXT")) {
                 let currentDone = [...actualDone, props.active.id];
                 if (currentDone.length === total) {
+                    player.SetVar('CARGO_showModal', true);
                     i = props.count +1;
                 } else {
                     props.reset();
