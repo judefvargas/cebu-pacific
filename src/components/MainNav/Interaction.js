@@ -303,7 +303,6 @@ export default function Interaction(props) {
               updateTill={props.updateTill} 
               tillBtnClick={props.tillBtnClick} 
               reset={() => { dispatch({type: 'RESET'}) }}
-              updateTitle={(payload) =>{dispatch({type: 'UPDATE_BTN_TITLE', payload: payload})}}
               next={props.next} />) : '' }
           </div>
           { state.hasError ? <div>{state.errorMessage}</div> : '' }
